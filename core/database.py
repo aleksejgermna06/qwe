@@ -21,12 +21,6 @@ async_engine = create_async_engine(
 session_fabrik = sessionmaker(engine)
 async_session = async_sessionmaker(async_engine)
 
-
-#async def get_async_db() -> AsyncSession:
-#    """Генератор сессий для Dependency Injection"""
-#    async with async_engine() as session:
-#        yield session
-
 async_engine = create_async_engine(settings.DATABASE_URL, echo=True)
 AsyncSessionLocal = sessionmaker(bind=async_engine, class_=AsyncSession, expire_on_commit=False)
 

@@ -29,7 +29,9 @@ def create_tokens(data: dict):
     return {
         "access_token": access_token,
         "refresh_token": refresh_token,
-        "token_type": "bearer"
+        "token_type": "bearer",
+        "expires_at": access_expire
+
     }
 
 

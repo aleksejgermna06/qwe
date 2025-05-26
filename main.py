@@ -1,19 +1,21 @@
+import asyncio
+import logging
+import sys
+
 from fastapi import FastAPI
-from pydantic import BaseModel
 
+from apps.categories import router as categories_roters
+from apps.products import router as products_router
+from core.core import create_tables, insert_data
 
-from fastapi import FastAPI
-from apps.users import router as auth_router
-import uvicorn
+if sys.platform == "win32":
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
-from core.models import Base
-from core.database import engine
-
-Base.metadata.create_all(bind=engine)
-
-
+logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w",
+                    format="%(asctime)s %(levelname)s %(message)s")
 app = FastAPI()
-app.include_router(auth_router)
+app.include_router(categories_roters)
+app.include_router(products_router)
 
-if __name__ == "__main__":
-    uvicorn.run("main:app", reload=True)
+create_tables()
+insert_data()

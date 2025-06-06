@@ -1,20 +1,21 @@
 import asyncio
 import logging
+import traceback
 import sys
 from collections import defaultdict
 from sqlite3 import IntegrityError
 
-from apps.products.models import NewProduct
+from apps.products.models import NewProduct, AddProdBask
 
 # Настройка политики цикла событий для Windows (нужно для asyncio)
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 from fastapi import HTTPException
-from sqlalchemy import delete, func, join, select
+from sqlalchemy import delete, func, join, select,cast, Numeric, nulls_last
 
 from core.database import get_async_db
-from core.models import Action, Categories, Product, Reviews, metadata_obj
+from core.models import Action, Categories, Product, Reviews, metadata_obj, UserBasket
 
 session_fabrik = get_async_db
 
@@ -40,7 +41,8 @@ class ProductService:
                 return db_product.id_product
                 
         except Exception as e:
-            logging.error(f"adding product: {str(e)}")
+            logging.error(f"adding product: {traceback.format_exc()}")
+            
             raise HTTPException(
                     status_code=500, detail=f"Ошибка при добавлении продукта: {str(e)}"
                 )
@@ -57,6 +59,7 @@ class ProductService:
                         Action.discount,
                         func.count(Reviews.id_reviews).label("number_of_reviews"),
                         Categories.id_parent,
+                        Categories.url,
                     )
                     .select_from(
                         join(
@@ -113,16 +116,134 @@ class ProductService:
                         "category": {
                             "id_categories": id_categories,
                             "name_categories": name_categories,
+                            "url":url,
                         },
                     }
-                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent in rows
+                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url in rows
                 ]
         except Exception as e:
-            logging.error(f"select products: {str(e)}")
+            logging.error(f"select products: {traceback.format_exc()}")
             raise HTTPException(
                     status_code=500, detail=f"Ошибка при выводе продукта: {str(e)}"
                 )
             
+    @staticmethod
+    async def filter_product(brand: str,
+                            price_filtr:str,
+                            popular:int,
+                            min_price:int,
+                            max_price:int):
+        try:
+            async for session in session_fabrik():
+                query = (
+                    select(
+                        Product,
+                        Categories.id_categories,
+                        Categories.name_categories,
+                        Action.discount,
+                        func.count(Reviews.id_reviews).label("number_of_reviews"),
+                        Categories.id_parent,
+                        Categories.url,
+                    )
+                    .select_from(
+                        join(
+                            join(
+                                Product,
+                                Categories,
+                                Product.categories_id == Categories.id_categories,
+                            ),
+                            Action,
+                            Product.action_id == Action.id_action,
+                        ).outerjoin(Reviews, Product.id_product == Reviews.product_id)
+                    )
+                    .group_by(
+                        Product,
+                        Categories.id_categories,
+                        Categories.name_categories,
+                        Action.discount,
+                    )
+                    
+                    # .order_by(func.count(reviews.id_reviews).desc())
+                )
+
+                if brand is not None:
+                        query = query.where(Product.brand == brand)
+
+                if min_price is not None and max_price is not None and min_price > max_price:
+                    raise HTTPException(
+                        status_code=400,
+                        detail="Минимальная цена не может быть больше максимальной"
+                    ) 
+                
+                if min_price is not None and max_price is not None:
+                    query = query.where(
+                        Product.price >= min_price,
+                        Product.price <= max_price
+                    )
+                elif min_price is not None:
+                    query = query.where(Product.price >= min_price)
+                elif max_price is not None:
+                    query = query.where(Product.price <= max_price)
+
+
+
+
+
+                if popular is not None and price_filtr is not None:
+                    raise HTTPException(
+                        status_code=400,
+                        detail="Невозможно сортировать спазу по этим двум параметрам"
+                    ) 
+
+                if popular is not None:
+                    query = query.order_by(Product.rating.desc())
+
+                elif price_filtr is not None:
+                    if(price_filtr=="desc"):
+                        query = query.order_by(Product.price.desc())
+                    else:
+                        query = query.order_by(Product.price.asc())
+
+
+                result = await session.execute(query)
+                rows = result.all()
+
+                if not rows:
+                    logging.warning(f"not found products")
+                    raise HTTPException(
+                        status_code=404, detail=f"Продукты не найдены"
+                        
+                    )
+                # first_row = result.first()
+                # print(f"Количество полей в результате: {len(first_row._fields)}")
+                return [
+                    {
+                        "id_product": prod.id_product,
+                        "name_product": prod.name_product,
+                        "brand": prod.brand,
+                        "price": prod.price,
+                        "discount": discount,
+                        "quantity_in_stock": prod.quantity_in_stock,
+                        "rating": prod.rating,
+                        "date_create": prod.date_created,
+                        "date_update": prod.date_update,
+                        "number_of_reviews": number_of_reviews,
+                        "status": prod.status,
+                        "img": prod.img,
+                        "category": {
+                            "id_categories": id_categories,
+                            "name_categories": name_categories,
+                            "url": url,
+                        },
+                    }
+                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent,url in rows
+                ]
+        except Exception as e:
+            logging.error(f"select products: {traceback.format_exc()}")
+            raise HTTPException(
+                    status_code=500, detail=f"Ошибка при выводе продукта: {str(e)}"
+                )
+        
 
     @staticmethod
     async def one_product(product_id: int):
@@ -136,6 +257,7 @@ class ProductService:
                         Categories.name_categories,
                         Action.discount,
                         func.count(Reviews.id_reviews).label("number_of_reviews"),
+                        Categories.url,
                     )
                     .where(Product.id_product == product_id)
                     .select_from(
@@ -166,7 +288,7 @@ class ProductService:
                         
                     )
 
-                prod, id_categories, name_categories, discount, number_of_reviews = (
+                prod, id_categories, name_categories, discount, number_of_reviews, url = (
                     db_product
                 )
                 res = {
@@ -185,12 +307,13 @@ class ProductService:
                     "category": {
                         "id_categories": id_categories,
                         "name_categories": name_categories,
+                        "url": url,
                     },
                 }
 
                 return res
         except Exception as e:
-            logging.error(f"select one product: {str(e)}")
+            logging.error(f"select one product: {traceback.format_exc()}")
             raise HTTPException(
                     status_code=500, detail=f"Ошибка при выводе одного продукта: {str(e)}"
                 )
@@ -228,8 +351,127 @@ class ProductService:
                 raise
 
             except Exception as e:
-                logging.error(f"del product: {str(e)}")
+                logging.error(f"del product: {traceback.format_exc()}")
                 await session.rollback()
                 raise HTTPException(
                     status_code=500, detail=f"Ошибка при удалении: {str(e)}"
                 )
+
+
+    @staticmethod
+    async def add_product_bask(add_prod_bask: AddProdBask):
+        try:
+            async for session in session_fabrik():
+                db_bask = UserBasket(
+                    id_profile = add_prod_bask.id_profile,
+                    id_product=add_prod_bask.id_product,
+                    count =add_prod_bask.count,
+                )
+                session.add(db_bask)
+                await session.flush()
+                await session.commit()
+                
+                return db_bask.id_us_storage
+                
+        except Exception as e:
+            logging.error(f"adding product from basket: {traceback.format_exc()}")
+            
+            raise HTTPException(
+                    status_code=500, 
+                    detail=f"Ошибка при добавлении продукта в корзину: {str(e)}"
+                )
+        
+    @staticmethod
+    async def del_product_bask(id_us_storage: int):
+
+        async for session in session_fabrik():
+
+            try:
+
+                check_query = select(UserBasket).where(UserBasket.id_us_storage == id_us_storage)
+                result = await session.execute(check_query)
+                db_bask = result.scalar_one_or_none()
+
+                if not db_bask:
+                    raise HTTPException(
+                        status_code=404, detail=f"Номенкулатура с ID {id_us_storage} не найден"
+                    )
+
+                await session.delete(db_bask)
+                await session.commit()
+
+                return {
+                    "status": "success",
+                    "message": f"Номенкулатура {id_us_storage} удалена",
+                    "deleted_product_bask": {
+                        "id": db_bask.id_product,
+                    },
+                }
+
+            except HTTPException:
+                raise
+
+            except Exception as e:
+                logging.error(f"del product from basket: {traceback.format_exc()}")
+                await session.rollback()
+                raise HTTPException(
+                    status_code=500, detail=f"Ошибка при удалении из корзины: {str(e)}"
+                )
+
+    @staticmethod
+    async def sellect_product_bask(id_user: int):
+
+        try:
+            async for session in session_fabrik():
+                query = (
+                    select(
+                        UserBasket,
+                        Product,
+                    )
+                    .select_from(
+                        join(
+                            join(
+                                UserBasket,
+                                Product,
+                                Product.id_product == UserBasket.id_product,
+                            ),
+                            Action,
+                            Product.action_id == Action.id_action,
+                        )
+                    )
+                    .where(
+                        UserBasket.id_profile==id_user,
+                    )
+                    
+                   
+                )
+
+                
+                result = await session.execute(query)
+                rows = result.all()
+
+                if not rows:
+                    logging.warning(f"not found products")
+                    raise HTTPException(
+                        status_code=404, detail=f"Продукты не найдены"
+                        
+                    )
+                # first_row = result.first()
+                # print(f"Количество полей в результате: {len(first_row._fields)}")
+                return [
+                    {
+                        "id_us_storage": us_bask.id_us_storage,
+                        "name_product": prod.name_product,
+                        "all_price": prod.price*us_bask.count,
+                        "status": prod.status,
+                        "img": prod.img,
+                       
+                    }
+                    for us_bask, prod in rows
+                ]
+        except Exception as e:
+            logging.error(f"select products: {traceback.format_exc()}")
+            raise HTTPException(
+                    status_code=500, detail=f"Ошибка при выводе продукта: {str(e)}"
+                )
+

@@ -36,8 +36,12 @@ def insert_data():
         password="37891",
     )
 
-    db_categories = Categories(name_categories="электротехника")
-    db_categories1 = Categories(name_categories="мебель")
+    db_categories = Categories(name_categories="электротехника",
+                               url="electrical engineering"
+                               )
+    db_categories1 = Categories(name_categories="мебель",
+                                url="furniture"
+                                )
 
     db_action = Action(action="нет акции", discount=0)
     db_action1 = Action(action="распродажа", discount=20)
@@ -64,6 +68,7 @@ def insert_data():
         categories_id=1,  # "электротехника"
         brand="Bosh",
         price=100,
+        rating=10,
         status="статус",
         img="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS2Q0pNt-TXHzKJLkr3nTMFsX8LPpC7UIX9SCUDT4JJcSgp3kVuWyW36nvJUwmlq7fDB9HATY0ewXIewsn_oWTva6enJSF7Goa-wyS468AlauEfrpxFN-4Q4NmnYrn-Pw&usqp=CAc",
     )
@@ -73,6 +78,7 @@ def insert_data():
         categories_id=1,
         brand="Sony",
         price=2499,
+        rating=100,
         status="статус",
         img="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRT03OcqQBmznYxDX4YmpJtD4hZL9mDi9oQdS0KCLR4iGQyJ90uaOydTfRNtdLPRzI5sSUghZ7sPuKuHtd6szkVZjpKdrnQn5gCKUUtTKg2suXoOpEJ2kKSHLsBaYbCFfAatd30wJY&usqp=CAc",
     )

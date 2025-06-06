@@ -2,6 +2,7 @@ import asyncio
 import logging
 import sys
 from collections import defaultdict
+import traceback
 
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -91,7 +92,7 @@ class CategorieService:
 
             return response
         except Exception as e:
-            logging.error(f"select all categor: {str(e)}")
+            logging.error(f"select all categor: {traceback.format_exc()}")
             raise HTTPException(
                     status_code=500, detail=f"Ошибка при выводе категории: {str(e)}"
                 )
@@ -148,7 +149,7 @@ class CategorieService:
 
             return response
         except Exception as e:
-            logging.error(f"select one categor: {str(e)}")
+            logging.error(f"select one categor: {traceback.format_exc()}")
             raise HTTPException(
                     status_code=500, detail=f"Ошибка при выводе одной категории: {str(e)}"
                 )

@@ -69,6 +69,7 @@ class Categories(Base):
     id_categories: Mapped[int] = mapped_column(primary_key=True)
     # product_id: Mapped[int] = mapped_column(ForeignKey("Product.id_product", ondelete="CASCADE"))
     name_categories: Mapped[str] = mapped_column(String(50))
+    url: Mapped[str]
     id_parent: Mapped[int | None] = mapped_column(nullable=True, default=None)
 
 

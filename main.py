@@ -5,7 +5,7 @@ import sys
 from fastapi import FastAPI
 
 from apps.categories import router as categories_roters
-from apps.products import router as products_router
+from apps.products import router_basket,router as products_router
 from core.core import create_tables, insert_data
 
 if sys.platform == "win32":
@@ -16,6 +16,7 @@ logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w",
 app = FastAPI()
 app.include_router(categories_roters)
 app.include_router(products_router)
+app.include_router(router_basket)
 
 create_tables()
 insert_data()

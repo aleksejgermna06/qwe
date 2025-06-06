@@ -75,6 +75,7 @@ class adress(Base):
 class Categories(Base):
     __tablename__ = "Categories"
     id_categories: Mapped[int] = mapped_column(primary_key=True)
+    url: Mapped[str] = mapped_column(String(250))
     # product_id: Mapped[int] = mapped_column(ForeignKey("Product.id_product", ondelete="CASCADE"))
     name_categories: Mapped[str] = mapped_column(String(50))
     id_parent: Mapped[int | None] = mapped_column(nullable=True, default=None)
@@ -156,8 +157,8 @@ class Reviews(Base):
     like: Mapped[int] = mapped_column(default=0)
     dislike: Mapped[int] = mapped_column(default=0)
 
-class Types(Base):
-    __tablename__ = "Types"
+class UserAction(Base):
+    __tablename__ = "UserAction"
     id_action: Mapped[int] = mapped_column(primary_key=True)
     profile_id: Mapped[int] = mapped_column(
         ForeignKey("Profile.id_profile", ondelete="CASCADE")

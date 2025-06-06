@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from .models import UserAction
+from core.models import UserAction
 from typing import List
 
 class UserActionService:

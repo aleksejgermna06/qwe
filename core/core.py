@@ -4,7 +4,8 @@ import sys
 from sqlalchemy import text
 
 from core.database import Base, async_engine, engine, session_fabrik
-from core.models import Action, Categories, Product, Profile, Reviews, metadata_obj
+from core.models import (Action, Categories, Product, Profile, Reviews,
+                         metadata_obj)
 
 if sys.platform.startswith("win"):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -21,13 +22,11 @@ async def get_data():
 
 
 def create_tables():
-
-    Base.metadata.drop_all(engine)
+    #Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
 
 def insert_data():
-
     db_profile = Profile(
         mail="gena335@gmail.coms",
         phone="+375252185522",
@@ -35,8 +34,20 @@ def insert_data():
         password="37891",
     )
 
-    db_categories = Categories(name_categories="электротехника")
-    db_categories1 = Categories(name_categories="мебель")
+    db_categories = Categories(name_categories="электротехника",
+                               url="electrical engineering"
+                               )
+    db_categories1 = Categories(name_categories="мебель",
+                                url="furniture"
+                                )
+    db_categories = Categories(name_categories="телефоны",
+                               url="telephons",
+                               id_parent=1,
+                               )
+    db_categories = Categories(name_categories="телевизоры",
+                               url="TV",
+                               id_parent=1,
+                               )
 
     db_action = Action(action="нет акции", discount=0)
     db_action1 = Action(action="распродажа", discount=20)
@@ -63,6 +74,7 @@ def insert_data():
         categories_id=1,  # "электротехника"
         brand="Bosh",
         price=100,
+        rating=10,
         status="статус",
         img="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS2Q0pNt-TXHzKJLkr3nTMFsX8LPpC7UIX9SCUDT4JJcSgp3kVuWyW36nvJUwmlq7fDB9HATY0ewXIewsn_oWTva6enJSF7Goa-wyS468AlauEfrpxFN-4Q4NmnYrn-Pw&usqp=CAc",
     )
@@ -72,6 +84,7 @@ def insert_data():
         categories_id=1,
         brand="Sony",
         price=2499,
+        rating=100,
         status="статус",
         img="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRT03OcqQBmznYxDX4YmpJtD4hZL9mDi9oQdS0KCLR4iGQyJ90uaOydTfRNtdLPRzI5sSUghZ7sPuKuHtd6szkVZjpKdrnQn5gCKUUtTKg2suXoOpEJ2kKSHLsBaYbCFfAatd30wJY&usqp=CAc",
     )

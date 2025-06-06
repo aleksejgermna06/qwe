@@ -25,6 +25,7 @@
 import asyncio
 import logging
 import sys
+import uvicorn
 
 from fastapi import FastAPI
 
@@ -32,6 +33,7 @@ from apps.categories import router as categories_roters
 from apps.products import router_basket,router as products_router
 from core.core import create_tables, insert_data
 from apps.users import router as auth_router
+from apps.user_actions.routers import router as user_actions_router
 
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -43,6 +45,10 @@ app.include_router(auth_router)
 app.include_router(categories_roters)
 app.include_router(products_router)
 app.include_router(router_basket)
+app.include_router(user_actions_router)
 
-create_tables()
+#create_tables()
 insert_data()
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", reload=True)

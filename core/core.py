@@ -3,8 +3,9 @@ import sys
 
 from sqlalchemy import text
 
-from .database import Base, async_engine, engine, session_fabrik
-from .models import (Action, Categories, Product, Profile, Reviews, metadata_obj)
+from core.database import Base, async_engine, engine, session_fabrik
+from core.models import (Action, Categories, Product, Profile, Reviews, Entity, Gfields,
+                         metadata_obj)
 
 if sys.platform.startswith("win"):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -19,21 +20,15 @@ async def get_data():
 
 # asyncio.run(get_data())
 
-def drop_all_tables_force():
-    with engine.connect() as conn:
-        conn.execute(text("DROP SCHEMA public CASCADE;"))
-        conn.execute(text("CREATE SCHEMA public;"))
-        print("Все таблицы удалены с CASCADE.")
-
 
 def create_tables():
-    #drop_all_tables_force()
-    Base.metadata.reflect(engine)
+
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
 
 def insert_data():
+
     db_profile = Profile(
         mail="gena335@gmail.coms",
         phone="+375252185522",
@@ -47,15 +42,15 @@ def insert_data():
     db_categories1 = Categories(name_categories="мебель",
                                 url="furniture"
                                 )
-    db_categories = Categories(name_categories="телефоны",
-                               url="telephons",
-                               id_parent=1,
-                               )
-    db_categories = Categories(name_categories="телевизоры",
-                               url="TV",
-                               id_parent=1,
-                               )
-
+    # db_categories = Categories(name_categories="телефоны",
+    #                            url="telephons",
+    #                            id_parent=1,
+    #                            )
+    # db_categories = Categories(name_categories="телевизоры",
+    #                            url="TV",
+    #                            id_parent=1,
+    #                            )
+    
     db_action = Action(action="нет акции", discount=0)
     db_action1 = Action(action="распродажа", discount=20)
 
@@ -104,7 +99,14 @@ def insert_data():
         status="статус",
         img="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRbm8eZaYugrvnCJ473vlxXfZcqim_TvlnGxw_h93dSNUbUldrc5EVbSc3Nv3Tt7v-FyoN5z02SAy8p_VZBGi7WSiT3eeZSreXWuAXVaGUTZbhB07tw_PARd1kkQCW3-MZ7FN4ZnhV6jxk&usqp=CAc",
     )
-
+    db_entity = Entity(
+        product_id=1,
+        gfields_id=1,
+        cost_har=25,
+    )
+    db_gfields = Gfields(
+        name_gfields="size",
+    )
     with session_fabrik() as session:
         session.add_all(
             [
@@ -127,9 +129,18 @@ def insert_data():
         session.commit()
         session.add_all(
             [
+                db_gfields,
                 db_reviews,
                 db_reviews1,
                 db_reviews2,
+            ]
+        )
+        session.commit()
+
+        session.add_all(
+            [
+                
+                db_entity,
             ]
         )
         session.commit()

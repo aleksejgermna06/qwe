@@ -7,6 +7,7 @@ import traceback
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
+
 from fastapi import HTTPException
 from sqlalchemy import join, select
 
@@ -20,6 +21,7 @@ async def heder():
     cate = await select_categories()
     act = await select_action()
     return {"categories": cate, "actions": act}
+
 
 
 async def select_categories():
@@ -56,12 +58,15 @@ class CategorieService:
                 result = await session.execute(query)
                 rows = result.all()
 
+
                 if not rows:
                     logging.warning(f"not found cats")
                     raise HTTPException(
                         status_code=404, detail=f"Категории не найдены"
-
+                        
                     )
+                
+
 
                 categories_dict = defaultdict(list)
                 for cat, prod in rows:
@@ -74,14 +79,15 @@ class CategorieService:
                             "id_categories": category.id_categories,
                             "name_categories": category.name_categories,
                             "id_parent": category.id_parent,
-                            "products": [
-                                {
-                                    "id_product": p.id_product,
-                                    "name_product": p.name_product,
-                                    "price": p.price,
-                                }
-                                for p in products
-                            ],
+                            "url": category.url,
+                            # "products": [
+                            #     {
+                            #         "id_product": p.id_product,
+                            #         "name_product": p.name_product,
+                            #         "price": p.price,
+                            #     }
+                            #     for p in products
+                            # ],
                         }
                     )
 
@@ -89,16 +95,16 @@ class CategorieService:
         except Exception as e:
             logging.error(f"select all categor: {traceback.format_exc()}")
             raise HTTPException(
-                status_code=500, detail=f"Ошибка при выводе категории: {str(e)}"
-            )
+                    status_code=500, detail=f"Ошибка при выводе категории: {str(e)}"
+                )
 
     @staticmethod
-    async def select_one_cat(id_cat: int):
+    async def select_one_cat(url: str):
         try:
             async for session in session_fabrik():
                 query = (
                     select(Categories, Product)
-                    .where(Categories.id_categories == id_cat)
+                    .where(Categories.url == url)
                     .select_from(
                         join(
                             Categories,
@@ -111,12 +117,14 @@ class CategorieService:
                 result = await session.execute(query)
                 rows = result.all()
 
-                if not rows:
-                    logging.warning(f"not found cat {id_cat}")
-                    raise HTTPException(
-                        status_code=404, detail=f"Категория не найдена {id_cat}"
 
+                if not rows:
+                    logging.warning(f"not found cat {url}")
+                    raise HTTPException(
+                        status_code=404, detail=f"Категория не найдена {url}"
+                        
                     )
+                
 
                 categories_dict = defaultdict(list)
                 for cat, prod in rows:
@@ -129,6 +137,7 @@ class CategorieService:
                             "id_categories": category.id_categories,
                             "name_categories": category.name_categories,
                             "id_parent": category.id_parent,
+                            "url": category.url,
                             "products": [
                                 {
                                     "id_product": p.id_product,
@@ -144,5 +153,5 @@ class CategorieService:
         except Exception as e:
             logging.error(f"select one categor: {traceback.format_exc()}")
             raise HTTPException(
-                status_code=500, detail=f"Ошибка при выводе одной категории: {str(e)}"
-            )
+                    status_code=500, detail=f"Ошибка при выводе одной категории: {str(e)}"
+                )

@@ -6,13 +6,13 @@ from apps.categories.service import CategorieService, heder
 router = APIRouter(prefix="/categories", tags=["categories"])
 
 
-@router.get("/headercategories", summary="получить все для хедера")
+@router.get("/header-categories", summary="получить все для хедера")
 async def get_all_hed():
     hed = await heder()
     return hed
 
 
-@router.get("/all-cat/{sort_int}", summary="получить все категории")
+@router.get("/all-cat/{sort}", summary="получить все категории")
 async def get_all_cat(sort: int):
 
     cats = await CategorieService.select_all_cat(sort)
@@ -20,9 +20,9 @@ async def get_all_cat(sort: int):
     return cats
 
 
-@router.get("/one-cat/{id_cat}", summary="получить одну категории")
-async def get_one_cat(id_cat: int):
+@router.get("/one-cat/{url}", summary="получить одну категории")
+async def get_one_cat(url: str):
 
-    cats = await CategorieService.select_one_cat(id_cat)
+    cats = await CategorieService.select_one_cat(url)
 
     return cats

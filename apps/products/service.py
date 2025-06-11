@@ -2,6 +2,7 @@ import asyncio
 import logging
 import traceback
 import sys
+import math
 from collections import defaultdict
 from sqlite3 import IntegrityError
 
@@ -269,8 +270,9 @@ class ProductService:
             raise HTTPException(
                     status_code=500, detail=f"Ошибка при выводе продукта: {str(e)}"
                 )
+        
 
-     @staticmethod
+    @staticmethod
     async def one_product(product_id: int):
         try:
             async for session in session_fabrik():

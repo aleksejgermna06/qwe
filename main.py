@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import sys
+import uvicorn
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -17,7 +18,9 @@ if sys.platform == "win32":
 logging.basicConfig(level=logging.INFO, filename="py_log.log",filemode="w",
                     format="%(asctime)s %(levelname)s %(message)s")
 origins = [
-    "http://178.121.56.9:5432"
+    "http://178.121.56.9:5432",
+    "http://localhost:5173",
+    "http://0.0.0.0:5432",
 ]
 
 app = FastAPI()
@@ -40,3 +43,6 @@ app.include_router(user_router)
 
 create_tables()
 insert_data()
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", reload=True)

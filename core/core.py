@@ -102,6 +102,7 @@ def insert_data():
     db_entity = Entity(
         product_id=1,
         gfields_id=1,
+        name_har="size",
         cost_har=25,
     )
     db_gfields = Gfields(

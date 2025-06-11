@@ -47,7 +47,9 @@ async def get_all_products(sort: int):
     return products
 
 @router.get("/filter-product", summary="фильтрация продуктов")
-async def get_all_products(brand:str | None = Query(default=None, min_length=2, max_length=25),                        
+async def get_all_products(page: int = Query(ge=0,default=0),
+                           size: int = Query(ge=1,le=100),
+                           brand:str | None = Query(default=None, min_length=2, max_length=25),                        
                            price_filtr:str | None = Query(default=None, min_length=3, max_length=4, pattern="^(asc|desc)$",  description="Сортировка цены"),
                            popular:str | None = Query(default=None, max_length=4, pattern="^(true)$",description="Сортировка по популярности"),
                            min_price:int | None = Query(default=None,  description="минимальная цена"),

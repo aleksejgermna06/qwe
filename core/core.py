@@ -3,9 +3,8 @@ import sys
 
 from sqlalchemy import text
 
-from core.database import Base, async_engine, engine, session_fabrik
-from core.models import (Action, Categories, Product, Profile, Reviews,
-                         metadata_obj)
+from .database import Base, async_engine, engine, session_fabrik
+from .models import (Action, Categories, Product, Profile, Reviews, metadata_obj)
 
 if sys.platform.startswith("win"):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -20,9 +19,17 @@ async def get_data():
 
 # asyncio.run(get_data())
 
+def drop_all_tables_force():
+    with engine.connect() as conn:
+        conn.execute(text("DROP SCHEMA public CASCADE;"))
+        conn.execute(text("CREATE SCHEMA public;"))
+        print("Все таблицы удалены с CASCADE.")
+
 
 def create_tables():
-    #Base.metadata.drop_all(engine)
+    #drop_all_tables_force()
+    Base.metadata.reflect(engine)
+    Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
 

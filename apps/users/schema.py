@@ -45,3 +45,13 @@ class ProfileResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class AdressCreate(BaseModel):
+    adress: str
+
+class AdressResponse(BaseModel):
+    id_adress: int
+    adress: str
+
+    class Config:
+        orm_mode = True

@@ -1,7 +1,15 @@
 from fastapi import APIRouter, HTTPException, Query
-
 from apps.products.models import NewProduct, AddProdBask
 from apps.products.service import ProductService
+
+
+
+from .models import CheckoutOrderRequest
+from sqlalchemy.ext.asyncio import AsyncSession
+from fastapi import HTTPException, Depends
+from apps.products.OrderService import OrderService
+from core.models import Profile
+from core.security import get_async_db, get_current_user
 
 router = APIRouter(prefix="/products", tags=["products"])
 router_basket = APIRouter(prefix="/basket", tags=["basket products"])
@@ -114,3 +122,20 @@ async def del_prod_bask(id_us_storage: int):
             status_code=500,
             detail=f"Ошибка при удалении номенкулатуры: {str(e)}"
         )
+
+
+@router_basket.post("/checkout", summary="Оформить заказ")
+async def checkout_order(
+    order_data: CheckoutOrderRequest,
+    current_user: Profile = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_db)
+):
+    try:
+        order_proc_id = await OrderService.create_order_with_processor(order_data, current_user.id_profile, db)
+        return {
+            "status": "success",
+            "message": "Заказ успешно оформлен",
+            "order_processor_id": order_proc_id
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Ошибка при оформлении заказа: {str(e)}")

@@ -6,20 +6,15 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
 
-# Добавляем путь к проекту
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../api')))
 
-# Импортируем базу и модели
 from core.database import Base
 
-# Alembic Config object
 config = context.config
 
-# Настройка логов
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# Передаём метаданные
 target_metadata = Base.metadata
 
 def run_migrations_offline() -> None:

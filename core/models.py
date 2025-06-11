@@ -91,8 +91,8 @@ class Action(Base):
 class Product(Base):
     __tablename__ = "Product"
     id_product: Mapped[int] = mapped_column(primary_key=True)
-    action_id: Mapped[int] = mapped_column(ForeignKey("Action.id_action"))
-    categories_id: Mapped[int] = mapped_column(ForeignKey("Categories.id_categories"))
+    action_id: Mapped[int] = mapped_column(ForeignKey("Action.id_action", ondelete="CASCADE"))
+    categories_id: Mapped[int] = mapped_column(ForeignKey("Categories.id_categories", ondelete="CASCADE"))
     date_created: Mapped[datetime.datetime] = mapped_column(
         server_default=text("TIMEZONE('utc', now())")
     )
@@ -189,7 +189,7 @@ class Order(Base):
 class OrderProcessor(Base):
     __tablename__ = "Order_processor"
     id_order_proc: Mapped[int] = mapped_column(primary_key=True)
-    id_order: Mapped[int] = mapped_column(ForeignKey("Order.id_order"))
+    id_order: Mapped[int] = mapped_column(ForeignKey("Order.id_order", ondelete="CASCADE"))
     date_created: Mapped[datetime.datetime] = mapped_column(
         server_default=text("TIMEZONE('utc', now())")
     )

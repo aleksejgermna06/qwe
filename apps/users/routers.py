@@ -2,16 +2,18 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from core.models import Profile, Token
-from apps.users.schema import ProfileCreate, LoginRequest, TokenResponse, ProfileResponse, ProfileUpdate
+from core.models import Profile, Token, adress
+from apps.users.schema import ProfileCreate, LoginRequest, TokenResponse, ProfileResponse, ProfileUpdate, AdressCreate, AdressResponse
 from core.database import get_async_db
 from core.security import create_tokens, pwd_context, verify_token, SECRET_KEY, ALGORITHM, get_current_user
 from datetime import datetime, timedelta
 from fastapi import Response, Request
 from jose import JWTError, jwt
+from typing import List
 
 
 router = APIRouter(prefix="/auth", tags=["auth"])
+router1 = APIRouter(prefix="/user", tags=["user"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 
@@ -197,7 +199,7 @@ async def refresh_tokens(
 
     return {"message": "Token refreshed"}
 
-@router.put("/profile/update", response_model=ProfileResponse, summary="Редактировать профиль")
+@router1.put("/profile/update", response_model=ProfileResponse, summary="Редактировать профиль")
 async def update_profile(
     update_data: ProfileUpdate,
     current_user: Profile = Depends(get_current_user),
@@ -217,3 +219,29 @@ async def update_profile(
     await db.refresh(current_user)
 
     return current_user
+
+@router1.post("/profile/address/add", response_model=AdressResponse, summary="Добавить адрес")
+async def add_address(
+    address_data: AdressCreate,
+    current_user: Profile = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_db)
+):
+    new_address = adress(
+        id_profile=current_user.id_profile,
+        adress=address_data.adress
+    )
+    db.add(new_address)
+    await db.commit()
+    await db.refresh(new_address)
+    return new_address
+
+@router1.get("/profile/addresses", response_model=List[AdressResponse], summary="Получить все адреса пользователя")
+async def get_addresses(
+    current_user: Profile = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_db)
+):
+    result = await db.execute(
+        select(adress).where(adress.id_profile == current_user.id_profile)
+    )
+    addresses = result.scalars().all()
+    return addresses

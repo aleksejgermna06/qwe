@@ -48,6 +48,14 @@
 
 FROM python:3.11-slim
 
+
+
+
+
+
+
+
+
 WORKDIR /app
 
 # Копируем requirements.txt из текущей папки (уже внутри ./api)

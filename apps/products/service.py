@@ -132,9 +132,14 @@ class ProductService:
                             price_filtr:str,
                             popular:int,
                             min_price:int,
-                            max_price:int):
+                            max_price:int,
+                            page: int,
+                            size: int,
+                            ):
         try:
             async for session in session_fabrik():
+                offset_min = page * size
+                offset_max = (page + 1) * size
                 query = (
                     select(
                         Product,
@@ -186,7 +191,7 @@ class ProductService:
                     query = query.where(Product.price <= max_price)
 
 
-
+                
 
 
                 if popular is not None and price_filtr is not None:
@@ -207,16 +212,7 @@ class ProductService:
 
                 result = await session.execute(query)
                 rows = result.all()
-
-                if not rows:
-                    logging.warning(f"not found products")
-                    raise HTTPException(
-                        status_code=404, detail=f"Продукты не найдены"
-                        
-                    )
-                # first_row = result.first()
-                # print(f"Количество полей в результате: {len(first_row._fields)}")
-                return [
+                products_data = [
                     {
                         "id_product": prod.id_product,
                         "name_product": prod.name_product,
@@ -236,16 +232,45 @@ class ProductService:
                             "url": url,
                         },
                     }
-                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent,url in rows
+                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url 
+                    in rows[offset_min:offset_max]
                 ]
+
+                if not products_data:
+                    logging.warning(f"not found products")
+                    raise HTTPException(
+                        status_code=404, detail=f"Продукты не найдены"
+                        
+                    )
+
+
+
+                """ rowss=rows[offset_min:offset_max]+[
+                    {
+                        "page": page,
+                        "size": size,
+                        "total": math.ceil(len(rows)/size)-1,
+                    }
+                ] """
+                
+                
+                # first_row = result.first()
+                # print(f"Количество полей в результате: {len(first_row._fields)}")
+                return {
+                    "data": products_data,
+                    "pagination": {
+                        "page": page,
+                        "size": size,
+                        "total": math.ceil(len(rows) / size) - 1,
+                    }
+                }
         except Exception as e:
             logging.error(f"select products: {traceback.format_exc()}")
             raise HTTPException(
                     status_code=500, detail=f"Ошибка при выводе продукта: {str(e)}"
                 )
-        
 
-    @staticmethod
+     @staticmethod
     async def one_product(product_id: int):
         try:
             async for session in session_fabrik():
@@ -305,8 +330,8 @@ class ProductService:
                     "discount": first_row[3],  
                     "quantity_in_stock": prod.quantity_in_stock,
                     "rating": prod.rating,
-                    "date_create": prod.date_created,
-                    "date_update": prod.date_update,
+                    #"date_create": prod.date_created,
+                    #"date_update": prod.date_update,
                     "number_of_reviews": first_row[4],  
                     "status": prod.status,
                     "img": prod.img,
@@ -319,7 +344,11 @@ class ProductService:
                         {
                             "name_characteristic": gfields.name_gfields,
                             "characteristics": [
-                                {"count": entity.cost_har}
+                                {
+                                    "name" : entity.name_har,
+                                    "count": entity.cost_har,
+                                 
+                                }
                                 for entity in entities
                             ]
                         }

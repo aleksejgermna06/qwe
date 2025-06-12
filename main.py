@@ -6,6 +6,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from apps.categories import router as categories_roters
+from apps.users.my_routers import router as my_router
 from apps.products import router_brand,router_order ,router_basket,router as products_router
 from core.core import create_tables, insert_data
 from apps.users import router as auth_router
@@ -36,6 +37,7 @@ app.include_router(categories_roters)
 app.include_router(products_router)
 app.include_router(router_basket)
 app.include_router(router_brand)
+app.include_router(my_router)
 
 app.include_router(auth_router)
 app.include_router(user_actions_router)

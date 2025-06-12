@@ -1,8 +1,8 @@
 import asyncio
 import logging
 import sys
-from collections import defaultdict
 import traceback
+from collections import defaultdict
 
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -21,7 +21,6 @@ async def heder():
     cate = await select_categories()
     act = await select_action()
     return {"categories": cate, "actions": act}
-
 
 
 async def select_categories():
@@ -58,15 +57,9 @@ class CategorieService:
                 result = await session.execute(query)
                 rows = result.all()
 
-
                 if not rows:
                     logging.warning(f"not found cats")
-                    raise HTTPException(
-                        status_code=404, detail=f"Категории не найдены"
-                        
-                    )
-                
-
+                    raise HTTPException(status_code=404, detail=f"Категории не найдены")
 
                 categories_dict = defaultdict(list)
                 for cat, prod in rows:
@@ -95,8 +88,8 @@ class CategorieService:
         except Exception as e:
             logging.error(f"select all categor: {traceback.format_exc()}")
             raise HTTPException(
-                    status_code=500, detail=f"Ошибка при выводе категории: {str(e)}"
-                )
+                status_code=500, detail=f"Ошибка при выводе категории: {str(e)}"
+            )
 
     @staticmethod
     async def select_one_cat(url: str):
@@ -117,14 +110,11 @@ class CategorieService:
                 result = await session.execute(query)
                 rows = result.all()
 
-
                 if not rows:
                     logging.warning(f"not found cat {url}")
                     raise HTTPException(
                         status_code=404, detail=f"Категория не найдена {url}"
-                        
                     )
-                
 
                 categories_dict = defaultdict(list)
                 for cat, prod in rows:
@@ -153,5 +143,5 @@ class CategorieService:
         except Exception as e:
             logging.error(f"select one categor: {traceback.format_exc()}")
             raise HTTPException(
-                    status_code=500, detail=f"Ошибка при выводе одной категории: {str(e)}"
-                )
+                status_code=500, detail=f"Ошибка при выводе одной категории: {str(e)}"
+            )

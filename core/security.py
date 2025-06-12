@@ -1,16 +1,14 @@
 from datetime import datetime, timedelta
 
-from jose import jwt
+from fastapi import Depends, HTTPException, Request, status
+from jose import JWTError, jwt
 from passlib.context import CryptContext
-
-from core.config import settings
-from core.models import Profile
-
-from fastapi import Request, HTTPException, status, Depends
-from jose import jwt, JWTError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+
+from core.config import settings
 from core.database import get_async_db
+from core.models import Profile
 
 # Настройки
 SECRET_KEY = settings.SECRET_KEY or "your-secret-key"
@@ -22,12 +20,13 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 async def get_current_user(
-    request: Request,
-    db: AsyncSession = Depends(get_async_db)
+    request: Request, db: AsyncSession = Depends(get_async_db)
 ) -> Profile:
     token = request.cookies.get("access_token")
     if not token:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing access token")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing access token"
+        )
 
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -42,6 +41,7 @@ async def get_current_user(
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
+
 
 def create_tokens(data: dict):
     """Генерация пары токенов"""

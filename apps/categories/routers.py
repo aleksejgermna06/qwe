@@ -1,4 +1,3 @@
-
 from fastapi import APIRouter
 
 from apps.categories.service import CategorieService, heder

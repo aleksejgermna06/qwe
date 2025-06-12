@@ -1,34 +1,40 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy.ext.asyncio import AsyncSession
-from core.models import Profile, Token, adress
-from apps.users.schema import ProfileCreate, LoginRequest, TokenResponse, ProfileResponse, ProfileUpdate, AdressCreate, AdressResponse, AdressUpdate
-from core.database import get_async_db
-from core.security import create_tokens, pwd_context, verify_token, SECRET_KEY, ALGORITHM, get_current_user
 from datetime import datetime, timedelta
-from fastapi import Response, Request
-from jose import JWTError, jwt
 from typing import List
 
+from fastapi import (APIRouter, Depends, HTTPException, Request, Response,
+                     status)
+from fastapi.security import OAuth2PasswordBearer
+from jose import JWTError, jwt
 from sqlalchemy import select, update
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from apps.users.schema import (AdressCreate, AdressResponse, AdressUpdate,
+                               LoginRequest, ProfileCreate, ProfileResponse,
+                               ProfileUpdate, TokenResponse)
+from core.database import get_async_db
+from core.models import Profile, Token, adress
+from core.security import (ALGORITHM, SECRET_KEY, create_tokens,
+                           get_current_user, pwd_context, verify_token)
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 router1 = APIRouter(prefix="/user", tags=["user"])
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 
-@router.post("/register", response_model=ProfileResponse, summary="регистрация нового пользователя")
+@router.post(
+    "/register",
+    response_model=ProfileResponse,
+    summary="регистрация нового пользователя",
+)
 async def register(
-        profile_data: ProfileCreate,
-        db: AsyncSession = Depends(get_async_db)
+    profile_data: ProfileCreate, db: AsyncSession = Depends(get_async_db)
 ):
     existing = await db.execute(
         select(Profile).where(Profile.mail == profile_data.mail)
     )
     if existing.scalar():
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Email already registered"
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered"
         )
 
     new_profile = Profile(
@@ -37,7 +43,7 @@ async def register(
         name=None,
         password=pwd_context.hash(profile_data.password),
         birthday=None,
-        gender=None
+        gender=None,
     )
 
     db.add(new_profile)
@@ -50,17 +56,15 @@ async def register(
 async def login(
     login_data: LoginRequest,
     response: Response,
-    db: AsyncSession = Depends(get_async_db)
+    db: AsyncSession = Depends(get_async_db),
 ):
-    result = await db.execute(
-        select(Profile).where(Profile.mail == login_data.mail)
-    )
+    result = await db.execute(select(Profile).where(Profile.mail == login_data.mail))
     profile = result.scalar()
 
     if not profile or not pwd_context.verify(login_data.password, profile.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect email or password"
+            detail="Incorrect email or password",
         )
 
     tokens = create_tokens({"sub": str(profile.id_profile)})
@@ -69,7 +73,7 @@ async def login(
         id_profile=profile.id_profile,
         access_token=tokens["access_token"],
         refresh_token=tokens["refresh_token"],
-        expires_at=tokens["expires_at"]
+        expires_at=tokens["expires_at"],
     )
 
     db.add(token_record)
@@ -80,25 +84,26 @@ async def login(
         value=tokens["access_token"],
         httponly=True,
         max_age=15 * 60,
-        #secure=True,
-        samesite="Lax"
+        # secure=True,
+        samesite="Lax",
     )
     response.set_cookie(
         key="refresh_token",
         value=tokens["refresh_token"],
         httponly=True,
         max_age=7 * 24 * 60 * 60,
-        #secure=True,
-        samesite="Lax"
+        # secure=True,
+        samesite="Lax",
     )
     print("Access token set in cookie:", tokens["access_token"])
     return {"message": "Login successful"}
 
 
-@router.get("/me", response_model=ProfileResponse, summary="Получение текущего пользователя")
+@router.get(
+    "/me", response_model=ProfileResponse, summary="Получение текущего пользователя"
+)
 async def read_me(
-        token: str = Depends(oauth2_scheme),
-        db: AsyncSession = Depends(get_async_db)
+    token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_async_db)
 ):
     payload = verify_token(token)
     if not payload:
@@ -119,12 +124,9 @@ async def check_token(request: Request):
     return {"message": "Token received", "token": token}
 
 
-
 @router.post("/logout", summary="Выход(удаление токена)")
 async def logout(
-    request: Request,
-    response: Response,
-    db: AsyncSession = Depends(get_async_db)
+    request: Request, response: Response, db: AsyncSession = Depends(get_async_db)
 ):
     access_token = request.cookies.get("access_token")
     refresh_token = request.cookies.get("refresh_token")
@@ -133,8 +135,7 @@ async def logout(
 
     if not access_token and not refresh_token:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="No tokens found in cookies"
+            status_code=status.HTTP_400_BAD_REQUEST, detail="No tokens found in cookies"
         )
 
     result = await db.execute(select(Token).where(Token.access_token == access_token))
@@ -149,28 +150,36 @@ async def logout(
 
     return {"message": "Logged out successfully"}
 
+
 @router.get("/refresh", summary="Проверка токена")
 async def refresh_tokens(
-    request: Request,
-    response: Response,
-    db: AsyncSession = Depends(get_async_db)
+    request: Request, response: Response, db: AsyncSession = Depends(get_async_db)
 ):
     refresh_token = request.cookies.get("refresh_token")
     if not refresh_token:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Refresh token missing")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Refresh token missing"
+        )
 
     try:
         payload = jwt.decode(refresh_token, SECRET_KEY, algorithms=[ALGORITHM])
         profile_id = payload.get("sub")
         if profile_id is None:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token payload")
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token payload"
+            )
     except JWTError:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or expired refresh token")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid or expired refresh token",
+        )
 
     result = await db.execute(select(Token).where(Token.refresh_token == refresh_token))
     token_record = result.scalar()
     if not token_record:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Refresh token not found")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="Refresh token not found"
+        )
 
     tokens = create_tokens({"sub": str(profile_id)})
 
@@ -186,7 +195,7 @@ async def refresh_tokens(
         httponly=True,
         max_age=15 * 60,
         samesite="Lax",
-        secure=False
+        secure=False,
     )
     response.set_cookie(
         key="refresh_token",
@@ -194,16 +203,19 @@ async def refresh_tokens(
         httponly=True,
         max_age=7 * 24 * 60 * 60,
         samesite="Lax",
-        secure=False
+        secure=False,
     )
 
     return {"message": "Token refreshed"}
 
-@router1.put("/profile/update", response_model=ProfileResponse, summary="Редактировать профиль")
+
+@router1.put(
+    "/profile/update", response_model=ProfileResponse, summary="Редактировать профиль"
+)
 async def update_profile(
     update_data: ProfileUpdate,
     current_user: Profile = Depends(get_current_user),
-    db: AsyncSession = Depends(get_async_db)
+    db: AsyncSession = Depends(get_async_db),
 ):
     if update_data.name is not None:
         current_user.name = update_data.name
@@ -219,6 +231,7 @@ async def update_profile(
     await db.refresh(current_user)
 
     return current_user
+
 
 # @router1.post("/profile/address/add", response_model=AdressResponse, summary="Добавить адрес")
 # async def add_address(
@@ -247,19 +260,13 @@ async def update_profile(
 #     return addresses
 
 
-
-
-
-
-
-
-
-
-@router1.post("/profile/address/add", response_model=AdressResponse, summary="Добавить адрес")
+@router1.post(
+    "/profile/address/add", response_model=AdressResponse, summary="Добавить адрес"
+)
 async def add_address(
-        address_data: AdressCreate,
-        current_user: Profile = Depends(get_current_user),
-        db: AsyncSession = Depends(get_async_db)
+    address_data: AdressCreate,
+    current_user: Profile = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_db),
 ):
     if address_data.isMain:
         await db.execute(
@@ -275,7 +282,7 @@ async def add_address(
         entrance=address_data.entrance,
         flor=address_data.flor,
         apt_office=address_data.aptOffice,
-        is_main=address_data.isMain
+        is_main=address_data.isMain,
     )
     db.add(new_address)
     await db.commit()
@@ -283,11 +290,14 @@ async def add_address(
     return new_address
 
 
-
-@router1.get("/profile/addresses", response_model=List[AdressResponse], summary="Просмотреть адреса(-> массив)")
+@router1.get(
+    "/profile/addresses",
+    response_model=List[AdressResponse],
+    summary="Просмотреть адреса(-> массив)",
+)
 async def get_addresses(
-        current_user: Profile = Depends(get_current_user),
-        db: AsyncSession = Depends(get_async_db)
+    current_user: Profile = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_db),
 ):
     result = await db.execute(
         select(adress).where(adress.id_profile == current_user.id_profile)
@@ -295,35 +305,38 @@ async def get_addresses(
     return result.scalars().all()
 
 
-
-@router1.get("/profile/address/main", response_model=List[AdressResponse], summary="Просмотреть основной адрес(-> массив)")
+@router1.get(
+    "/profile/address/main",
+    response_model=List[AdressResponse],
+    summary="Просмотреть основной адрес(-> массив)",
+)
 async def get_main_address(
     current_user: Profile = Depends(get_current_user),
-    db: AsyncSession = Depends(get_async_db)
+    db: AsyncSession = Depends(get_async_db),
 ):
     result = await db.execute(
         select(adress).where(
-            adress.id_profile == current_user.id_profile,
-            adress.is_main == True
+            adress.id_profile == current_user.id_profile, adress.is_main == True
         )
     )
     main_addresses = result.scalars().all()
     return main_addresses
 
 
-
-
-@router1.put("/profile/address/{address_id}", response_model=AdressResponse, summary="Редактировать адрес")
+@router1.put(
+    "/profile/address/{address_id}",
+    response_model=AdressResponse,
+    summary="Редактировать адрес",
+)
 async def update_address(
-        address_id: int,
-        address_data: AdressUpdate,
-        current_user: Profile = Depends(get_current_user),
-        db: AsyncSession = Depends(get_async_db)
+    address_id: int,
+    address_data: AdressUpdate,
+    current_user: Profile = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_db),
 ):
     result = await db.execute(
         select(adress).where(
-            adress.id_adress == address_id,
-            adress.id_profile == current_user.id_profile
+            adress.id_adress == address_id, adress.id_profile == current_user.id_profile
         )
     )
     existing = result.scalar_one_or_none()
@@ -345,17 +358,19 @@ async def update_address(
     return existing
 
 
-
-@router1.put("/profile/address/{address_id}/set-main", response_model=AdressResponse, summary="Выбрать основной адрес")
+@router1.put(
+    "/profile/address/{address_id}/set-main",
+    response_model=AdressResponse,
+    summary="Выбрать основной адрес",
+)
 async def set_main_address(
-        address_id: int,
-        current_user: Profile = Depends(get_current_user),
-        db: AsyncSession = Depends(get_async_db)
+    address_id: int,
+    current_user: Profile = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_db),
 ):
     result = await db.execute(
         select(adress).where(
-            adress.id_adress == address_id,
-            adress.id_profile == current_user.id_profile
+            adress.id_adress == address_id, adress.id_profile == current_user.id_profile
         )
     )
     target = result.scalar_one_or_none()
@@ -371,4 +386,3 @@ async def set_main_address(
     await db.commit()
     await db.refresh(target)
     return target
-

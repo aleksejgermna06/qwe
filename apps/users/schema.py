@@ -1,13 +1,16 @@
-from pydantic import BaseModel, EmailStr, Field, validator, field_validator
+from datetime import date, datetime
 from typing import Optional
-from datetime import datetime, date
+
+from pydantic import BaseModel, EmailStr, Field, field_validator, validator
+
 
 class TokenResponse(BaseModel):
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
     access_token: str
     refresh_token: str
     expires_at: datetime
     token_type: str = "bearer"
+
 
 class ProfileCreate(BaseModel):
     mail: EmailStr
@@ -17,6 +20,7 @@ class ProfileCreate(BaseModel):
     birthday: Optional[str] = None
     gender: Optional[str] = None
 
+
 class ProfileUpdate(BaseModel):
     name: Optional[str] = Field(default=None, max_length=100)
     phone: Optional[str] = Field(default=None, max_length=15)
@@ -25,14 +29,16 @@ class ProfileUpdate(BaseModel):
 
     @field_validator("gender")
     def validate_gender(cls, v):
-        allowed = {"Мужской", "Женский",None}
+        allowed = {"Мужской", "Женский", None}
         if v and v.lower() not in allowed:
             raise ValueError("Гендер должен быть 'Мужской' или 'Женский'")
         return v
 
+
 class LoginRequest(BaseModel):
     mail: EmailStr
     password: str
+
 
 class ProfileResponse(BaseModel):
     id_profile: int
@@ -46,6 +52,7 @@ class ProfileResponse(BaseModel):
     class Config:
         from_attributes = True
 
+
 # class AdressCreate(BaseModel):
 #     adress: str
 #
@@ -56,6 +63,7 @@ class ProfileResponse(BaseModel):
 #     class Config:
 #         orm_mode = True
 
+
 class AdressCreate(BaseModel):
     settlement: str
     street: str
@@ -64,6 +72,7 @@ class AdressCreate(BaseModel):
     aptOffice: str
     isMain: bool = False
 
+
 class AdressUpdate(BaseModel):
     settlement: Optional[str]
     street: Optional[str]
@@ -71,6 +80,7 @@ class AdressUpdate(BaseModel):
     flor: Optional[str]
     aptOffice: Optional[str]
     isMain: Optional[bool]
+
 
 class AdressResponse(BaseModel):
     id: int

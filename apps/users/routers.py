@@ -2,10 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 from core.models import Profile, Token, adress
-from apps.users.schema import ProfileCreate, LoginRequest, TokenResponse, ProfileResponse, ProfileUpdate, AdressCreate, AdressResponse, AdressUpdate
+from apps.users.schema import ProfileCreate, LoginRequest, ProfileResponse, ProfileUpdate, AdressCreate, AdressResponse, AdressUpdate
 from core.database import get_async_db
 from core.security import create_tokens, pwd_context, verify_token, SECRET_KEY, ALGORITHM, get_current_user
-from datetime import datetime, timedelta
 from fastapi import Response, Request
 from jose import JWTError, jwt
 from typing import List
@@ -47,7 +46,55 @@ async def register(
     return new_profile
 
 
-@router.post("/login")
+# @router.post("/login")
+# async def login(
+#     login_data: LoginRequest,
+#     response: Response,
+#     db: AsyncSession = Depends(get_async_db)
+# ):
+#     result = await db.execute(
+#         select(Profile).where(Profile.mail == login_data.mail)
+#     )
+#     profile = result.scalar()
+#
+#     if not profile or not pwd_context.verify(login_data.password, profile.password):
+#         raise HTTPException(
+#             status_code=status.HTTP_401_UNAUTHORIZED,
+#             detail="Incorrect email or password"
+#         )
+#
+#     tokens = create_tokens({"sub": str(profile.id_profile)})
+#
+#     token_record = Token(
+#         id_profile=profile.id_profile,
+#         access_token=tokens["access_token"],
+#         refresh_token=tokens["refresh_token"],
+#         expires_at=tokens["expires_at"]
+#     )
+#
+#     db.add(token_record)
+#     await db.commit()
+#
+#     response.set_cookie(
+#         key="access_token",
+#         value=tokens["access_token"],
+#         httponly=True,
+#         max_age=15 * 60,
+#         #secure=True,
+#         samesite="Lax"
+#     )
+#     response.set_cookie(
+#         key="refresh_token",
+#         value=tokens["refresh_token"],
+#         httponly=True,
+#         max_age=7 * 24 * 60 * 60,
+#         #secure=True,
+#         samesite="Lax"
+#     )
+#     print("Access token set in cookie:", tokens["access_token"])
+#     return {"message": "Login successful"}
+
+@router.post("/login", response_model=ProfileResponse)
 async def login(
     login_data: LoginRequest,
     response: Response,
@@ -81,7 +128,6 @@ async def login(
         value=tokens["access_token"],
         httponly=True,
         max_age=15 * 60,
-        #secure=True,
         samesite="Lax"
     )
     response.set_cookie(
@@ -89,11 +135,19 @@ async def login(
         value=tokens["refresh_token"],
         httponly=True,
         max_age=7 * 24 * 60 * 60,
-        #secure=True,
         samesite="Lax"
     )
-    print("Access token set in cookie:", tokens["access_token"])
-    return {"message": "Login successful"}
+
+    return ProfileResponse(
+        id_profile=profile.id_profile,
+        mail=profile.mail,
+        name=profile.name,
+        phone=profile.phone,
+        birthday=str(profile.birthday) if profile.birthday else None,
+        gender=profile.gender,
+        bonus=profile.bonus
+    )
+
 
 
 @router.get("/me", response_model=ProfileResponse, summary="Получение текущего пользователя")
@@ -105,10 +159,6 @@ async def read_me(
     if not payload:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-    # profile = await db.execute(
-    #     select(Profile).where(Profile.id_profile == int(payload["sub"]))
-    # )
-    # return profile.scalar_one()
     result = await db.execute(select(Profile)
                               .options(selectinload(Profile.addresses))
                               .where(Profile.id_profile == int(payload["sub"])))
@@ -224,40 +274,6 @@ async def update_profile(
     await db.refresh(current_user)
 
     return current_user
-
-# @router1.post("/profile/address/add", response_model=AdressResponse, summary="Добавить адрес")
-# async def add_address(
-#     address_data: AdressCreate,
-#     current_user: Profile = Depends(get_current_user),
-#     db: AsyncSession = Depends(get_async_db)
-# ):
-#     new_address = adress(
-#         id_profile=current_user.id_profile,
-#         adress=address_data.adress
-#     )
-#     db.add(new_address)
-#     await db.commit()
-#     await db.refresh(new_address)
-#     return new_address
-#
-# @router1.get("/profile/addresses", response_model=List[AdressResponse], summary="Получить все адреса пользователя")
-# async def get_addresses(
-#     current_user: Profile = Depends(get_current_user),
-#     db: AsyncSession = Depends(get_async_db)
-# ):
-#     result = await db.execute(
-#         select(adress).where(adress.id_profile == current_user.id_profile)
-#     )
-#     addresses = result.scalars().all()
-#     return addresses
-
-
-
-
-
-
-
-
 
 
 @router1.post("/profile/address/add", response_model=AdressResponse, summary="Добавить адрес")

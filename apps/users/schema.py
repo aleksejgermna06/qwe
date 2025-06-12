@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr, Field, validator, field_validator
+from pydantic import BaseModel, EmailStr, Field, field_validator
 from typing import Optional, List
 from datetime import datetime, date
 
@@ -54,21 +54,11 @@ class ProfileResponse(BaseModel):
     birthday: Optional[str] = None
     gender: Optional[str] = None
     bonus: int
-    addresses: List[AdressResponse] = []
+    addresses: Optional[List[AdressResponse]] = None
 
     class Config:
         from_attributes = True
         orm_mode = True
-
-# class AdressCreate(BaseModel):
-#     adress: str
-#
-# class AdressResponse(BaseModel):
-#     id_adress: int
-#     adress: str
-#
-#     class Config:
-#         orm_mode = True
 
 class AdressCreate(BaseModel):
     settlement: str

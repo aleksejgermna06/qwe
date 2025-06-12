@@ -1,27 +1,17 @@
-from datetime import datetime, timedelta
-from typing import List
-
-from fastapi import (APIRouter, Depends, HTTPException, Request, Response,
-                     status)
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError, jwt
-from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
-
-from apps.users.schema import (AdressCreate, AdressResponse, AdressUpdate,
-                               LoginRequest, ProfileCreate, ProfileResponse,
-                               ProfileUpdate, TokenResponse)
-from core.database import get_async_db
 from core.models import Profile, Token, adress
-from apps.users.schema import ProfileCreate, LoginRequest, TokenResponse, ProfileResponse, ProfileUpdate, AdressCreate, AdressResponse, AdressUpdate
+from apps.users.schema import ProfileCreate, LoginRequest, ProfileResponse, ProfileUpdate, AdressCreate, AdressResponse, AdressUpdate, LoginProfileResponse
 from core.database import get_async_db
 from core.security import create_tokens, pwd_context, verify_token, SECRET_KEY, ALGORITHM, get_current_user
-from datetime import datetime, timedelta
 from fastapi import Response, Request
 from jose import JWTError, jwt
 from typing import List
+from sqlalchemy.orm import selectinload
 
-from sqlalchemy import select, update
+from sqlalchemy import select, update, delete
+
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 router1 = APIRouter(prefix="/user", tags=["user"])

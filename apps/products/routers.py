@@ -1,8 +1,7 @@
 
+from fastapi import APIRouter, HTTPException, Query, Depends
 
-from fastapi import APIRouter, HTTPException, Query
-
-from apps.products.models import AddProdBask, NewProduct
+from apps.products.models import NewProduct, AddProdBask
 from apps.products.service import ProductService
 
 from .models import CheckoutOrderRequest

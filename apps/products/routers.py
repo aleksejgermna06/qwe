@@ -52,19 +52,19 @@ async def get_all_products(sort: int):
 
     return products
 
+
 @router.get("/filter-product", summary="фильтрация продуктов")
-async def get_all_products(page: int = Query(ge=0 ,default=0),
-                           size: int = Query(ge=1 ,le=100),
-                           brand :str | None = Query(default=None, min_length=2, max_length=25),
-                           price_filtr :str | None = Query(default=None, min_length=3, max_length=4, pattern="^(asc|desc)$",  description="Сортировка цены"),
-                           popular :str | None = Query(default=None, max_length=4, pattern="^(true)$"
-                                                       ,description="Сортировка по популярности"),
-                           min_price :int | None = Query(default=None,  description="минимальная цена"),
-                           max_price :int | None = Query(default=None,  description="максимальная цена"),
+async def get_all_products(page: int = Query(ge=0,default=0),
+                           size: int = Query(ge=1,le=100),
+                           brand:str | None = Query(default=None, min_length=2, max_length=25),                        
+                           price_filtr:str | None = Query(default=None, min_length=3, max_length=4, pattern="^(asc|desc)$",  description="Сортировка цены"),
+                           popular:str | None = Query(default=None, max_length=4, pattern="^(true)$",description="Сортировка по популярности"),
+                           min_price:int | None = Query(default=None,  description="минимальная цена"),
+                           max_price:int | None = Query(default=None,  description="максимальная цена"),
                            ):
 
 
-    products = await ProductService.filter_product(brand ,price_filtr ,popular ,min_price ,max_price ,page ,size)
+    products = await ProductService.filter_product(brand,price_filtr,popular,min_price,max_price,page,size)
     return products
 
 
@@ -83,9 +83,10 @@ async def del_product(id_product: int):
     if product is not None:
         return product
 
+
 @router_basket.post("/basket-prod", summary="добавить продукт в корзину")
 async def add_prod_bask( add_prod_bask : AddProdBask):
-
+   
     try:
 
         prod_bask_id = await ProductService.add_product_bask(add_prod_bask)
@@ -99,9 +100,10 @@ async def add_prod_bask( add_prod_bask : AddProdBask):
     except Exception as e:
 
         raise HTTPException(
-            status_code=500, detail=f"Ошибка при добавлении продукта в корзину: {str(e)}"
+            status_code=500,
+            detail=f"Ошибка при добавлении продукта в корзину: {str(e)}",
         )
-
+    
 @router_basket.get("/all-product-bask/{id_user}", summary="получить все продукты")
 async def get_all_products(id_user: int):
 
@@ -109,8 +111,11 @@ async def get_all_products(id_user: int):
 
     return products_bask
 
-@router_basket.delete("/basket-prod/{id_us_storage}", summary="удалить продукт из корзину")
-async def del_prod_bask( id_us_storage: int):
+
+@router_basket.delete(
+    "/basket-prod/{id_us_storage}", summary="удалить продукт из корзину"
+)
+async def del_prod_bask(id_us_storage: int):
     try:
 
         id_storage = await ProductService.del_product_bask(id_us_storage)
@@ -124,16 +129,16 @@ async def del_prod_bask( id_us_storage: int):
     except Exception as e:
 
         raise HTTPException(
-            status_code=500,
+            status_code=500, 
             detail=f"Ошибка при удалении номенкулатуры: {str(e)}"
         )
 
 
 @router_brand.get("/all-brand", summary="получить все бренды")
 async def get_all_brand():
+   
 
-
-    brands =await ProductService.select_brands()
+    brands=await ProductService.select_brands()
     return brands
 
 @router_order.post("/checkout", summary="Оформить заказ")

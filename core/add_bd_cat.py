@@ -1,0 +1,1000 @@
+listcat = [
+  {
+    "id_categories": 1,
+    "name_categories": "Бытовая техника",
+    "url": "kitchen",
+    
+  },
+  {
+    "id_categories": 2,
+    "name_categories": "Смартфоны, ТВ и электроника",
+    "url": "electronics",
+  },
+  {
+    "id_categories": 3,
+    "name_categories": "Компьютеры и периферия",
+    "url": "computers",
+  },
+  {
+    "id_categories": 4,
+    "name_categories": "Мебель",
+    "url": "furniture",
+  },
+  {
+    "id_categories": 5,
+    "name_categories": "Товары для дома",
+    "url": "house",
+  },
+  {
+    "id_categories": 6,
+    "name_categories": "Сантехника и водоснабжение",
+    "url": "sanitary_engineering",
+  },
+  {
+    "id_categories": 7,
+    "name_categories": "Строительство",
+    "url": "construction",
+  },
+  {
+    "id_categories": 8,
+    "name_categories": "Ремонт и отделка",
+    "url": "repairs",
+  },
+  {
+    "id_categories": 9,
+    "name_categories": "Строительный инструмент",
+    "url": "repairing_tools",
+  },
+  {
+    "id_categories": 10,
+    "name_categories": "Дом и сад",
+    "url": "garden",
+  },
+  {
+    "id_categories": 11,
+    "name_categories": "Авто и мото",
+    "url": "cars",
+  },
+  {
+    "id_categories": 12,
+    "name_categories": "Игрушки, товары для детей",
+    "url": "kid_categoriess",
+  },
+  {
+    "id_categories": 13,
+    "name_categories": "Красота и стиль",
+    "url": "beauty",
+  },
+  {
+    "id_categories": 14,
+    "name_categories": "Здоровье",
+    "url": "beauty_and_health",
+  },
+  {
+    "id_categories": 15,
+    "name_categories": "Спорт",
+    "url": "sport",
+  },
+  {
+    "id_categories": 16,
+    "name_categories": "Туризм, активный отдых",
+    "url": "tourism_activities",
+  },
+  {
+    "id_categories": 17,
+    "name_categories": "Зоотовары",
+    "url": "pet_supplies",
+  },
+  {
+    "id_categories": 18,
+    "name_categories": "Товары для бизнеса, HoReCa",
+    "url": "business",
+  },
+  {
+    "id_categories": 19,
+    "name_categories": "Досуг и хобби",
+    "url": "hobby_supplies",
+  },
+  {
+    "id_categories": 20,
+    "name_categories": "Ювелирные украшения",
+    "url": "jewelry",
+  },
+  {
+    "id_categories": 21,
+    "name_categories": "Товары для взрослых",
+    "url": "adult_supplies",
+  },
+  {
+    "id_categories": 22,
+    "name_categories": "Книги и канцелярия",
+    "url": "literature",
+  },
+  {
+    "id_categories": 23,
+    "name_categories": "Сертификаты",
+    "url": "certificates",
+  },
+  {
+    "id_categories": 24,
+    "name_categories": "Смартфоны",
+    "url": "mobile_phones",
+    "id_parent": 2
+  },
+  {
+    "id_categories": 26,
+    "name_categories": "Смартфоны восстановленные",
+    "url": "mobile4079074",
+    "id_parent": 24
+  },
+  {
+    "id_categories": 27,
+    "name_categories": "Смартфоны Apple",
+    "url": "mobileiphone",
+    "id_parent": 24
+  },
+  {
+    "id_categories": 28,
+    "name_categories": "Смартфоны Xiaomi",
+    "url": "mobilexiaomi",
+    "id_parent": 24
+  },
+  {
+    "id_categories": 29,
+    "name_categories": "Смартфоны Samsung",
+    "url": "mobilesamsung",
+    "id_parent": 24
+  },
+  {
+    "id_categories": 30,
+    "name_categories": "Смартфоны Honor",
+    "url": "mobilehonor",
+    "id_parent": 24
+  },
+  {
+    "id_categories": 31,
+    "name_categories": "Смартфоны Huawei",
+    "url": "mobilehuawei",
+    "id_parent": 24
+  },
+  {
+    "id_categories": 32,
+    "name_categories": "Планшеты, электронные книги",
+    "url": "portable_devices",
+    "id_parent": 2
+  },
+  {
+    "id_categories": 33,
+    "name_categories": "Планшеты",
+    "url": "pads?alt",
+    "id_parent": 32
+  },
+  {
+    "id_categories": 34,
+    "name_categories": "Электронные книги",
+    "url": "ebooks",
+    "id_parent": 32
+  },
+  {
+    "id_categories": 35,
+    "name_categories": "Графические планшеты",
+    "url": "graphics_tablets",
+    "id_parent": 32
+  },
+  {
+    "id_categories": 36,
+    "name_categories": "Блокноты электронные",
+    "url": "handwriting_pads",
+    "id_parent": 32
+  },
+  {
+    "id_categories": 37,
+    "name_categories": "Чехлы, бамперы для планшетов",
+    "url": "notebook_bags",
+    "id_parent": 32
+  },
+  {
+    "id_categories": 38,
+    "name_categories": "Аксессуары для планшетов, смартфонов",
+    "url": "portative_apps",
+    "id_parent": 2
+  },
+  {
+    "id_categories": 39,
+    "name_categories": "Аксессуары для электронных книг",
+    "url": "ebook_covers",
+    "id_parent": 32
+  },
+  {
+    "id_categories": 41,
+    "name_categories": "ЗУ для телефонов, планшетов",
+    "url": "mobile_chargers",
+    "id_parent": 38
+  },
+  {
+    "id_categories": 42,
+    "name_categories": "Чехлы, защитные стекла для телефонов",
+    "url": "mobile_apps",
+    "id_parent": 38
+  },
+  {
+    "id_categories": 43,
+    "name_categories": "Чехлы для смартфонов",
+    "url": "mobile_appssmartphone_cases",
+    "id_parent": 42
+  },
+  {
+    "id_categories": 44,
+    "name_categories": "Защитные стекла для смартфонов",
+    "url": "mobile_appsprotective_glasses",
+    "id_parent": 42
+  },
+  {
+    "id_categories": 45,
+    "name_categories": "Защитные пленки для смартфонов",
+    "url": "mobile_appsprotective_films",
+    "id_parent": 42
+  },
+  {
+    "id_categories": 46,
+    "name_categories": "Стилусы для смартфонов",
+    "url": "stylusesfor_smartphones",
+    "id_parent": 38
+  },
+  {
+    "id_categories": 47,
+    "name_categories": "Игровые аксессуары для смартфонов",
+    "url": "joysticksfor_smartphones",
+    "id_parent": 38
+  },
+  {
+    "id_categories": 48,
+    "name_categories": "Аудиотехника",
+    "url": "audio",
+    "id_parent": 2
+  },
+  {
+    "id_categories": 49,
+    "name_categories": "Мультимедиа акустика",
+    "url": "comp_acoustic",
+    "id_parent": 48
+  },
+  {
+    "id_categories": 50,
+    "name_categories": "Радиочасы, метеостанции",
+    "url": "clocks_meteo",
+    "id_parent": 48
+  },
+  {
+    "id_categories": 51,
+    "name_categories": "Радиоприемники",
+    "url": "radio",
+    "id_parent": 48
+  },
+  {
+    "id_categories": 52,
+    "name_categories": "Музыкальные центры",
+    "url": "stereo",
+    "id_parent": 48
+  },
+  {
+    "id_categories": 53,
+    "name_categories": "Домашние кинотеатры",
+    "url": "home_cinemas",
+    "id_parent": 48
+  },
+  {
+    "id_categories": 54,
+    "name_categories": "Акустические системы",
+    "url": "acoustics",
+    "id_parent": 48
+  },
+  {
+    "id_categories": 55,
+    "name_categories": "Проигрыватели виниловых пластинок",
+    "url": "record_players",
+    "id_parent": 48
+  },
+  {
+    "id_categories": 56,
+    "name_categories": "Портативная аудиотехника",
+    "url": "portable_audio_devices",
+    "id_parent": 48
+  },
+  {
+    "id_categories": 57,
+    "name_categories": "Наушники и гарнитуры",
+    "url": "headphones",
+    "id_parent": 56
+  },
+  {
+    "id_categories": 58,
+    "name_categories": "Портативные колонки, акустика",
+    "url": "portable_audio",
+    "id_parent": 56
+  },
+  {
+    "id_categories": 59,
+    "name_categories": "Умные колонки",
+    "url": "portable_audio1753762",
+    "id_parent": 56
+  },
+  {
+    "id_categories": 60,
+    "name_categories": "MP3-плееры",
+    "url": "mp3_players",
+    "id_parent": 56
+  },
+  {
+    "id_categories": 61,
+    "name_categories": "Диктофоны",
+    "url": "voicerecorders",
+    "id_parent": 56
+  },
+  {
+    "id_categories": 62,
+    "name_categories": "CD-проигрыватели",
+    "url": "cd_players",
+    "id_parent": 56
+  },
+  {
+    "id_categories": 63,
+    "name_categories": "Аксессуары для портативных устройств",
+    "url": "portable_device_accessories",
+    "id_parent": 56
+  },
+  {
+    "id_categories": 64,
+    "name_categories": "Портативные аккумуляторы",
+    "url": "powerbanks",
+    "id_parent": 38
+  },
+  {
+    "id_categories": 65,
+    "name_categories": "Элементы питания, зарядные устройства",
+    "url": "batteries",
+    "id_parent": 38
+  },
+  {
+    "id_categories": 66,
+    "name_categories": "Держатели, док-станции",
+    "url": "phone_hangers",
+    "id_parent": 38
+  },
+  {
+    "id_categories": 68,
+    "name_categories": "Кабели для телефонов, планшетов",
+    "url": "cablestablet_cables",
+    "id_parent": 38
+  },
+  {
+    "id_categories": 70,
+    "name_categories": "Телевизоры, мониторы",
+    "url": "tv_video",
+    "id_parent": 2
+  },
+  {
+    "id_categories": 71,
+    "name_categories": "Телевизоры",
+    "url": "tv",
+    "id_parent": 70
+  },
+  {
+    "id_categories": 72,
+    "name_categories": "ТВ-приставки и медиаплееры",
+    "url": "dvd",
+    "id_parent": 70
+  },
+  {
+    "id_categories": 73,
+    "name_categories": "Проекторы",
+    "url": "projectors",
+    "id_parent": 70
+  },
+  {
+    "id_categories": 74,
+    "name_categories": "Проекционные экраны",
+    "url": "projection_screens",
+    "id_parent": 70
+  },
+  {
+    "id_categories": 75,
+    "name_categories": "Информационные, гостиничные дисплеи",
+    "url": "commercial_displays",
+    "id_parent": 70
+  },
+  {
+    "id_categories": 76,
+    "name_categories": "Смарт-часы, аксессуары",
+    "url": "smart_watches_accessories",
+    "id_parent": 2
+  },
+  {
+    "id_categories": 77,
+    "name_categories": "Умные часы",
+    "url": "smart_watches399033",
+    "id_parent": 76
+  },
+  {
+    "id_categories": 78,
+    "name_categories": "Фитнес-браслеты",
+    "url": "smart_watches3589539",
+    "id_parent": 76
+  },
+  {
+    "id_categories": 79,
+    "name_categories": "Умные часы детские",
+    "url": "smart_watches399043?alt",
+    "id_parent": 76
+  },
+  {
+    "id_categories": 80,
+    "name_categories": "Умные часы, фитнес-браслеты",
+    "url": "smart_watches",
+    "id_parent": 76
+  },
+  {
+    "id_categories": 81,
+    "name_categories": "Ремешки, аксессуары для умных часов",
+    "url": "smart_watch_accessories",
+    "id_parent": 76
+  },
+  {
+    "id_categories": 82,
+    "name_categories": "Кабели для умных часов",
+    "url": "mobile_chargers2484285",
+    "id_parent": 76
+  },
+  {
+    "id_categories": 83,
+    "name_categories": "Фото, видеосъемка",
+    "url": "portable",
+    "id_parent": 2
+  },
+  {
+    "id_categories": 84,
+    "name_categories": "Фотоаппараты",
+    "url": "cameras",
+    "id_parent": 83
+  },
+  {
+    "id_categories": 85,
+    "name_categories": "Видеокамеры",
+    "url": "video_cameras",
+    "id_parent": 83
+  },
+  {
+    "id_categories": 86,
+    "name_categories": "Экшн-камеры",
+    "url": "action_cameras",
+    "id_parent": 83
+  },
+  {
+    "id_categories": 87,
+    "name_categories": "Карты памяти",
+    "url": "memory_cards",
+    "id_parent": 83
+  },
+  {
+    "id_categories": 88,
+    "name_categories": "Объективы",
+    "url": "lens",
+    "id_parent": 83
+  },
+  {
+    "id_categories": 89,
+    "name_categories": "Вспышки",
+    "url": "flashes",
+    "id_parent": 83
+  },
+  {
+    "id_categories": 90,
+    "name_categories": "Аксессуары для камер",
+    "url": "photo_apps",
+    "id_parent": 83
+  },
+  {
+    "id_categories": 91,
+    "name_categories": "Оборудование для фотостудии",
+    "url": "photo_studio_equipment",
+    "id_parent": 83
+  },
+  {
+    "id_categories": 92,
+    "name_categories": "Кольцевые лампы",
+    "url": "ring_lamps",
+    "id_parent": 91
+  },
+  {
+    "id_categories": 93,
+    "name_categories": "Фоны для фотостудии",
+    "url": "photo_studio_backgrounds",
+    "id_parent": 91
+  },
+  {
+    "id_categories": 94,
+    "name_categories": "Студийное освещение",
+    "url": "studio_lighting",
+    "id_parent": 91
+  },
+  {
+    "id_categories": 95,
+    "name_categories": "Насадки светоформирующие для фотостудии",
+    "url": "lighting_modifiers",
+    "id_parent": 91
+  },
+  {
+    "id_categories": 96,
+    "name_categories": "Фотозонты, отражатели",
+    "url": "photo_reflectors",
+    "id_parent": 91
+  },
+  {
+    "id_categories": 97,
+    "name_categories": "Оборудование для предметной съемки",
+    "url": "product_photography_equipment",
+    "id_parent": 91
+  },
+  {
+    "id_categories": 98,
+    "name_categories": "Вспышки студийные",
+    "url": "studio_flashes",
+    "id_parent": 91
+  },
+  {
+    "id_categories": 99,
+    "name_categories": "Аксессуары для телевизоров",
+    "url": "tv_accessories",
+    "id_parent": 70
+  },
+  {
+    "id_categories": 100,
+    "name_categories": "Кронштейны, стойки",
+    "url": "tv_hangers",
+    "id_parent": 99
+  },
+  {
+    "id_categories": 101,
+    "name_categories": "Кабели для телевизоров",
+    "url": "cablesfor_tv",
+    "id_parent": 99
+  },
+  {
+    "id_categories": 102,
+    "name_categories": "ТВ-антенны",
+    "url": "tv_antennas",
+    "id_parent": 99
+  },
+  {
+    "id_categories": 103,
+    "name_categories": "ТВ-тюнеры",
+    "url": "tv_tuners",
+    "id_parent": 99
+  },
+  {
+    "id_categories": 104,
+    "name_categories": "Аксессуары для ТВ",
+    "url": "video_apps",
+    "id_parent": 99
+  },
+  {
+    "id_categories": 105,
+    "name_categories": "Аксессуары для проектора",
+    "url": "projection_apps",
+    "id_parent": 70
+  },
+  {
+    "id_categories": 106,
+    "name_categories": "Очки 3D",
+    "url": "3d_glasses",
+    "id_parent": 99
+  },
+  {
+    "id_categories": 107,
+    "name_categories": "Крупная техника для кухни",
+    "url": "large_tech",
+    "id_parent": 1
+  },
+  {
+    "id_categories": 108,
+    "name_categories": "Холодильники",
+    "url": "refrigerators",
+    "id_parent": 107
+  },
+  {
+    "id_categories": 109,
+    "name_categories": "Вытяжки",
+    "url": "hoods",
+    "id_parent": 107
+  },
+  {
+    "id_categories": 110,
+    "name_categories": "Кухонные плиты",
+    "url": "cookers",
+    "id_parent": 107
+  },
+  {
+    "id_categories": 111,
+    "name_categories": "Морозильники",
+    "url": "freezers",
+    "id_parent": 107
+  },
+  {
+    "id_categories": 112,
+    "name_categories": "Посудомоечные машины",
+    "url": "dishwashers",
+    "id_parent": 107
+  },
+  {
+    "id_categories": 113,
+    "name_categories": "Настольные плиты",
+    "url": "table_cookers",
+    "id_parent": 107
+  },
+  {
+    "id_categories": 114,
+    "name_categories": "Винные шкафы",
+    "url": "wine_cabinets",
+    "id_parent": 107
+  },
+  {
+    "id_categories": 115,
+    "name_categories": "Встраиваемая техника, оборудование",
+    "url": "inbuilt_tech",
+    "id_parent": 1
+  },
+  {
+    "id_categories": 116,
+    "name_categories": "Варочные панели",
+    "url": "hobs",
+    "id_parent": 115
+  },
+  {
+    "id_categories": 117,
+    "name_categories": "Духовые шкафы",
+    "url": "ovens",
+    "id_parent": 115
+  },
+  {
+    "id_categories": 118,
+    "name_categories": "Холодильники встраиваемые",
+    "url": "builtin_refrigerators",
+    "id_parent": 115
+  },
+  {
+    "id_categories": 119,
+    "name_categories": "Посудомоечные машины встраиваемые",
+    "url": "dishwashers3607",
+    "id_parent": 115
+  },
+  {
+    "id_categories": 120,
+    "name_categories": "Микроволновые печи встраиваемые",
+    "url": "microwaves1034",
+    "id_parent": 115
+  },
+  {
+    "id_categories": 121,
+    "name_categories": "Кофемашины встраиваемые",
+    "url": "coffee_machinesbuiltin_coffee_machines",
+    "id_parent": 115
+  },
+  {
+    "id_categories": 122,
+    "name_categories": "Комплекты встраиваемой техники",
+    "url": "cooker_sets",
+    "id_parent": 115
+  },
+  {
+    "id_categories": 123,
+    "name_categories": "Техника для приготовления еды",
+    "url": "cooking_appliances",
+    "id_parent": 1
+  },
+  {
+    "id_categories": 124,
+    "name_categories": "Микроволновые печи",
+    "url": "microwaves",
+    "id_parent": 123
+  },
+  {
+    "id_categories": 125,
+    "name_categories": "Мультиварки",
+    "url": "electriccookers",
+    "id_parent": 123
+  },
+  {
+    "id_categories": 126,
+    "name_categories": "Сэндвичницы, хот-дог мейкеры",
+    "url": "sandwichers",
+    "id_parent": 123
+  },
+  {
+    "id_categories": 127,
+    "name_categories": "Тостеры",
+    "url": "toasters",
+    "id_parent": 123
+  },
+  {
+    "id_categories": 128,
+    "name_categories": "Электрогрили, электрошашлычницы",
+    "url": "grill",
+    "id_parent": 123
+  },
+  {
+    "id_categories": 129,
+    "name_categories": "Вафельницы, орешницы, кексницы",
+    "url": "waffles",
+    "id_parent": 123
+  },
+  {
+    "id_categories": 130,
+    "name_categories": "Хлебопечки",
+    "url": "breadmakers",
+    "id_parent": 123
+  },
+  {
+    "id_categories": 131,
+    "name_categories": "Техника для приготовления напитков",
+    "url": "kettles_coffee_makers",
+    "id_parent": 1
+  },
+  {
+    "id_categories": 132,
+    "name_categories": "Электрочайники",
+    "url": "teapots",
+    "id_parent": 131
+  },
+  {
+    "id_categories": 133,
+    "name_categories": "Кофеварки, кофемашины",
+    "url": "coffee_machines",
+    "id_parent": 131
+  },
+  {
+    "id_categories": 134,
+    "name_categories": "Соковыжималки",
+    "url": "juicers",
+    "id_parent": 131
+  },
+  {
+    "id_categories": 135,
+    "name_categories": "Кофемолки",
+    "url": "coffee_mills",
+    "id_parent": 131
+  },
+  {
+    "id_categories": 136,
+    "name_categories": "Вспениватели молока",
+    "url": "milk_frothers",
+    "id_parent": 131
+  },
+  {
+    "id_categories": 137,
+    "name_categories": "Сифоны для газирования воды",
+    "url": "soda_siphons",
+    "id_parent": 131
+  },
+  {
+    "id_categories": 138,
+    "name_categories": "Техника для измельчения продуктов",
+    "url": "food_grinders",
+    "id_parent": 1
+  },
+  {
+    "id_categories": 139,
+    "name_categories": "Блендеры",
+    "url": "blenders",
+    "id_parent": 138
+  },
+  {
+    "id_categories": 140,
+    "name_categories": "Кухонные комбайны, измельчители",
+    "url": "food_processors",
+    "id_parent": 138
+  },
+  {
+    "id_categories": 141,
+    "name_categories": "Планетарные миксеры",
+    "url": "mixerplanetary_mixers",
+    "id_parent": 138
+  },
+  {
+    "id_categories": 142,
+    "name_categories": "Миксеры",
+    "url": "mixer",
+    "id_parent": 138
+  },
+  {
+    "id_categories": 143,
+    "name_categories": "Мясорубки",
+    "url": "meat_grinders",
+    "id_parent": 138
+  },
+  {
+    "id_categories": 144,
+    "name_categories": "Ломтерезки",
+    "url": "slicers",
+    "id_parent": 138
+  },
+  {
+    "id_categories": 145,
+    "name_categories": "Мелкая техника",
+    "url": "small_tech",
+    "id_parent": 1
+  },
+  {
+    "id_categories": 146,
+    "name_categories": "Весы кухонные, бытовые",
+    "url": "kitchen_scales",
+    "id_parent": 145
+  },
+  {
+    "id_categories": 147,
+    "name_categories": "Сушилки для овощей и фруктов",
+    "url": "vegetable_dryers",
+    "id_parent": 145
+  },
+  {
+    "id_categories": 148,
+    "name_categories": "Вакууматоры",
+    "url": "vacuum_packing",
+    "id_parent": 145
+  },
+  {
+    "id_categories": 149,
+    "name_categories": "Открывалки, картофелечистки",
+    "url": "can_opener",
+    "id_parent": 145
+  },
+  {
+    "id_categories": 150,
+    "name_categories": "Проращиватели семян",
+    "url": "sprouters",
+    "id_parent": 145
+  },
+  {
+    "id_categories": 151,
+    "name_categories": "Маслобойки, сепараторы бытовые",
+    "url": "centrifugal_household_separators",
+    "id_parent": 145
+  },
+  {
+    "id_categories": 152,
+    "name_categories": "Аксессуары для крупной техники",
+    "url": "large_tech_accessories",
+    "id_parent": 1
+  },
+  {
+    "id_categories": 153,
+    "name_categories": "Аксессуары для вытяжек",
+    "url": "cooker_hood_accessories",
+    "id_parent": 152
+  },
+  {
+    "id_categories": 154,
+    "name_categories": "Аксессуары для плит и духовок",
+    "url": "stove_accessories",
+    "id_parent": 152
+  },
+  {
+    "id_categories": 155,
+    "name_categories": "Аксессуары для холодильников",
+    "url": "refrigerator_accessories",
+    "id_parent": 152
+  },
+  {
+    "id_categories": 156,
+    "name_categories": "Аксессуары для посудомоечных машин",
+    "url": "dishwasher_accessories",
+    "id_parent": 152
+  },
+  {
+    "id_categories": 157,
+    "name_categories": "Средства для посудомоечных машин",
+    "url": "dishwasher_products?alt",
+    "id_parent": 152
+  },
+  {
+    "id_categories": 158,
+    "name_categories": "Средства для ухода за техникой",
+    "url": "hometech_care?alt",
+    "id_parent": 152
+  },
+  {
+    "id_categories": 159,
+    "name_categories": "Техника для ухода за одеждой",
+    "url": "clothing_care_appliances",
+    "id_parent": 1
+  },
+  {
+    "id_categories": 160,
+    "name_categories": "Стиральные машины",
+    "url": "washing_machines",
+    "id_parent": 159
+  },
+  {
+    "id_categories": 161,
+    "name_categories": "Стиральные машины встраиваемые",
+    "url": "builtin_washing_machines",
+    "id_parent": 159
+  },
+  {
+    "id_categories": 162,
+    "name_categories": "Утюги",
+    "url": "irons",
+    "id_parent": 159
+  },
+  {
+    "id_categories": 163,
+    "name_categories": "Отпариватели",
+    "url": "garment_steamers",
+    "id_parent": 159
+  },
+  {
+    "id_categories": 164,
+    "name_categories": "Швейные, вышивальные машины",
+    "url": "sewing_machines",
+    "id_parent": 159
+  },
+  {
+    "id_categories": 165,
+    "name_categories": "Промышленные швейные машины",
+    "url": "prof_sewing",
+    "id_parent": 159
+  },
+  {
+    "id_categories": 166,
+    "name_categories": "Оверлоки",
+    "url": "overlocks",
+    "id_parent": 159
+  },
+  {
+    "id_categories": 167,
+    "name_categories": "Климатическая техника",
+    "url": "climate",
+    "id_parent": 1
+  },
+  {
+    "id_categories": 168,
+    "name_categories": "Вентиляторы бытовые",
+    "url": "blowers",
+    "id_parent": 167
+  },
+  {
+    "id_categories": 169,
+    "name_categories": "Кондиционеры, сплит-системы",
+    "url": "conditioners",
+    "id_parent": 167
+  },
+  {
+    "id_categories": 170,
+    "name_categories": "Охладители воздуха",
+    "url": "air_coolers",
+    "id_parent": 167
+  },
+  {
+    "id_categories": 171,
+    "name_categories": "Водонагреватели",
+    "url": "waterheaters",
+    "id_parent": 167
+  },
+  {
+    "id_categories": 172,
+    "name_categories": "Увлажнители, очистители воздуха",
+    "url": "humidifiers",
+    "id_parent": 167
+  },
+  {
+    "id_categories": 173,
+    "name_categories": "Камины, печи",
+    "url": "fireplaces",
+    "id_parent": 167
+  },
+  {
+    "id_categories": 174,
+    "name_categories": "Обогреватели",
+    "url": "heaters",
+    "id_parent": 167
+  }
+]

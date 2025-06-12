@@ -1,7 +1,7 @@
 import datetime
 
 from sqlalchemy import Column, ForeignKey, Integer, MetaData, String, Table, text, Boolean
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.orm import Mapped, mapped_column
 
 from core.database import Base
 
@@ -27,15 +27,20 @@ class UserAction(Base):
 
 class Token(Base):
     __tablename__ = "user_tokens"
-    __table_args__ = {'extend_existing': True}
+    __table_args__ = {"extend_existing": True}
 
     id_token: Mapped[int] = mapped_column(primary_key=True)
-    id_profile: Mapped[int] = mapped_column(ForeignKey("Profile.id_profile", ondelete="CASCADE"))
+    id_profile: Mapped[int] = mapped_column(
+        ForeignKey("Profile.id_profile", ondelete="CASCADE")
+    )
     access_token: Mapped[str] = mapped_column(String(512), unique=True)
     refresh_token: Mapped[str] = mapped_column(String(512), unique=True)
     expires_at: Mapped[datetime.datetime]
-    #is_active: Mapped[bool] = mapped_column(default=True)
-    created_at: Mapped[datetime.datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"))
+    # is_active: Mapped[bool] = mapped_column(default=True)
+    created_at: Mapped[datetime.datetime] = mapped_column(
+        server_default=text("TIMEZONE('utc', now())")
+    )
+
 
 class Profile(Base):
     __tablename__ = "Profile"
@@ -97,6 +102,7 @@ class Organization(Base):
 #     )
 #     adress: Mapped[str] = mapped_column(String(50))
 
+
 class adress(Base):
     __tablename__ = "Adress"
 
@@ -111,6 +117,7 @@ class adress(Base):
     apt_office = Column(String)
     is_main = Column(Boolean, default=False)
     #profile = relationship("Profile", back_populates="addresses")
+
 
 
 class Categories(Base):

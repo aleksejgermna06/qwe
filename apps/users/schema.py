@@ -1,3 +1,4 @@
+
 from pydantic import BaseModel, EmailStr, Field, field_validator
 from typing import Optional, List
 from datetime import datetime, date
@@ -88,5 +89,3 @@ class AdressUpdate(BaseModel):
     flor: Optional[str]
     aptOffice: Optional[str]
     isMain: Optional[bool]
-
-

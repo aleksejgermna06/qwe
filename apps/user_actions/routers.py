@@ -1,17 +1,17 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from core.database import get_async_db
+from .service import UserActionService
 from core.models import UserAction
+from .schema import UserAction, UserActionCreate
 from core.security import get_current_user
 
 from .schema import UserAction, UserActionCreate
 from .service import UserActionService
 
 router = APIRouter(prefix="/user_actions", tags=["user_actions"])
-
-
-# UserAction
+#UserAction
 @router.post("/favorites", response_model=UserAction, summary="Добавить в избранное")
 def add_to_favorites(
     product_id: int,

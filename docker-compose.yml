@@ -23,6 +23,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: 12345/21vek-api:latest
     container_name: api_service
     ports:
       - "8000:8000"

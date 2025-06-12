@@ -1,9 +1,8 @@
 from datetime import datetime
-
-from sqlalchemy import ForeignKey, String, text
+from sqlalchemy import text, String, ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column
-
 from core.database import Base
+
 
 # class UserAction(Base):
 #     __tablename__ = "UserAction"

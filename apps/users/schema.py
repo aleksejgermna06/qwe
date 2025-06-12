@@ -1,8 +1,6 @@
-from datetime import date, datetime
+from pydantic import BaseModel, EmailStr, Field, validator, field_validator
 from typing import Optional
-
-from pydantic import BaseModel, EmailStr, Field, field_validator, validator
-
+from datetime import datetime, date
 
 class TokenResponse(BaseModel):
     __table_args__ = {"extend_existing": True}
@@ -10,7 +8,6 @@ class TokenResponse(BaseModel):
     refresh_token: str
     expires_at: datetime
     token_type: str = "bearer"
-
 
 class ProfileCreate(BaseModel):
     mail: EmailStr
@@ -48,10 +45,10 @@ class ProfileResponse(BaseModel):
     birthday: Optional[str] = None
     gender: Optional[str] = None
     bonus: int
+    addresses: Optional[List[AdressResponse]] = None
 
     class Config:
         from_attributes = True
-
 
 # class AdressCreate(BaseModel):
 #     adress: str
@@ -62,7 +59,6 @@ class ProfileResponse(BaseModel):
 #
 #     class Config:
 #         orm_mode = True
-
 
 class AdressCreate(BaseModel):
     settlement: str
@@ -80,7 +76,6 @@ class AdressUpdate(BaseModel):
     flor: Optional[str]
     aptOffice: Optional[str]
     isMain: Optional[bool]
-
 
 class AdressResponse(BaseModel):
     id: int

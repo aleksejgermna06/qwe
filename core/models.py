@@ -1,7 +1,6 @@
 import datetime
 
-from sqlalchemy import (Boolean, Column, ForeignKey, Integer, MetaData, String,
-                        Table, text)
+from sqlalchemy import Column, ForeignKey, Integer, MetaData, String, Table, text, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
 
 from core.database import Base
@@ -64,13 +63,17 @@ class Profile(Base):
     phone: Mapped[str | None] = mapped_column(String(13), nullable=True, default=None)
     name: Mapped[str | None] = mapped_column(String(50), nullable=True, default=None)
     password: Mapped[str] = mapped_column(
-        String(50)
+        String(255)
     )  # оставлено обязательным, можно добавить default=None при необходимости
     birthday: Mapped[str | None] = mapped_column(
         String(10), nullable=True, default=None
     )  # 2025.02.25
     gender: Mapped[str | None] = mapped_column(nullable=True, default=None)
     bonus: Mapped[int] = mapped_column(default=0)
+
+    #addresses = relationship("Adress", back_populates="profile", lazy="selectin")
+
+
 
 
 class AdditionalTelephone(Base):
@@ -113,6 +116,8 @@ class adress(Base):
     flor = Column(String)
     apt_office = Column(String)
     is_main = Column(Boolean, default=False)
+    #profile = relationship("Profile", back_populates="addresses")
+
 
 
 class Categories(Base):

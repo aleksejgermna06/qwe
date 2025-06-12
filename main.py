@@ -7,9 +7,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from apps.categories import router as categories_roters
-from apps.products import router as products_router
-from apps.products import router_basket, router_brand
-from apps.user_actions.routers import router as user_actions_router
+from apps.products import router_brand, router_basket,router as products_router
+from core.core import create_tables, insert_data
 from apps.users import router as auth_router
 from apps.users.routers import router1 as user_router
 from core.core import create_tables, insert_data
@@ -46,6 +45,7 @@ app.include_router(router_brand)
 app.include_router(auth_router)
 app.include_router(user_actions_router)
 app.include_router(user_router)
+app.include_router(router_order)
 
 create_tables()
 insert_data()

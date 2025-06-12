@@ -1,11 +1,20 @@
+
+
 from fastapi import APIRouter, HTTPException, Query
 
 from apps.products.models import AddProdBask, NewProduct
 from apps.products.service import ProductService
 
+from .models import CheckoutOrderRequest
+from sqlalchemy.ext.asyncio import AsyncSession
+from apps.products.OrderService import OrderService
+from core.models import Profile
+from core.security import get_async_db, get_current_user
+
 router = APIRouter(prefix="/products", tags=["products"])
 router_basket = APIRouter(prefix="/basket", tags=["basket products"])
 router_brand = APIRouter(prefix="/brand", tags=["brands of products"])
+router_order = APIRouter(prefix="/brand", tags=["brands of order"])
 """ @router.get("/HeaderAction", summary="получить все уникальные акции")
 async def getHeader():
     try:
@@ -46,28 +55,17 @@ async def get_all_products(sort: int):
 
 
 @router.get("/filter-product", summary="фильтрация продуктов")
-async def get_all_products(
-    page: int = Query(ge=0, default=0),
-    size: int = Query(ge=1, le=100),
-    brand: str | None = Query(default=None, min_length=2, max_length=25),
-    price_filtr: str | None = Query(
-        default=None,
-        min_length=3,
-        max_length=4,
-        pattern="^(asc|desc)$",
-        description="Сортировка цены",
-    ),
-    popular: str | None = Query(
-        default=None,
-        max_length=4,
-        pattern="^(true)$",
-        description="Сортировка по популярности",
-    ),
-    min_price: int | None = Query(default=None, description="минимальная цена"),
-    max_price: int | None = Query(default=None, description="максимальная цена"),
-):
+async def get_all_products(page: int = Query(ge=0,default=0),
+                           size: int = Query(ge=1,le=100),
+                           brand:str | None = Query(default=None, min_length=2, max_length=25),                        
+                           price_filtr:str | None = Query(default=None, min_length=3, max_length=4, pattern="^(asc|desc)$",  description="Сортировка цены"),
+                           popular:str | None = Query(default=None, max_length=4, pattern="^(true)$",description="Сортировка по популярности"),
+                           min_price:int | None = Query(default=None,  description="минимальная цена"),
+                           max_price:int | None = Query(default=None,  description="максимальная цена"),
+                           ):
 
-    products = await ProductService.filter_product(brand,price_filtr,popular,min_price,max_price, page,size)
+
+    products = await ProductService.filter_product(brand,price_filtr,popular,min_price,max_price)
     return products
 
 
@@ -88,8 +86,8 @@ async def del_product(id_product: int):
 
 
 @router_basket.post("/basket-prod", summary="добавить продукт в корзину")
-async def add_prod_bask(add_prod_bask: AddProdBask):
-
+async def add_prod_bask( add_prod_bask : AddProdBask):
+   
     try:
 
         prod_bask_id = await ProductService.add_product_bask(add_prod_bask)
@@ -106,8 +104,7 @@ async def add_prod_bask(add_prod_bask: AddProdBask):
             status_code=500,
             detail=f"Ошибка при добавлении продукта в корзину: {str(e)}",
         )
-
-
+    
 @router_basket.get("/all-product-bask/{id_user}", summary="получить все продукты")
 async def get_all_products(id_user: int):
 
@@ -133,12 +130,30 @@ async def del_prod_bask(id_us_storage: int):
     except Exception as e:
 
         raise HTTPException(
-            status_code=500, detail=f"Ошибка при удалении номенкулатуры: {str(e)}"
+            status_code=500, 
+            detail=f"Ошибка при удалении номенкулатуры: {str(e)}"
         )
 
 
 @router_brand.get("/all-brand", summary="получить все бренды")
 async def get_all_brand():
+   
 
-    brands = await ProductService.select_brands()
+    brands=await ProductService.select_brands()
     return brands
+
+@router_order.post("/checkout", summary="Оформить заказ")
+async def checkout_order(
+    order_data: CheckoutOrderRequest,
+    current_user: Profile = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_db)
+):
+    try:
+        order_proc_id = await OrderService.create_order_with_processor(order_data, current_user.id_profile, db)
+        return {
+            "status": "success",
+            "message": "Заказ успешно оформлен",
+            "order_processor_id": order_proc_id
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Ошибка при оформлении заказа: {str(e)}")

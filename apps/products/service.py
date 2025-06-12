@@ -4,20 +4,17 @@ import math
 import sys
 import traceback
 from collections import defaultdict
-from sqlite3 import IntegrityError
 
 from apps.products.models import AddProdBask, NewProduct
 
-# Настройка политики цикла событий для Windows (нужно для asyncio)
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 from fastapi import HTTPException
-from sqlalchemy import Numeric, cast, delete, func, join, nulls_last, select
+from sqlalchemy import delete, func, join, select,cast, Numeric, nulls_last
 
 from core.database import get_async_db
-from core.models import (Action, Categories, Entity, Gfields, Product, Reviews,
-                         UserBasket, metadata_obj)
+from core.models import Action, Categories, Product, Reviews, metadata_obj, UserBasket, Entity, Gfields
 
 session_fabrik = get_async_db
 
@@ -80,7 +77,7 @@ class ProductService:
                         Categories.name_categories,
                         Action.discount,
                     )
-                    # .order_by(func.count(reviews.id_reviews).desc())
+
                 )
                 if sort == 0:
                     query = query.order_by(Categories.id_parent.asc())
@@ -95,7 +92,10 @@ class ProductService:
 
                 if not rows:
                     logging.warning(f"not found products")
-                    raise HTTPException(status_code=404, detail=f"Продукты не найдены")
+                    raise HTTPException(
+                        status_code=404, detail=f"Продукты не найдены"
+                        
+                    )
                 # first_row = result.first()
                 # print(f"Количество полей в результате: {len(first_row._fields)}")
                 return [
@@ -167,6 +167,7 @@ class ProductService:
                         Categories.name_categories,
                         Action.discount,
                     )
+                    
                     # .order_by(func.count(reviews.id_reviews).desc())
                 )
 
@@ -245,7 +246,8 @@ class ProductService:
                         "total": math.ceil(len(rows)/size)-1,
                     }
                 ] """
-
+                
+                
                 # first_row = result.first()
                 # print(f"Количество полей в результате: {len(first_row._fields)}")
                 return {
@@ -297,7 +299,7 @@ class ProductService:
 
                 result = await session.execute(query)
                 rows = result.all()  # Получаем все строки
-
+                        
                 if not rows:
                     logging.warning(f"not found product ID {product_id}")
                     raise HTTPException(
@@ -320,9 +322,9 @@ class ProductService:
                     "discount": first_row[3],
                     "quantity_in_stock": prod.quantity_in_stock,
                     "rating": prod.rating,
-                    # "date_create": prod.date_created,
-                    # "date_update": prod.date_update,
-                    "number_of_reviews": first_row[4],
+                    #"date_create": prod.date_created,
+                    #"date_update": prod.date_update,
+                    "number_of_reviews": first_row[4],  
                     "status": prod.status,
                     "img": prod.img,
                     "category": {
@@ -485,7 +487,10 @@ class ProductService:
 
                 if not rows:
                     logging.warning(f"not found products")
-                    raise HTTPException(status_code=404, detail=f"Продукты не найдены")
+                    raise HTTPException(
+                        status_code=404, detail=f"Продукты не найдены"
+                        
+                    )
                 # first_row = result.first()
                 # print(f"Количество полей в результате: {len(first_row._fields)}")
                 return [

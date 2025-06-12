@@ -6,7 +6,7 @@ from sqlalchemy import text
 from core.database import Base, async_engine, engine, session_fabrik
 from core.models import (Action, Categories, Entity, Gfields, Product, Profile,
                          Reviews, metadata_obj)
-
+from core.add_bd_cat import listcat
 if sys.platform.startswith("win"):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
@@ -106,16 +106,25 @@ def insert_data():
     db_gfields = Gfields(
         name_gfields="size",
     )
+    
     with session_fabrik() as session:
         session.add_all(
             [
                 db_profile,
-                db_categories,
-                db_categories1,
+                #db_categories,
+                #db_categories1,
                 db_action,
                 db_action1,
             ]
         )
+        
+
+        session.commit()
+
+        for cat in listcat:
+            cat_add = Categories(**cat)
+            
+            session.add(cat_add)
         session.commit()
 
         session.add_all(

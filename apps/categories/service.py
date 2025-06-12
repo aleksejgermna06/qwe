@@ -9,7 +9,7 @@ if sys.platform == "win32":
 
 
 from fastapi import HTTPException
-from sqlalchemy import join, select
+from sqlalchemy import outerjoin,join, select
 
 from core.database import get_async_db
 from core.models import Action, Categories, Product
@@ -43,7 +43,7 @@ class CategorieService:
         try:
             async for session in session_fabrik():
                 query = select(Categories, Product).select_from(
-                    join(
+                    outerjoin(
                         Categories,
                         Product,
                         Categories.id_categories == Product.categories_id,
@@ -99,7 +99,7 @@ class CategorieService:
                     select(Categories, Product)
                     .where(Categories.url == url)
                     .select_from(
-                        join(
+                        outerjoin(
                             Categories,
                             Product,
                             Categories.id_categories == Product.categories_id,
@@ -121,25 +121,31 @@ class CategorieService:
                     categories_dict[cat].append(prod)
 
                 response = []
+                
                 for category, products in categories_dict.items():
-                    response.append(
-                        {
-                            "id_categories": category.id_categories,
-                            "name_categories": category.name_categories,
-                            "id_parent": category.id_parent,
-                            "url": category.url,
-                            "products": [
-                                {
-                                    "id_product": p.id_product,
-                                    "name_product": p.name_product,
-                                    "price": p.price,
-                                }
-                                for p in products
-                            ],
-                        }
-                    )
+                    category_data = {
+                        "id_categories": category.id_categories,
+                        "name_categories": category.name_categories,
+                        "id_parent": category.id_parent,
+                        "url": category.url,
+                        "products": []
+                    }
+                    
+                    # Добавляем продукты только если они есть
+                    if products is not None:
+                        category_data["products"] = [
+                            {
+                                "id_product": p.id_product,
+                                "name_product": p.name_product,
+                                "price": p.price,
+                            }
+                            for p in products
+                            if p is not None
+                        ]
+                    
+                    response.append(category_data)
 
-            return response
+            return response[0]
         except Exception as e:
             logging.error(f"select one categor: {traceback.format_exc()}")
             raise HTTPException(

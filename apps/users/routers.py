@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.ext.asyncio import AsyncSession
 from core.models import Profile, Token, adress
-from apps.users.schema import ProfileCreate, LoginRequest, ProfileResponse, ProfileUpdate, AdressCreate, AdressResponse, AdressUpdate
+from apps.users.schema import ProfileCreate, LoginRequest, ProfileResponse, ProfileUpdate, AdressCreate, AdressResponse, AdressUpdate, LoginProfileResponse
 from core.database import get_async_db
 from core.security import create_tokens, pwd_context, verify_token, SECRET_KEY, ALGORITHM, get_current_user
 from fastapi import Response, Request
@@ -10,7 +10,7 @@ from jose import JWTError, jwt
 from typing import List
 from sqlalchemy.orm import selectinload
 
-from sqlalchemy import select, update
+from sqlalchemy import select, update, delete
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 router1 = APIRouter(prefix="/user", tags=["user"])
@@ -138,7 +138,7 @@ async def login(
         samesite="Lax"
     )
 
-    return ProfileResponse(
+    return LoginProfileResponse(
         id_profile=profile.id_profile,
         mail=profile.mail,
         name=profile.name,
@@ -301,7 +301,9 @@ async def add_address(
     db.add(new_address)
     await db.commit()
     await db.refresh(new_address)
-    return new_address
+    return AdressResponse.from_orm(new_address)
+
+    #return new_address
 
 
 
@@ -392,4 +394,40 @@ async def set_main_address(
     await db.commit()
     await db.refresh(target)
     return target
+
+
+
+
+
+@router1.delete("/profile/address/{address_id}", summary="Удалить адрес")
+async def delete_address(
+    address_id: int,
+    current_user: Profile = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_db)
+):
+
+    result = await db.execute(
+        select(adress).where(adress.id_adress == address_id)
+    )
+    address = result.scalar()
+
+    if not address:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Адрес не найден"
+        )
+
+    if address.id_profile != current_user.id_profile:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Недостаточно прав для удаления этого адреса"
+        )
+
+    await db.execute(
+        delete(adress).where(adress.id_adress == address_id)
+    )
+    await db.commit()
+
+    return {"message": "Адрес успешно удалён"}
+
 

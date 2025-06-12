@@ -10,16 +10,17 @@ class TokenResponse(BaseModel):
     token_type: str = "bearer"
 
 class AdressResponse(BaseModel):
-    id: int
+    id: int = Field(alias="id_adress")
     settlement: str
     street: str
     entrance: str
     flor: str
-    aptOffice: str
-    isMain: bool
+    aptOffice: str = Field(alias="apt_office")
+    isMain: bool = Field(alias="is_main")
 
     class Config:
         from_attributes = True
+        populate_by_name = True
 
 class ProfileCreate(BaseModel):
     mail: EmailStr
@@ -58,6 +59,18 @@ class ProfileResponse(BaseModel):
 
     class Config:
         from_attributes = True
+        orm_mode = True
+
+class LoginProfileResponse(BaseModel):
+    id_profile: int
+    mail: str
+    name: Optional[str] = None
+    phone: Optional[str] = None
+    birthday: Optional[str] = None
+    gender: Optional[str] = None
+    bonus: int
+
+    class Config:
         orm_mode = True
 
 class AdressCreate(BaseModel):

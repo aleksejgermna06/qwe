@@ -67,9 +67,7 @@ async def get_all_products(
     max_price: int | None = Query(default=None, description="максимальная цена"),
 ):
 
-    products = await ProductService.filter_product(
-        brand, price_filtr, popular, min_price, max_price
-    )
+    products = await ProductService.filter_product(brand,price_filtr,popular,min_price,max_price, page,size)
     return products
 
 

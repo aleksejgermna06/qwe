@@ -414,13 +414,13 @@ async def delete_address(
     if not address:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="Адрес не найден"
+            detail="Адрес не найден, чтобы его удалить, его нужно сперва добавить"
         )
 
     if address.id_profile != current_user.id_profile:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Недостаточно прав для удаления этого адреса"
+            detail="Недостаточно прав для удаления этого адреса, позави админа"
         )
 
     await db.execute(

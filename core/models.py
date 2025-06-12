@@ -58,7 +58,7 @@ class Profile(Base):
     phone: Mapped[str | None] = mapped_column(String(13), nullable=True, default=None)
     name: Mapped[str | None] = mapped_column(String(50), nullable=True, default=None)
     password: Mapped[str] = mapped_column(
-        String(50)
+        String(255)
     )  # оставлено обязательным, можно добавить default=None при необходимости
     birthday: Mapped[str | None] = mapped_column(
         String(10), nullable=True, default=None

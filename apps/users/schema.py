@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr, Field, validator, field_validator
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime, date
 
 class TokenResponse(BaseModel):
@@ -8,6 +8,18 @@ class TokenResponse(BaseModel):
     refresh_token: str
     expires_at: datetime
     token_type: str = "bearer"
+
+class AdressResponse(BaseModel):
+    id: int
+    settlement: str
+    street: str
+    entrance: str
+    flor: str
+    aptOffice: str
+    isMain: bool
+
+    class Config:
+        from_attributes = True
 
 class ProfileCreate(BaseModel):
     mail: EmailStr
@@ -42,9 +54,11 @@ class ProfileResponse(BaseModel):
     birthday: Optional[str] = None
     gender: Optional[str] = None
     bonus: int
+    addresses: List[AdressResponse] = []
 
     class Config:
         from_attributes = True
+        orm_mode = True
 
 # class AdressCreate(BaseModel):
 #     adress: str
@@ -72,14 +86,4 @@ class AdressUpdate(BaseModel):
     aptOffice: Optional[str]
     isMain: Optional[bool]
 
-class AdressResponse(BaseModel):
-    id: int
-    settlement: str
-    street: str
-    entrance: str
-    flor: str
-    aptOffice: str
-    isMain: bool
 
-    class Config:
-        from_attributes = True

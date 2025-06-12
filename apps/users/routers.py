@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 from fastapi import Response, Request
 from jose import JWTError, jwt
 from typing import List
+from sqlalchemy.orm import selectinload
 
 from sqlalchemy import select, update
 
@@ -104,10 +105,14 @@ async def read_me(
     if not payload:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-    profile = await db.execute(
-        select(Profile).where(Profile.id_profile == int(payload["sub"]))
-    )
-    return profile.scalar_one()
+    # profile = await db.execute(
+    #     select(Profile).where(Profile.id_profile == int(payload["sub"]))
+    # )
+    # return profile.scalar_one()
+    result = await db.execute(select(Profile)
+                              .options(selectinload(Profile.addresses))
+                              .where(Profile.id_profile == int(payload["sub"])))
+    return result.scalar_one()
 
 
 @router.get("/check-token", summary="для проверки мояяя")

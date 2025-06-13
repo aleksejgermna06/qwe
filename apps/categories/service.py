@@ -96,15 +96,21 @@ class CategorieService:
         try:
             async for session in session_fabrik():
                 query = (
-                    select(Categories, Product)
-                    .where(Categories.url == url)
+                    select(Categories, Product, Action.discount)
+                    
                     .select_from(
                         outerjoin(
                             Categories,
                             Product,
                             Categories.id_categories == Product.categories_id,
                         )
+                        .join(
+                            Action,
+                            Product.action_id == Action.id_action,
+                        )
                     )
+                    .where(Categories.url == url)
+                   
                 )
 
                 result = await session.execute(query)
@@ -117,8 +123,8 @@ class CategorieService:
                     )
 
                 categories_dict = defaultdict(list)
-                for cat, prod in rows:
-                    categories_dict[cat].append(prod)
+                for cat, prod, discount in rows:
+                    categories_dict[cat].append((prod,discount))
 
                 response = []
                 
@@ -135,11 +141,20 @@ class CategorieService:
                     if products is not None:
                         category_data["products"] = [
                             {
+                                
                                 "id_product": p.id_product,
                                 "name_product": p.name_product,
+                                "brand": p.brand,
                                 "price": p.price,
+                                "discount": discount ,
+                                "quantity_in_stock": p.quantity_in_stock,
+                                "rating": p.rating,
+                                "date_create": p.date_created,
+                                "date_update": p.date_update,
+                                "status": p.status,
+                                "img": p.img,
                             }
-                            for p in products
+                            for p,discount  in products
                             if p is not None
                         ]
                     

@@ -10,7 +10,7 @@ if sys.platform == "win32":
 
 from fastapi import HTTPException
 from sqlalchemy import outerjoin,join,func, select
-
+from apps.categories.models import NewCatProdCom
 from core.database import get_async_db
 from core.models import Action, Categories, Product, ComparisonStore
 
@@ -209,4 +209,24 @@ class CategorieService:
             raise HTTPException(
                 status_code=500, detail=f"Ошибка при выводе одной категории: {str(e)}"
             )
-    
+        
+    @staticmethod
+    async def add_product_comsommer(AddCatProdCom: NewCatProdCom):
+        try:
+            async for session in session_fabrik():
+                db_product = ComparisonStore(
+                    profile_id = AddCatProdCom.profile_id,
+                    product_id = AddCatProdCom.product_id,
+                )
+                session.add(db_product)
+                await session.flush()
+                await session.commit()
+
+                return db_product.product_id
+
+        except Exception as e:
+            logging.error(f"adding product from compaire: {traceback.format_exc()}")
+
+            raise HTTPException(
+                status_code=500, detail=f"Ошибка при добавлении продукта в сравнение: {str(e)}"
+            )

@@ -9,10 +9,10 @@ if sys.platform == "win32":
 
 
 from fastapi import HTTPException
-from sqlalchemy import outerjoin,join, select
+from sqlalchemy import outerjoin,join,func, select
 
 from core.database import get_async_db
-from core.models import Action, Categories, Product
+from core.models import Action, Categories, Product, ComparisonStore
 
 session_fabrik = get_async_db
 
@@ -161,6 +161,49 @@ class CategorieService:
                     response.append(category_data)
 
             return response[0]
+        except Exception as e:
+            logging.error(f"select one categor: {traceback.format_exc()}")
+            raise HTTPException(
+                status_code=500, detail=f"Ошибка при выводе одной категории: {str(e)}"
+            )
+        
+    @staticmethod
+    async def select_cat_comparison(id_profile: int):
+        try:
+            async for session in session_fabrik():
+                query = (
+                    select(
+
+                        Categories,
+                        func.count(Product.id_product).label("count_prod")
+                    )
+                    .select_from(
+                        
+                        outerjoin(ComparisonStore, Product, ComparisonStore.product_id == Product.id_product)
+                        .join(Categories, Product.categories_id == Categories.id_categories)
+                    )
+                    .where(ComparisonStore.profile_id == id_profile)
+                    .group_by(Categories.name_categories, Categories.id_categories)
+                   
+                )
+
+                result = await session.execute(query)
+                rows = result.all()
+                
+                if not rows:
+                    logging.warning(f"not found cat {id_profile}")
+                    raise HTTPException(
+                        status_code=404, detail=f"Категория не найдена {id_profile}"
+                    )
+
+            return [
+                {
+                    "category": cat.name_categories,
+                    "count": count,
+
+                }
+                for  cat, count in rows
+            ]
         except Exception as e:
             logging.error(f"select one categor: {traceback.format_exc()}")
             raise HTTPException(

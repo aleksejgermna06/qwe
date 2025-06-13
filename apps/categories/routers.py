@@ -25,3 +25,10 @@ async def get_one_cat(url: str):
     cats = await CategorieService.select_one_cat(url)
 
     return cats
+
+@router.get("/user-cat-comparison/{id_profile}", summary="получить категории для сравнения")
+async def get_cat_comparison(id_profile: int):
+
+    cats = await CategorieService.select_cat_comparison(id_profile)
+
+    return cats

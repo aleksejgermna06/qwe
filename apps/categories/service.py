@@ -230,3 +230,52 @@ class CategorieService:
             raise HTTPException(
                 status_code=500, detail=f"Ошибка при добавлении продукта в сравнение: {str(e)}"
             )
+
+    @staticmethod
+    async def select_cat_prod_comparison(id_profile: int, id_cat: int):
+        try:
+            async for session in session_fabrik():
+                query = (
+                   select(Product,
+                          Action.action,
+                        )
+                    .join(ComparisonStore, ComparisonStore.product_id == Product.id_product)
+                    .join(Action, Product.action_id==Action.id_action)
+                    .where(
+                        ComparisonStore.profile_id == id_profile,
+                        Product.categories_id == id_cat
+                    )
+                )
+
+                result = await session.execute(query)
+                rows = result.all()
+                
+                if not rows:
+                    logging.warning(f"not found cat {id_profile}")
+                    raise HTTPException(
+                        status_code=404, detail=f"Категория не найдена {id_profile}"
+                    )
+
+            return [
+                {
+                    "id_product": prod.id_product,
+                    "name_product": prod.name_product,
+                    "brand": prod.brand,
+                    "price": prod.price,
+                    "discount": discount,
+                    "quantity_in_stock": prod.quantity_in_stock,
+                    "rating": prod.rating,
+                    "date_create": prod.date_created,
+                    "date_update": prod.date_update,
+                    #"number_of_reviews": number_of_reviews,
+                    "status": prod.status,
+                    "img": prod.img,
+
+                }
+                for  prod,discount in rows
+            ]
+        except Exception as e:
+            logging.error(f"select one categor: {traceback.format_exc()}")
+            raise HTTPException(
+                status_code=500, detail=f"Ошибка при выводе одной категории: {str(e)}"
+            )

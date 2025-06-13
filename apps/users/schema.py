@@ -56,7 +56,7 @@ class ProfileResponse(BaseModel):
     birthday: Optional[str] = None
     gender: Optional[str] = None
     bonus: int
-    addresses: Optional[List[AdressResponse]] = None
+    #addresses: Optional[List[AdressResponse]] = None
 
     class Config:
         from_attributes = True

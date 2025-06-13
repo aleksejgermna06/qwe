@@ -20,6 +20,59 @@ session_fabrik = get_async_db
 
 
 class ProductService:
+
+    @staticmethod
+    async def get_many_products(product_ids: list[int]) -> list[dict]:
+        try:
+            async for session in session_fabrik():
+                query = (
+                    select(
+                        Product,
+                        Categories.id_categories,
+                        Categories.name_categories,
+                        Action.discount,
+                        func.count(Reviews.id_reviews).label("number_of_reviews"),
+                        Categories.url,
+                    )
+                    .select_from(Product)
+                    .join(Categories, Product.categories_id == Categories.id_categories)
+                    .join(Action, Product.action_id == Action.id_action)
+                    .outerjoin(Reviews, Product.id_product == Reviews.product_id)
+                    .where(Product.id_product.in_(product_ids))
+                    .group_by(
+                        Product,
+                        Categories.id_categories,
+                        Categories.name_categories,
+                        Action.discount,
+                        Categories.url,
+                    )
+                )
+
+                result = await session.execute(query)
+                rows = result.all()
+
+                products = []
+                for row in rows:
+                    prod = row[0]
+                    products.append({
+                        "id_product": prod.id_product,
+                        "name_product": prod.name_product,
+                        "brand": prod.brand,
+                        "price": prod.price,
+                        "discount": row[3],
+                        "quantity_in_stock": prod.quantity_in_stock,
+                        "rating": prod.rating,
+                        "number_of_reviews": row[4],
+                        "status": prod.status,
+                        "img": prod.img,
+                    })
+
+                return products
+
+        except Exception:
+            logging.error(f"Error getting many products: {traceback.format_exc()}")
+            raise HTTPException(status_code=500, detail="Ошибка при получении списка товаров")
+
     @staticmethod
     async def add_product(new_Product: NewProduct):
         try:

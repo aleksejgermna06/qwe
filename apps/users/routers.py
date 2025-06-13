@@ -9,7 +9,7 @@ from fastapi import Response, Request
 from jose import JWTError, jwt
 from typing import List
 from sqlalchemy.orm import selectinload
-
+from sqlalchemy.orm import Session
 from sqlalchemy import select, update, delete
 
 
@@ -109,16 +109,27 @@ async def login(
     "/me", response_model=ProfileResponse, summary="Получение текущего пользователя"
 )
 async def read_me(
-    token: str = Depends(oauth2_scheme), db: AsyncSession = Depends(get_async_db)
+    request: Request,
+    db: Session = Depends(get_async_db),
+    profile = Depends(get_current_user)
 ):
-    payload = verify_token(token)
+    payload = request.cookies.get("access_token")
     if not payload:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-    result = await db.execute(select(Profile)
-                              .options(selectinload(Profile.addresses))
-                              .where(Profile.id_profile == int(payload["sub"])))
-    return result.scalar_one()
+    # result = db.execute(select(Profile)
+    #                           .options(selectinload(Profile.mail))
+    #                           .where(Profile.id_profile == int(payload["sub"])))
+    # return result.scalar_one()
+    return ProfileResponse(
+        id_profile=profile.id_profile,
+        mail=profile.mail,
+        name=profile.name,
+        phone=profile.phone,
+        birthday=str(profile.birthday) if profile.birthday else None,
+        gender=profile.gender,
+        bonus=profile.bonus
+    )
 
 
 @router.get("/check-token", summary="для проверки мояяя")

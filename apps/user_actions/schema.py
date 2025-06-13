@@ -12,6 +12,8 @@ class UserActionCreate(UserActionBase):
     pass
 
 
+
+
 class UserAction(UserActionBase):
     id: int
     user_id: int

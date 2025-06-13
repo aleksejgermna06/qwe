@@ -1,12 +1,13 @@
 import asyncio
 import sys
-
+import time
 from sqlalchemy import text
 
 from core.database import Base, async_engine, engine, session_fabrik
 from core.models import (Action, Categories, Entity, Gfields, Product, Profile,
                          Reviews, metadata_obj)
 from core.add_bd_cat import listcat
+from core.andrei.my_insert_data import insert_data as inset_data_andr
 if sys.platform.startswith("win"):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
@@ -25,6 +26,7 @@ def create_tables():
     Base.metadata.reflect(engine)
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
+    
 
 
 def insert_data():
@@ -105,7 +107,7 @@ def insert_data():
     )
     db_gfields = Gfields(
         name_gfields="size",
-    )
+    ) 
     
     with session_fabrik() as session:
         session.add_all(
@@ -125,7 +127,7 @@ def insert_data():
             cat_add = Categories(**cat)
             
             session.add(cat_add)
-        session.commit()
+        session.commit() 
 
         session.add_all(
             [
@@ -134,10 +136,10 @@ def insert_data():
                 db_product2,
             ]
         )
-        session.commit()
+        session.commit() 
         session.add_all(
             [
-                db_gfields,
+                #db_gfields,
                 db_reviews,
                 db_reviews1,
                 db_reviews2,
@@ -147,11 +149,13 @@ def insert_data():
 
         session.add_all(
             [
-                db_entity,
+                #db_entity,
             ]
         )
-        session.commit()
+        session.commit() 
 
 
 create_tables()
-insert_data()
+#insert_data()
+inset_data_andr()
+

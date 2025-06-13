@@ -178,12 +178,12 @@ class CategorieService:
                         func.count(Product.id_product).label("count_prod")
                     )
                     .select_from(
-                        
-                        outerjoin(ComparisonStore, Product, ComparisonStore.product_id == Product.id_product)
-                        .join(Categories, Product.categories_id == Categories.id_categories)
+                        ComparisonStore
                     )
+                    .outerjoin(Product, ComparisonStore.product_id == Product.id_product)
+                    .join(Categories, Product.categories_id == Categories.id_categories)
                     .where(ComparisonStore.profile_id == id_profile)
-                    .group_by(Categories.name_categories, Categories.id_categories)
+                    .group_by(Categories.name_categories,Categories.id_categories)
                    
                 )
 
@@ -209,3 +209,4 @@ class CategorieService:
             raise HTTPException(
                 status_code=500, detail=f"Ошибка при выводе одной категории: {str(e)}"
             )
+    

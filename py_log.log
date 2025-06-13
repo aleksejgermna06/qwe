@@ -1,43 +1,43 @@
-2025-06-12 10:15:59,194 INFO BEGIN (implicit)
-2025-06-12 10:15:59,195 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,902 INFO BEGIN (implicit)
+2025-06-13 07:50:26,904 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR]) AND pg_catalog.pg_class.relpersistence != %(relpersistence_1)s::VARCHAR AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,195 INFO [cached since 0.2257s ago] {'param_1': 'r', 'param_2': 'p', 'relpersistence_1': 't', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,197 INFO SELECT pg_catalog.pg_attribute.attname AS name, pg_catalog.format_type(pg_catalog.pg_attribute.atttypid, pg_catalog.pg_attribute.atttypmod) AS format_type, (SELECT pg_catalog.pg_get_expr(pg_catalog.pg_attrdef.adbin, pg_catalog.pg_attrdef.adrelid) AS pg_get_expr_1 
+2025-06-13 07:50:26,904 INFO [cached since 0.5909s ago] {'param_1': 'r', 'param_2': 'p', 'relpersistence_1': 't', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,906 INFO SELECT pg_catalog.pg_attribute.attname AS name, pg_catalog.format_type(pg_catalog.pg_attribute.atttypid, pg_catalog.pg_attribute.atttypmod) AS format_type, (SELECT pg_catalog.pg_get_expr(pg_catalog.pg_attrdef.adbin, pg_catalog.pg_attrdef.adrelid) AS pg_get_expr_1 
 FROM pg_catalog.pg_attrdef 
 WHERE pg_catalog.pg_attrdef.adrelid = pg_catalog.pg_attribute.attrelid AND pg_catalog.pg_attrdef.adnum = pg_catalog.pg_attribute.attnum AND pg_catalog.pg_attribute.atthasdef) AS "default", pg_catalog.pg_attribute.attnotnull AS not_null, pg_catalog.pg_class.relname AS table_name, pg_catalog.pg_description.description AS comment, pg_catalog.pg_attribute.attgenerated AS generated, (SELECT json_build_object(%(json_build_object_2)s::VARCHAR, pg_catalog.pg_attribute.attidentity = %(attidentity_1)s::VARCHAR, %(json_build_object_3)s::VARCHAR, pg_catalog.pg_sequence.seqstart, %(json_build_object_4)s::VARCHAR, pg_catalog.pg_sequence.seqincrement, %(json_build_object_5)s::VARCHAR, pg_catalog.pg_sequence.seqmin, %(json_build_object_6)s::VARCHAR, pg_catalog.pg_sequence.seqmax, %(json_build_object_7)s::VARCHAR, pg_catalog.pg_sequence.seqcache, %(json_build_object_8)s::VARCHAR, pg_catalog.pg_sequence.seqcycle) AS json_build_object_1 
 FROM pg_catalog.pg_sequence 
 WHERE pg_catalog.pg_attribute.attidentity != %(attidentity_2)s::VARCHAR AND pg_catalog.pg_sequence.seqrelid = CAST(CAST(pg_catalog.pg_get_serial_sequence(CAST(CAST(pg_catalog.pg_attribute.attrelid AS REGCLASS) AS TEXT), pg_catalog.pg_attribute.attname) AS REGCLASS) AS OID)) AS identity_options 
 FROM pg_catalog.pg_class LEFT OUTER JOIN pg_catalog.pg_attribute ON pg_catalog.pg_class.oid = pg_catalog.pg_attribute.attrelid AND pg_catalog.pg_attribute.attnum > %(attnum_1)s::SMALLINT AND NOT pg_catalog.pg_attribute.attisdropped LEFT OUTER JOIN pg_catalog.pg_description ON pg_catalog.pg_description.objoid = pg_catalog.pg_attribute.attrelid AND pg_catalog.pg_description.objsubid = pg_catalog.pg_attribute.attnum JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR ORDER BY pg_catalog.pg_class.relname, pg_catalog.pg_attribute.attnum
-2025-06-12 10:15:59,198 INFO [cached since 0.2239s ago] {'json_build_object_2': 'always', 'attidentity_1': 'a', 'json_build_object_3': 'start', 'json_build_object_4': 'increment', 'json_build_object_5': 'minvalue', 'json_build_object_6': 'maxvalue', 'json_build_object_7': 'cache', 'json_build_object_8': 'cycle', 'attidentity_2': '', 'attnum_1': 0, 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,200 INFO SELECT pg_catalog.pg_type.typname AS name, pg_catalog.format_type(pg_catalog.pg_type.typbasetype, pg_catalog.pg_type.typtypmod) AS attype, NOT pg_catalog.pg_type.typnotnull AS nullable, pg_catalog.pg_type.typdefault AS "default", pg_catalog.pg_type_is_visible(pg_catalog.pg_type.oid) AS visible, pg_catalog.pg_namespace.nspname AS schema, domain_constraints.condefs, domain_constraints.connames 
+2025-06-13 07:50:26,907 INFO [cached since 0.5837s ago] {'json_build_object_2': 'always', 'attidentity_1': 'a', 'json_build_object_3': 'start', 'json_build_object_4': 'increment', 'json_build_object_5': 'minvalue', 'json_build_object_6': 'maxvalue', 'json_build_object_7': 'cache', 'json_build_object_8': 'cycle', 'attidentity_2': '', 'attnum_1': 0, 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,910 INFO SELECT pg_catalog.pg_type.typname AS name, pg_catalog.format_type(pg_catalog.pg_type.typbasetype, pg_catalog.pg_type.typtypmod) AS attype, NOT pg_catalog.pg_type.typnotnull AS nullable, pg_catalog.pg_type.typdefault AS "default", pg_catalog.pg_type_is_visible(pg_catalog.pg_type.oid) AS visible, pg_catalog.pg_namespace.nspname AS schema, domain_constraints.condefs, domain_constraints.connames 
 FROM pg_catalog.pg_type JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_type.typnamespace LEFT OUTER JOIN (SELECT pg_catalog.pg_constraint.contypid AS contypid, array_agg(pg_catalog.pg_get_constraintdef(pg_catalog.pg_constraint.oid, %(pg_get_constraintdef_1)s)) AS condefs, array_agg(CAST(pg_catalog.pg_constraint.conname AS TEXT)) AS connames 
 FROM pg_catalog.pg_constraint 
 WHERE pg_catalog.pg_constraint.contypid != %(contypid_1)s::INTEGER GROUP BY pg_catalog.pg_constraint.contypid) AS domain_constraints ON pg_catalog.pg_type.oid = domain_constraints.contypid 
 WHERE pg_catalog.pg_type.typtype = %(typtype_1)s::VARCHAR ORDER BY pg_catalog.pg_namespace.nspname, pg_catalog.pg_type.typname
-2025-06-12 10:15:59,201 INFO [cached since 0.2225s ago] {'pg_get_constraintdef_1': True, 'contypid_1': 0, 'typtype_1': 'd'}
-2025-06-12 10:15:59,202 INFO SELECT pg_catalog.pg_type.typname AS name, pg_catalog.pg_type_is_visible(pg_catalog.pg_type.oid) AS visible, pg_catalog.pg_namespace.nspname AS schema, lbl_agg.labels AS labels 
+2025-06-13 07:50:26,910 INFO [cached since 0.5794s ago] {'pg_get_constraintdef_1': True, 'contypid_1': 0, 'typtype_1': 'd'}
+2025-06-13 07:50:26,912 INFO SELECT pg_catalog.pg_type.typname AS name, pg_catalog.pg_type_is_visible(pg_catalog.pg_type.oid) AS visible, pg_catalog.pg_namespace.nspname AS schema, lbl_agg.labels AS labels 
 FROM pg_catalog.pg_type JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_type.typnamespace LEFT OUTER JOIN (SELECT pg_catalog.pg_enum.enumtypid AS enumtypid, array_agg(CAST(pg_catalog.pg_enum.enumlabel AS TEXT) ORDER BY pg_catalog.pg_enum.enumsortorder) AS labels 
 FROM pg_catalog.pg_enum GROUP BY pg_catalog.pg_enum.enumtypid) AS lbl_agg ON pg_catalog.pg_type.oid = lbl_agg.enumtypid 
 WHERE pg_catalog.pg_type.typtype = %(typtype_1)s::VARCHAR ORDER BY pg_catalog.pg_namespace.nspname, pg_catalog.pg_type.typname
-2025-06-12 10:15:59,203 INFO [cached since 0.2218s ago] {'typtype_1': 'e'}
-2025-06-12 10:15:59,205 INFO SELECT pg_catalog.pg_class.oid, pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,913 INFO [cached since 0.574s ago] {'typtype_1': 'e'}
+2025-06-13 07:50:26,915 INFO SELECT pg_catalog.pg_class.oid, pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,205 INFO [cached since 0.2215s ago] {'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,207 INFO SELECT attr.conrelid, array_agg(CAST(attr.attname AS TEXT) ORDER BY attr.ord) AS cols, attr.conname, min(attr.description) AS description, NULL AS extra 
+2025-06-13 07:50:26,917 INFO [cached since 0.5718s ago] {'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,919 INFO SELECT attr.conrelid, array_agg(CAST(attr.attname AS TEXT) ORDER BY attr.ord) AS cols, attr.conname, min(attr.description) AS description, NULL AS extra 
 FROM (SELECT con.conrelid AS conrelid, con.conname AS conname, con.conindid AS conindid, con.description AS description, con.ord AS ord, pg_catalog.pg_attribute.attname AS attname 
 FROM pg_catalog.pg_attribute JOIN (SELECT pg_catalog.pg_constraint.conrelid AS conrelid, pg_catalog.pg_constraint.conname AS conname, pg_catalog.pg_constraint.conindid AS conindid, unnest(pg_catalog.pg_constraint.conkey) AS attnum, generate_subscripts(pg_catalog.pg_constraint.conkey, %(generate_subscripts_1)s::INTEGER) AS ord, pg_catalog.pg_description.description AS description 
 FROM pg_catalog.pg_constraint LEFT OUTER JOIN pg_catalog.pg_description ON pg_catalog.pg_description.objoid = pg_catalog.pg_constraint.oid 
 WHERE pg_catalog.pg_constraint.contype = %(contype)s::VARCHAR AND pg_catalog.pg_constraint.conrelid IN (%(oids_1)s, %(oids_2)s, %(oids_3)s, %(oids_4)s, %(oids_5)s, %(oids_6)s, %(oids_7)s, %(oids_8)s, %(oids_9)s, %(oids_10)s, %(oids_11)s, %(oids_12)s, %(oids_13)s, %(oids_14)s, %(oids_15)s)) AS con ON pg_catalog.pg_attribute.attnum = con.attnum AND pg_catalog.pg_attribute.attrelid = con.conrelid 
 WHERE con.conrelid IN (%(oids_1)s, %(oids_2)s, %(oids_3)s, %(oids_4)s, %(oids_5)s, %(oids_6)s, %(oids_7)s, %(oids_8)s, %(oids_9)s, %(oids_10)s, %(oids_11)s, %(oids_12)s, %(oids_13)s, %(oids_14)s, %(oids_15)s)) AS attr GROUP BY attr.conrelid, attr.conname ORDER BY attr.conrelid, attr.conname
-2025-06-12 10:15:59,207 INFO [cached since 0.2201s ago] {'generate_subscripts_1': 1, 'contype': 'p', 'oids_1': 17344, 'oids_2': 17384, 'oids_3': 17405, 'oids_4': 17418, 'oids_5': 17431, 'oids_6': 17368, 'oids_7': 17448, 'oids_8': 17357, 'oids_9': 17471, 'oids_10': 17489, 'oids_11': 17376, 'oids_12': 17509, 'oids_13': 17527, 'oids_14': 17547, 'oids_15': 17565}
-2025-06-12 10:15:59,209 INFO SELECT pg_catalog.pg_class.relname, pg_catalog.pg_constraint.conname, CASE WHEN (pg_catalog.pg_constraint.oid IS NOT NULL) THEN pg_catalog.pg_get_constraintdef(pg_catalog.pg_constraint.oid, %(pg_get_constraintdef_1)s) END AS anon_1, nsp_ref.nspname, pg_catalog.pg_description.description 
+2025-06-13 07:50:26,919 INFO [cached since 0.5657s ago] {'generate_subscripts_1': 1, 'contype': 'p', 'oids_1': 19462, 'oids_2': 19244, 'oids_3': 19284, 'oids_4': 19305, 'oids_5': 19318, 'oids_6': 19331, 'oids_7': 19268, 'oids_8': 19348, 'oids_9': 19257, 'oids_10': 19371, 'oids_11': 19389, 'oids_12': 19276, 'oids_13': 19406, 'oids_14': 19424, 'oids_15': 19444}
+2025-06-13 07:50:26,922 INFO SELECT pg_catalog.pg_class.relname, pg_catalog.pg_constraint.conname, CASE WHEN (pg_catalog.pg_constraint.oid IS NOT NULL) THEN pg_catalog.pg_get_constraintdef(pg_catalog.pg_constraint.oid, %(pg_get_constraintdef_1)s) END AS anon_1, nsp_ref.nspname, pg_catalog.pg_description.description 
 FROM pg_catalog.pg_class LEFT OUTER JOIN pg_catalog.pg_constraint ON pg_catalog.pg_class.oid = pg_catalog.pg_constraint.conrelid AND pg_catalog.pg_constraint.contype = %(contype_1)s::VARCHAR LEFT OUTER JOIN pg_catalog.pg_class AS cls_ref ON cls_ref.oid = pg_catalog.pg_constraint.confrelid LEFT OUTER JOIN pg_catalog.pg_namespace AS nsp_ref ON cls_ref.relnamespace = nsp_ref.oid LEFT OUTER JOIN pg_catalog.pg_description ON pg_catalog.pg_description.objoid = pg_catalog.pg_constraint.oid JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR ORDER BY pg_catalog.pg_class.relname, pg_catalog.pg_constraint.conname
-2025-06-12 10:15:59,210 INFO [cached since 0.217s ago] {'pg_get_constraintdef_1': True, 'contype_1': 'f', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,212 INFO SELECT pg_catalog.pg_index.indrelid, cls_idx.relname AS relname_index, pg_catalog.pg_index.indisunique, pg_catalog.pg_constraint.conrelid IS NOT NULL AS has_constraint, pg_catalog.pg_index.indoption, cls_idx.reloptions, pg_catalog.pg_am.amname, CASE WHEN (pg_catalog.pg_index.indpred IS NOT NULL) THEN pg_catalog.pg_get_expr(pg_catalog.pg_index.indpred, pg_catalog.pg_index.indrelid) END AS filter_definition, pg_catalog.pg_index.indnkeyatts, false AS indnullsnotdistinct, idx_cols.elements, idx_cols.elements_is_expr 
+2025-06-13 07:50:26,922 INFO [cached since 0.5528s ago] {'pg_get_constraintdef_1': True, 'contype_1': 'f', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,925 INFO SELECT pg_catalog.pg_index.indrelid, cls_idx.relname AS relname_index, pg_catalog.pg_index.indisunique, pg_catalog.pg_constraint.conrelid IS NOT NULL AS has_constraint, pg_catalog.pg_index.indoption, cls_idx.reloptions, pg_catalog.pg_am.amname, CASE WHEN (pg_catalog.pg_index.indpred IS NOT NULL) THEN pg_catalog.pg_get_expr(pg_catalog.pg_index.indpred, pg_catalog.pg_index.indrelid) END AS filter_definition, pg_catalog.pg_index.indnkeyatts, false AS indnullsnotdistinct, idx_cols.elements, idx_cols.elements_is_expr 
 FROM pg_catalog.pg_index JOIN pg_catalog.pg_class AS cls_idx ON pg_catalog.pg_index.indexrelid = cls_idx.oid JOIN pg_catalog.pg_am ON cls_idx.relam = pg_catalog.pg_am.oid LEFT OUTER JOIN (SELECT idx_attr.indexrelid AS indexrelid, min(idx_attr.indrelid) AS min_1, array_agg(idx_attr.element ORDER BY idx_attr.ord) AS elements, array_agg(idx_attr.is_expr ORDER BY idx_attr.ord) AS elements_is_expr 
 FROM (SELECT idx.indexrelid AS indexrelid, idx.indrelid AS indrelid, idx.ord AS ord, CASE WHEN (idx.attnum = %(attnum_1)s::INTEGER) THEN pg_catalog.pg_get_indexdef(idx.indexrelid, idx.ord + %(ord_1)s::INTEGER, %(pg_get_indexdef_1)s) ELSE CAST(pg_catalog.pg_attribute.attname AS TEXT) END AS element, idx.attnum = %(attnum_2)s::INTEGER AS is_expr 
 FROM (SELECT pg_catalog.pg_index.indexrelid AS indexrelid, pg_catalog.pg_index.indrelid AS indrelid, unnest(pg_catalog.pg_index.indkey) AS attnum, generate_subscripts(pg_catalog.pg_index.indkey, %(generate_subscripts_1)s::INTEGER) AS ord 
@@ -45,196 +45,196 @@ FROM pg_catalog.pg_index
 WHERE NOT pg_catalog.pg_index.indisprimary AND pg_catalog.pg_index.indrelid IN (%(oids_1)s, %(oids_2)s, %(oids_3)s, %(oids_4)s, %(oids_5)s, %(oids_6)s, %(oids_7)s, %(oids_8)s, %(oids_9)s, %(oids_10)s, %(oids_11)s, %(oids_12)s, %(oids_13)s, %(oids_14)s, %(oids_15)s)) AS idx LEFT OUTER JOIN pg_catalog.pg_attribute ON pg_catalog.pg_attribute.attnum = idx.attnum AND pg_catalog.pg_attribute.attrelid = idx.indrelid 
 WHERE idx.indrelid IN (%(oids_1)s, %(oids_2)s, %(oids_3)s, %(oids_4)s, %(oids_5)s, %(oids_6)s, %(oids_7)s, %(oids_8)s, %(oids_9)s, %(oids_10)s, %(oids_11)s, %(oids_12)s, %(oids_13)s, %(oids_14)s, %(oids_15)s)) AS idx_attr GROUP BY idx_attr.indexrelid) AS idx_cols ON pg_catalog.pg_index.indexrelid = idx_cols.indexrelid LEFT OUTER JOIN pg_catalog.pg_constraint ON pg_catalog.pg_index.indrelid = pg_catalog.pg_constraint.conrelid AND pg_catalog.pg_index.indexrelid = pg_catalog.pg_constraint.conindid AND pg_catalog.pg_constraint.contype = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR]) 
 WHERE pg_catalog.pg_index.indrelid IN (%(oids_1)s, %(oids_2)s, %(oids_3)s, %(oids_4)s, %(oids_5)s, %(oids_6)s, %(oids_7)s, %(oids_8)s, %(oids_9)s, %(oids_10)s, %(oids_11)s, %(oids_12)s, %(oids_13)s, %(oids_14)s, %(oids_15)s) AND NOT pg_catalog.pg_index.indisprimary ORDER BY pg_catalog.pg_index.indrelid, cls_idx.relname
-2025-06-12 10:15:59,213 INFO [cached since 0.2134s ago] {'attnum_1': 0, 'ord_1': 1, 'pg_get_indexdef_1': True, 'attnum_2': 0, 'generate_subscripts_1': 1, 'param_1': 'p', 'param_2': 'u', 'param_3': 'x', 'oids_1': 17344, 'oids_2': 17384, 'oids_3': 17405, 'oids_4': 17418, 'oids_5': 17431, 'oids_6': 17368, 'oids_7': 17448, 'oids_8': 17357, 'oids_9': 17471, 'oids_10': 17489, 'oids_11': 17376, 'oids_12': 17509, 'oids_13': 17527, 'oids_14': 17547, 'oids_15': 17565}
-2025-06-12 10:15:59,215 INFO SELECT attr.conrelid, array_agg(CAST(attr.attname AS TEXT) ORDER BY attr.ord) AS cols, attr.conname, min(attr.description) AS description, false AS indnullsnotdistinct 
+2025-06-13 07:50:26,926 INFO [cached since 0.546s ago] {'attnum_1': 0, 'ord_1': 1, 'pg_get_indexdef_1': True, 'attnum_2': 0, 'generate_subscripts_1': 1, 'param_1': 'p', 'param_2': 'u', 'param_3': 'x', 'oids_1': 19462, 'oids_2': 19244, 'oids_3': 19284, 'oids_4': 19305, 'oids_5': 19318, 'oids_6': 19331, 'oids_7': 19268, 'oids_8': 19348, 'oids_9': 19257, 'oids_10': 19371, 'oids_11': 19389, 'oids_12': 19276, 'oids_13': 19406, 'oids_14': 19424, 'oids_15': 19444}
+2025-06-13 07:50:26,929 INFO SELECT attr.conrelid, array_agg(CAST(attr.attname AS TEXT) ORDER BY attr.ord) AS cols, attr.conname, min(attr.description) AS description, false AS indnullsnotdistinct 
 FROM (SELECT con.conrelid AS conrelid, con.conname AS conname, con.conindid AS conindid, con.description AS description, con.ord AS ord, pg_catalog.pg_attribute.attname AS attname 
 FROM pg_catalog.pg_attribute JOIN (SELECT pg_catalog.pg_constraint.conrelid AS conrelid, pg_catalog.pg_constraint.conname AS conname, pg_catalog.pg_constraint.conindid AS conindid, unnest(pg_catalog.pg_constraint.conkey) AS attnum, generate_subscripts(pg_catalog.pg_constraint.conkey, %(generate_subscripts_1)s::INTEGER) AS ord, pg_catalog.pg_description.description AS description 
 FROM pg_catalog.pg_constraint LEFT OUTER JOIN pg_catalog.pg_description ON pg_catalog.pg_description.objoid = pg_catalog.pg_constraint.oid 
 WHERE pg_catalog.pg_constraint.contype = %(contype)s::VARCHAR AND pg_catalog.pg_constraint.conrelid IN (%(oids_1)s, %(oids_2)s, %(oids_3)s, %(oids_4)s, %(oids_5)s, %(oids_6)s, %(oids_7)s, %(oids_8)s, %(oids_9)s, %(oids_10)s, %(oids_11)s, %(oids_12)s, %(oids_13)s, %(oids_14)s, %(oids_15)s)) AS con ON pg_catalog.pg_attribute.attnum = con.attnum AND pg_catalog.pg_attribute.attrelid = con.conrelid 
 WHERE con.conrelid IN (%(oids_1)s, %(oids_2)s, %(oids_3)s, %(oids_4)s, %(oids_5)s, %(oids_6)s, %(oids_7)s, %(oids_8)s, %(oids_9)s, %(oids_10)s, %(oids_11)s, %(oids_12)s, %(oids_13)s, %(oids_14)s, %(oids_15)s)) AS attr GROUP BY attr.conrelid, attr.conname ORDER BY attr.conrelid, attr.conname
-2025-06-12 10:15:59,215 INFO [cached since 0.2109s ago] {'generate_subscripts_1': 1, 'contype': 'u', 'oids_1': 17344, 'oids_2': 17384, 'oids_3': 17405, 'oids_4': 17418, 'oids_5': 17431, 'oids_6': 17368, 'oids_7': 17448, 'oids_8': 17357, 'oids_9': 17471, 'oids_10': 17489, 'oids_11': 17376, 'oids_12': 17509, 'oids_13': 17527, 'oids_14': 17547, 'oids_15': 17565}
-2025-06-12 10:15:59,217 INFO SELECT pg_catalog.pg_class.relname, pg_catalog.pg_description.description 
+2025-06-13 07:50:26,930 INFO [cached since 0.5416s ago] {'generate_subscripts_1': 1, 'contype': 'u', 'oids_1': 19462, 'oids_2': 19244, 'oids_3': 19284, 'oids_4': 19305, 'oids_5': 19318, 'oids_6': 19331, 'oids_7': 19268, 'oids_8': 19348, 'oids_9': 19257, 'oids_10': 19371, 'oids_11': 19389, 'oids_12': 19276, 'oids_13': 19406, 'oids_14': 19424, 'oids_15': 19444}
+2025-06-13 07:50:26,933 INFO SELECT pg_catalog.pg_class.relname, pg_catalog.pg_description.description 
 FROM pg_catalog.pg_class LEFT OUTER JOIN pg_catalog.pg_description ON pg_catalog.pg_class.oid = pg_catalog.pg_description.objoid AND pg_catalog.pg_description.objsubid = %(objsubid_1)s::INTEGER JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,218 INFO [cached since 0.2107s ago] {'objsubid_1': 0, 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,219 INFO SELECT pg_catalog.pg_class.relname, pg_catalog.pg_constraint.conname, CASE WHEN (pg_catalog.pg_constraint.oid IS NOT NULL) THEN pg_catalog.pg_get_constraintdef(pg_catalog.pg_constraint.oid, %(pg_get_constraintdef_1)s) END AS anon_1, pg_catalog.pg_description.description 
+2025-06-13 07:50:26,934 INFO [cached since 0.5416s ago] {'objsubid_1': 0, 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,936 INFO SELECT pg_catalog.pg_class.relname, pg_catalog.pg_constraint.conname, CASE WHEN (pg_catalog.pg_constraint.oid IS NOT NULL) THEN pg_catalog.pg_get_constraintdef(pg_catalog.pg_constraint.oid, %(pg_get_constraintdef_1)s) END AS anon_1, pg_catalog.pg_description.description 
 FROM pg_catalog.pg_class LEFT OUTER JOIN pg_catalog.pg_constraint ON pg_catalog.pg_class.oid = pg_catalog.pg_constraint.conrelid AND pg_catalog.pg_constraint.contype = %(contype_1)s::VARCHAR LEFT OUTER JOIN pg_catalog.pg_description ON pg_catalog.pg_description.objoid = pg_catalog.pg_constraint.oid JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR ORDER BY pg_catalog.pg_class.relname, pg_catalog.pg_constraint.conname
-2025-06-12 10:15:59,220 INFO [cached since 0.2111s ago] {'pg_get_constraintdef_1': True, 'contype_1': 'c', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,222 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,936 INFO [cached since 0.5405s ago] {'pg_get_constraintdef_1': True, 'contype_1': 'c', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,938 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR]) AND pg_catalog.pg_class.relpersistence = %(relpersistence_1)s::VARCHAR AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,223 INFO [cached since 0.2117s ago] {'param_1': 'r', 'param_2': 'p', 'relpersistence_1': 't', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,224 INFO ROLLBACK
-2025-06-12 10:15:59,225 INFO BEGIN (implicit)
-2025-06-12 10:15:59,225 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,939 INFO [cached since 0.5409s ago] {'param_1': 'r', 'param_2': 'p', 'relpersistence_1': 't', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,940 INFO ROLLBACK
+2025-06-13 07:50:26,941 INFO BEGIN (implicit)
+2025-06-13 07:50:26,942 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,226 INFO [cached since 0.2122s ago] {'table_name': 'UserAction', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,227 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,942 INFO [cached since 0.5356s ago] {'table_name': 'UserAction', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,944 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,227 INFO [cached since 0.2137s ago] {'table_name': 'user_tokens', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,228 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,944 INFO [cached since 0.5375s ago] {'table_name': 'user_tokens', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,945 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,228 INFO [cached since 0.2151s ago] {'table_name': 'Profile', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,229 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,946 INFO [cached since 0.5391s ago] {'table_name': 'Profile', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,947 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,230 INFO [cached since 0.2165s ago] {'table_name': 'Additional_telephone', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,231 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,948 INFO [cached since 0.5412s ago] {'table_name': 'Additional_telephone', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,949 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,231 INFO [cached since 0.2175s ago] {'table_name': 'Organization', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,232 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,950 INFO [cached since 0.5432s ago] {'table_name': 'Organization', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,951 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,232 INFO [cached since 0.2187s ago] {'table_name': 'Adress', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,233 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,952 INFO [cached since 0.545s ago] {'table_name': 'Adress', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,953 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,233 INFO [cached since 0.2199s ago] {'table_name': 'Categories', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,234 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,953 INFO [cached since 0.5468s ago] {'table_name': 'Categories', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,955 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,234 INFO [cached since 0.2207s ago] {'table_name': 'Action', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,235 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,955 INFO [cached since 0.5483s ago] {'table_name': 'Action', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,956 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,235 INFO [cached since 0.2218s ago] {'table_name': 'Product', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,236 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,957 INFO [cached since 0.55s ago] {'table_name': 'Product', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,958 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,236 INFO [cached since 0.2226s ago] {'table_name': 'Gfields', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,237 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,958 INFO [cached since 0.5515s ago] {'table_name': 'Gfields', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,959 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,237 INFO [cached since 0.2235s ago] {'table_name': 'Entity', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,237 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,960 INFO [cached since 0.5532s ago] {'table_name': 'Entity', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,961 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,238 INFO [cached since 0.2244s ago] {'table_name': 'User_basket', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,238 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,961 INFO [cached since 0.5548s ago] {'table_name': 'User_basket', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,962 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,239 INFO [cached since 0.2252s ago] {'table_name': 'Reviews', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,239 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,963 INFO [cached since 0.5564s ago] {'table_name': 'Reviews', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,964 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,239 INFO [cached since 0.2259s ago] {'table_name': 'Order', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,240 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:26,964 INFO [cached since 0.5577s ago] {'table_name': 'Order', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,965 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,240 INFO [cached since 0.2265s ago] {'table_name': 'Order_processor', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,240 INFO 
+2025-06-13 07:50:26,966 INFO [cached since 0.5591s ago] {'table_name': 'Order_processor', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:26,967 INFO 
 DROP TABLE "Order_processor"
-2025-06-12 10:15:59,241 INFO [no key 0.00020s] {}
-2025-06-12 10:15:59,242 INFO 
+2025-06-13 07:50:26,967 INFO [no key 0.00057s] {}
+2025-06-13 07:50:26,969 INFO 
 DROP TABLE "Order"
-2025-06-12 10:15:59,242 INFO [no key 0.00023s] {}
-2025-06-12 10:15:59,243 INFO 
+2025-06-13 07:50:26,970 INFO [no key 0.00051s] {}
+2025-06-13 07:50:26,971 INFO 
 DROP TABLE "Reviews"
-2025-06-12 10:15:59,243 INFO [no key 0.00031s] {}
-2025-06-12 10:15:59,244 INFO 
+2025-06-13 07:50:26,972 INFO [no key 0.00044s] {}
+2025-06-13 07:50:26,973 INFO 
 DROP TABLE "User_basket"
-2025-06-12 10:15:59,244 INFO [no key 0.00021s] {}
-2025-06-12 10:15:59,245 INFO 
+2025-06-13 07:50:26,974 INFO [no key 0.00053s] {}
+2025-06-13 07:50:26,975 INFO 
 DROP TABLE "Entity"
-2025-06-12 10:15:59,245 INFO [no key 0.00021s] {}
-2025-06-12 10:15:59,246 INFO 
+2025-06-13 07:50:26,976 INFO [no key 0.00055s] {}
+2025-06-13 07:50:26,981 INFO 
 DROP TABLE "UserAction"
-2025-06-12 10:15:59,246 INFO [no key 0.00028s] {}
-2025-06-12 10:15:59,247 INFO 
+2025-06-13 07:50:26,982 INFO [no key 0.00085s] {}
+2025-06-13 07:50:26,983 INFO 
 DROP TABLE "Product"
-2025-06-12 10:15:59,247 INFO [no key 0.00029s] {}
-2025-06-12 10:15:59,248 INFO 
+2025-06-13 07:50:26,984 INFO [no key 0.00070s] {}
+2025-06-13 07:50:26,987 INFO 
 DROP TABLE "Adress"
-2025-06-12 10:15:59,248 INFO [no key 0.00030s] {}
-2025-06-12 10:15:59,249 INFO 
+2025-06-13 07:50:26,987 INFO [no key 0.00068s] {}
+2025-06-13 07:50:26,989 INFO 
 DROP TABLE "Organization"
-2025-06-12 10:15:59,250 INFO [no key 0.00028s] {}
-2025-06-12 10:15:59,250 INFO 
+2025-06-13 07:50:26,990 INFO [no key 0.00055s] {}
+2025-06-13 07:50:26,991 INFO 
 DROP TABLE "Additional_telephone"
-2025-06-12 10:15:59,251 INFO [no key 0.00027s] {}
-2025-06-12 10:15:59,251 INFO 
+2025-06-13 07:50:26,992 INFO [no key 0.00117s] {}
+2025-06-13 07:50:26,995 INFO 
 DROP TABLE user_tokens
-2025-06-12 10:15:59,252 INFO [no key 0.00022s] {}
-2025-06-12 10:15:59,252 INFO 
+2025-06-13 07:50:26,995 INFO [no key 0.00046s] {}
+2025-06-13 07:50:26,997 INFO 
 DROP TABLE "Gfields"
-2025-06-12 10:15:59,253 INFO [no key 0.00029s] {}
-2025-06-12 10:15:59,253 INFO 
+2025-06-13 07:50:26,997 INFO [no key 0.00051s] {}
+2025-06-13 07:50:26,999 INFO 
 DROP TABLE "Action"
-2025-06-12 10:15:59,254 INFO [no key 0.00024s] {}
-2025-06-12 10:15:59,254 INFO 
+2025-06-13 07:50:26,999 INFO [no key 0.00047s] {}
+2025-06-13 07:50:27,000 INFO 
 DROP TABLE "Categories"
-2025-06-12 10:15:59,254 INFO [no key 0.00021s] {}
-2025-06-12 10:15:59,255 INFO 
+2025-06-13 07:50:27,001 INFO [no key 0.00040s] {}
+2025-06-13 07:50:27,002 INFO 
 DROP TABLE "Profile"
-2025-06-12 10:15:59,255 INFO [no key 0.00025s] {}
-2025-06-12 10:15:59,256 INFO COMMIT
-2025-06-12 10:15:59,260 INFO BEGIN (implicit)
-2025-06-12 10:15:59,260 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,002 INFO [no key 0.00046s] {}
+2025-06-13 07:50:27,003 INFO COMMIT
+2025-06-13 07:50:27,018 INFO BEGIN (implicit)
+2025-06-13 07:50:27,019 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,260 INFO [cached since 0.247s ago] {'table_name': 'UserAction', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,261 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,019 INFO [cached since 0.6124s ago] {'table_name': 'UserAction', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,021 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,261 INFO [cached since 0.2481s ago] {'table_name': 'user_tokens', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,262 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,021 INFO [cached since 0.6143s ago] {'table_name': 'user_tokens', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,023 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,262 INFO [cached since 0.249s ago] {'table_name': 'Profile', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,263 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,023 INFO [cached since 0.6163s ago] {'table_name': 'Profile', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,024 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,263 INFO [cached since 0.2499s ago] {'table_name': 'Additional_telephone', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,264 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,025 INFO [cached since 0.6182s ago] {'table_name': 'Additional_telephone', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,026 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,264 INFO [cached since 0.2507s ago] {'table_name': 'Organization', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,265 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,026 INFO [cached since 0.6198s ago] {'table_name': 'Organization', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,027 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,265 INFO [cached since 0.2515s ago] {'table_name': 'Adress', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,265 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,028 INFO [cached since 0.6211s ago] {'table_name': 'Adress', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,029 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,266 INFO [cached since 0.2524s ago] {'table_name': 'Categories', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,266 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,029 INFO [cached since 0.6227s ago] {'table_name': 'Categories', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,030 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,267 INFO [cached since 0.2532s ago] {'table_name': 'Action', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,267 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,031 INFO [cached since 0.6244s ago] {'table_name': 'Action', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,032 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,267 INFO [cached since 0.2539s ago] {'table_name': 'Product', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,268 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,033 INFO [cached since 0.6264s ago] {'table_name': 'Product', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,034 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,268 INFO [cached since 0.2546s ago] {'table_name': 'Gfields', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,268 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,035 INFO [cached since 0.6279s ago] {'table_name': 'Gfields', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,035 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,269 INFO [cached since 0.2553s ago] {'table_name': 'Entity', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,269 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,036 INFO [cached since 0.6293s ago] {'table_name': 'Entity', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,037 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,269 INFO [cached since 0.2561s ago] {'table_name': 'User_basket', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,270 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,038 INFO [cached since 0.6311s ago] {'table_name': 'User_basket', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,039 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,270 INFO [cached since 0.2568s ago] {'table_name': 'Reviews', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,270 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,039 INFO [cached since 0.6324s ago] {'table_name': 'Reviews', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,040 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,271 INFO [cached since 0.2574s ago] {'table_name': 'Order', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,271 INFO SELECT pg_catalog.pg_class.relname 
+2025-06-13 07:50:27,040 INFO [cached since 0.6336s ago] {'table_name': 'Order', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,041 INFO SELECT pg_catalog.pg_class.relname 
 FROM pg_catalog.pg_class JOIN pg_catalog.pg_namespace ON pg_catalog.pg_namespace.oid = pg_catalog.pg_class.relnamespace 
 WHERE pg_catalog.pg_class.relname = %(table_name)s::VARCHAR AND pg_catalog.pg_class.relkind = ANY (ARRAY[%(param_1)s::VARCHAR, %(param_2)s::VARCHAR, %(param_3)s::VARCHAR, %(param_4)s::VARCHAR, %(param_5)s::VARCHAR]) AND pg_catalog.pg_table_is_visible(pg_catalog.pg_class.oid) AND pg_catalog.pg_namespace.nspname != %(nspname_1)s::VARCHAR
-2025-06-12 10:15:59,271 INFO [cached since 0.2581s ago] {'table_name': 'Order_processor', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
-2025-06-12 10:15:59,272 INFO 
+2025-06-13 07:50:27,042 INFO [cached since 0.6351s ago] {'table_name': 'Order_processor', 'param_1': 'r', 'param_2': 'p', 'param_3': 'f', 'param_4': 'v', 'param_5': 'm', 'nspname_1': 'pg_catalog'}
+2025-06-13 07:50:27,043 INFO 
 CREATE TABLE "Profile" (
 	id_profile SERIAL NOT NULL, 
 	date_created TIMESTAMP WITHOUT TIME ZONE DEFAULT TIMEZONE('utc', now()) NOT NULL, 
@@ -250,8 +250,8 @@ CREATE TABLE "Profile" (
 )
 
 
-2025-06-12 10:15:59,272 INFO [no key 0.00025s] {}
-2025-06-12 10:15:59,276 INFO 
+2025-06-13 07:50:27,043 INFO [no key 0.00051s] {}
+2025-06-13 07:50:27,050 INFO 
 CREATE TABLE "Categories" (
 	id_categories SERIAL NOT NULL, 
 	name_categories VARCHAR(50) NOT NULL, 
@@ -261,8 +261,8 @@ CREATE TABLE "Categories" (
 )
 
 
-2025-06-12 10:15:59,277 INFO [no key 0.00039s] {}
-2025-06-12 10:15:59,281 INFO 
+2025-06-13 07:50:27,051 INFO [no key 0.00085s] {}
+2025-06-13 07:50:27,059 INFO 
 CREATE TABLE "Action" (
 	id_action SERIAL NOT NULL, 
 	action VARCHAR(50) NOT NULL, 
@@ -271,8 +271,8 @@ CREATE TABLE "Action" (
 )
 
 
-2025-06-12 10:15:59,281 INFO [no key 0.00037s] {}
-2025-06-12 10:15:59,284 INFO 
+2025-06-13 07:50:27,060 INFO [no key 0.00068s] {}
+2025-06-13 07:50:27,064 INFO 
 CREATE TABLE "Gfields" (
 	id_gfields SERIAL NOT NULL, 
 	name_gfields VARCHAR(50) NOT NULL, 
@@ -280,8 +280,8 @@ CREATE TABLE "Gfields" (
 )
 
 
-2025-06-12 10:15:59,284 INFO [no key 0.00043s] {}
-2025-06-12 10:15:59,287 INFO 
+2025-06-13 07:50:27,064 INFO [no key 0.00063s] {}
+2025-06-13 07:50:27,069 INFO 
 CREATE TABLE user_tokens (
 	id_token SERIAL NOT NULL, 
 	id_profile INTEGER NOT NULL, 
@@ -296,8 +296,8 @@ CREATE TABLE user_tokens (
 )
 
 
-2025-06-12 10:15:59,287 INFO [no key 0.00039s] {}
-2025-06-12 10:15:59,294 INFO 
+2025-06-13 07:50:27,070 INFO [no key 0.00065s] {}
+2025-06-13 07:50:27,081 INFO 
 CREATE TABLE "Additional_telephone" (
 	id_add_teleph SERIAL NOT NULL, 
 	id_profile INTEGER NOT NULL, 
@@ -307,8 +307,8 @@ CREATE TABLE "Additional_telephone" (
 )
 
 
-2025-06-12 10:15:59,295 INFO [no key 0.00042s] {}
-2025-06-12 10:15:59,297 INFO 
+2025-06-13 07:50:27,081 INFO [no key 0.00062s] {}
+2025-06-13 07:50:27,086 INFO 
 CREATE TABLE "Organization" (
 	id_organization SERIAL NOT NULL, 
 	id_profile INTEGER NOT NULL, 
@@ -318,8 +318,8 @@ CREATE TABLE "Organization" (
 )
 
 
-2025-06-12 10:15:59,298 INFO [no key 0.00034s] {}
-2025-06-12 10:15:59,301 INFO 
+2025-06-13 07:50:27,087 INFO [no key 0.00064s] {}
+2025-06-13 07:50:27,091 INFO 
 CREATE TABLE "Adress" (
 	id_adress SERIAL NOT NULL, 
 	id_profile INTEGER NOT NULL, 
@@ -334,13 +334,13 @@ CREATE TABLE "Adress" (
 )
 
 
-2025-06-12 10:15:59,301 INFO [no key 0.00054s] {}
-2025-06-12 10:15:59,305 INFO CREATE INDEX "ix_Adress_id_adress" ON "Adress" (id_adress)
-2025-06-12 10:15:59,306 INFO [no key 0.00033s] {}
-2025-06-12 10:15:59,308 INFO 
+2025-06-13 07:50:27,091 INFO [no key 0.00054s] {}
+2025-06-13 07:50:27,098 INFO CREATE INDEX "ix_Adress_id_adress" ON "Adress" (id_adress)
+2025-06-13 07:50:27,098 INFO [no key 0.00099s] {}
+2025-06-13 07:50:27,102 INFO 
 CREATE TABLE "Product" (
 	id_product SERIAL NOT NULL, 
-	action_id INTEGER NOT NULL, 
+	action_id INTEGER, 
 	categories_id INTEGER NOT NULL, 
 	date_created TIMESTAMP WITHOUT TIME ZONE DEFAULT TIMEZONE('utc', now()) NOT NULL, 
 	date_update TIMESTAMP WITHOUT TIME ZONE DEFAULT TIMEZONE('utc', now()) NOT NULL, 
@@ -357,8 +357,8 @@ CREATE TABLE "Product" (
 )
 
 
-2025-06-12 10:15:59,309 INFO [no key 0.00036s] {}
-2025-06-12 10:15:59,313 INFO 
+2025-06-13 07:50:27,103 INFO [no key 0.00061s] {}
+2025-06-13 07:50:27,109 INFO 
 CREATE TABLE "UserAction" (
 	id_action SERIAL NOT NULL, 
 	profile_id INTEGER NOT NULL, 
@@ -372,12 +372,11 @@ CREATE TABLE "UserAction" (
 )
 
 
-2025-06-12 10:15:59,314 INFO [no key 0.00039s] {}
-2025-06-12 10:15:59,317 INFO 
+2025-06-13 07:50:27,109 INFO [no key 0.00058s] {}
+2025-06-13 07:50:27,114 INFO 
 CREATE TABLE "Entity" (
 	product_id INTEGER NOT NULL, 
 	gfields_id INTEGER NOT NULL, 
-	name_har VARCHAR(350) NOT NULL, 
 	cost_har VARCHAR(350) NOT NULL, 
 	PRIMARY KEY (product_id, gfields_id), 
 	FOREIGN KEY(product_id) REFERENCES "Product" (id_product) ON DELETE CASCADE, 
@@ -385,8 +384,8 @@ CREATE TABLE "Entity" (
 )
 
 
-2025-06-12 10:15:59,317 INFO [no key 0.00035s] {}
-2025-06-12 10:15:59,321 INFO 
+2025-06-13 07:50:27,114 INFO [no key 0.00069s] {}
+2025-06-13 07:50:27,119 INFO 
 CREATE TABLE "User_basket" (
 	id_us_storage SERIAL NOT NULL, 
 	id_profile INTEGER NOT NULL, 
@@ -398,8 +397,8 @@ CREATE TABLE "User_basket" (
 )
 
 
-2025-06-12 10:15:59,322 INFO [no key 0.00030s] {}
-2025-06-12 10:15:59,324 INFO 
+2025-06-13 07:50:27,120 INFO [no key 0.00070s] {}
+2025-06-13 07:50:27,124 INFO 
 CREATE TABLE "Reviews" (
 	id_reviews SERIAL NOT NULL, 
 	profile_id INTEGER NOT NULL, 
@@ -415,8 +414,8 @@ CREATE TABLE "Reviews" (
 )
 
 
-2025-06-12 10:15:59,325 INFO [no key 0.00027s] {}
-2025-06-12 10:15:59,328 INFO 
+2025-06-13 07:50:27,125 INFO [no key 0.00059s] {}
+2025-06-13 07:50:27,130 INFO 
 CREATE TABLE "Order" (
 	id_order SERIAL NOT NULL, 
 	id_product INTEGER NOT NULL, 
@@ -428,8 +427,8 @@ CREATE TABLE "Order" (
 )
 
 
-2025-06-12 10:15:59,328 INFO [no key 0.00040s] {}
-2025-06-12 10:15:59,331 INFO 
+2025-06-13 07:50:27,130 INFO [no key 0.00077s] {}
+2025-06-13 07:50:27,135 INFO 
 CREATE TABLE "Order_processor" (
 	id_order_proc SERIAL NOT NULL, 
 	id_order INTEGER NOT NULL, 
@@ -448,29 +447,40 @@ CREATE TABLE "Order_processor" (
 )
 
 
-2025-06-12 10:15:59,331 INFO [no key 0.00032s] {}
-2025-06-12 10:15:59,336 INFO COMMIT
-2025-06-12 10:15:59,338 INFO BEGIN (implicit)
-2025-06-12 10:15:59,338 INFO INSERT INTO "Action" (action, discount) SELECT p0::VARCHAR, p1::INTEGER FROM (VALUES (%(action__0)s::VARCHAR, %(discount__0)s::INTEGER, 0), (%(action__1)s::VARCHAR, %(discount__1)s::INTEGER, 1)) AS imp_sen(p0, p1, sen_counter) ORDER BY sen_counter RETURNING "Action".id_action, "Action".id_action AS id_action__1
-2025-06-12 10:15:59,339 INFO [cached since 0.2306s ago (insertmanyvalues) 1/1 (ordered)] {'discount__0': 0, 'action__0': 'нет акции', 'discount__1': 20, 'action__1': 'распродажа'}
-2025-06-12 10:15:59,340 INFO INSERT INTO "Categories" (name_categories, url, id_parent) SELECT p0::VARCHAR, p1::VARCHAR, p2::INTEGER FROM (VALUES (%(name_categories__0)s::VARCHAR, %(url__0)s::VARCHAR, %(id_parent__0)s::INTEGER, 0), (%(name_categories__1)s::VARCHAR, %(url__1)s::VARCHAR, %(id_parent__1)s::INTEGER, 1)) AS imp_sen(p0, p1, p2, sen_counter) ORDER BY sen_counter RETURNING "Categories".id_categories, "Categories".id_categories AS id_categories__1
-2025-06-12 10:15:59,340 INFO [cached since 0.2306s ago (insertmanyvalues) 1/1 (ordered)] {'url__0': 'electrical engineering', 'name_categories__0': 'электротехника', 'id_parent__0': None, 'url__1': 'furniture', 'name_categories__1': 'мебель', 'id_parent__1': None}
-2025-06-12 10:15:59,341 INFO INSERT INTO "Profile" (mail, phone, name, password, birthday, gender, bonus) VALUES (%(mail)s::VARCHAR, %(phone)s::VARCHAR, %(name)s::VARCHAR, %(password)s::VARCHAR, %(birthday)s::VARCHAR, %(gender)s::VARCHAR, %(bonus)s::INTEGER) RETURNING "Profile".id_profile, "Profile".date_created, "Profile".date_update
-2025-06-12 10:15:59,342 INFO [cached since 0.2307s ago] {'mail': 'gena335@gmail.coms', 'phone': '+375252185522', 'name': 'Генадий', 'password': '37891', 'birthday': None, 'gender': None, 'bonus': 0}
-2025-06-12 10:15:59,342 INFO COMMIT
-2025-06-12 10:15:59,344 INFO BEGIN (implicit)
-2025-06-12 10:15:59,344 INFO INSERT INTO "Product" (action_id, categories_id, name_product, brand, price, quantity_in_stock, rating, status, img) SELECT p0::INTEGER, p1::INTEGER, p2::VARCHAR, p3::VARCHAR, p4::INTEGER, p5::INTEGER, p6::INTEGER, p7::VARCHAR, p8::VARCHAR FROM (VALU ... 586 characters truncated ... ct".id_product, "Product".date_created, "Product".date_update, "Product".id_product AS id_product__1
-2025-06-12 10:15:59,344 INFO [cached since 0.2304s ago (insertmanyvalues) 1/1 (ordered)] {'status__0': 'статус', 'brand__0': 'Bosh', 'action_id__0': 1, 'quantity_in_stock__0': 0, 'categories_id__0': 1, 'img__0': 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcS2Q0pNt-TXHzKJLkr3nTMFsX8LPpC7UIX9SCUDT4JJcSgp3kVuWyW36nvJUwmlq7fDB9HATY0ewXIewsn_oWTva6enJSF7Goa-wyS468AlauEfrpxFN-4Q4NmnYrn-Pw&usqp=CAc', 'price__0': 100, 'rating__0': 10, 'name_product__0': 'чайник', 'status__1': 'статус', 'brand__1': 'Sony', 'action_id__1': 1, 'quantity_in_stock__1': 0, 'categories_id__1': 1, 'img__1': 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRT03OcqQBmznYxDX4YmpJtD4hZL9mDi9oQdS0KCLR4iGQyJ90uaOydTfRNtdLPRzI5sSUghZ7sPuKuHtd6szkVZjpKdrnQn5gCKUUtTKg2suXoOpEJ2kKSHLsBaYbCFfAatd30wJY&usqp=CAc', 'price__1': 2499, 'rating__1': 100, 'name_product__1': 'телевизор'}
-2025-06-12 10:15:59,346 INFO INSERT INTO "Product" (action_id, categories_id, name_product, brand, price, quantity_in_stock, rating, status, img) VALUES (%(action_id)s::INTEGER, %(categories_id)s::INTEGER, %(name_product)s::VARCHAR, %(brand)s::VARCHAR, %(price)s::INTEGER, %(quantity_in_stock)s::INTEGER, %(rating)s::INTEGER, %(status)s::VARCHAR, %(img)s::VARCHAR) RETURNING "Product".id_product, "Product".date_created, "Product".date_update
-2025-06-12 10:15:59,346 INFO [cached since 0.2306s ago] {'action_id': 2, 'categories_id': 2, 'name_product': 'диван', 'brand': 'Амимебель', 'price': 2799, 'quantity_in_stock': 0, 'rating': 0, 'status': 'статус', 'img': 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRbm8eZaYugrvnCJ473vlxXfZcqim_TvlnGxw_h93dSNUbUldrc5EVbSc3Nv3Tt7v-FyoN5z02SAy8p_VZBGi7WSiT3eeZSreXWuAXVaGUTZbhB07tw_PARd1kkQCW3-MZ7FN4ZnhV6jxk&usqp=CAc'}
-2025-06-12 10:15:59,347 INFO COMMIT
-2025-06-12 10:15:59,348 INFO BEGIN (implicit)
-2025-06-12 10:15:59,348 INFO INSERT INTO "Gfields" (name_gfields) VALUES (%(name_gfields)s::VARCHAR) RETURNING "Gfields".id_gfields
-2025-06-12 10:15:59,348 INFO [cached since 0.2307s ago] {'name_gfields': 'size'}
-2025-06-12 10:15:59,349 INFO INSERT INTO "Reviews" (profile_id, product_id, reviews, "like", dislike) SELECT p0::INTEGER, p1::INTEGER, p2::VARCHAR, p3::INTEGER, p4::INTEGER FROM (VALUES (%(profile_id__0)s::INTEGER, %(product_id__0)s::INTEGER, %(reviews__0)s::VARCHAR, %(like__0)s ... 387 characters truncated ... ws".id_reviews, "Reviews".date_created, "Reviews".date_update, "Reviews".id_reviews AS id_reviews__1
-2025-06-12 10:15:59,350 INFO [cached since 0.2304s ago (insertmanyvalues) 1/1 (ordered)] {'reviews__0': 'плохой товар!!(((', 'product_id__0': 1, 'dislike__0': 0, 'profile_id__0': 1, 'like__0': 0, 'reviews__1': 'чайник??', 'product_id__1': 2, 'dislike__1': 0, 'profile_id__1': 1, 'like__1': 0, 'reviews__2': 'ладно ок', 'product_id__2': 2, 'dislike__2': 0, 'profile_id__2': 1, 'like__2': 0}
-2025-06-12 10:15:59,351 INFO COMMIT
-2025-06-12 10:15:59,352 INFO BEGIN (implicit)
-2025-06-12 10:15:59,353 INFO INSERT INTO "Entity" (product_id, gfields_id, name_har, cost_har) VALUES (%(product_id)s::INTEGER, %(gfields_id)s::INTEGER, %(name_har)s::VARCHAR, %(cost_har)s::VARCHAR)
-2025-06-12 10:15:59,353 INFO [cached since 0.231s ago] {'product_id': 1, 'gfields_id': 1, 'name_har': 'size', 'cost_har': 25}
-2025-06-12 10:15:59,354 INFO COMMIT
+2025-06-13 07:50:27,135 INFO [no key 0.00060s] {}
+2025-06-13 07:50:27,141 INFO COMMIT
+2025-06-13 07:50:27,160 INFO BEGIN (implicit)
+2025-06-13 07:50:27,161 INFO INSERT INTO "Profile" (mail, phone, name, password, birthday, gender, bonus) VALUES (%(mail)s::VARCHAR, %(phone)s::VARCHAR, %(name)s::VARCHAR, %(password)s::VARCHAR, %(birthday)s::VARCHAR, %(gender)s::VARCHAR, %(bonus)s::INTEGER) RETURNING "Profile".id_profile, "Profile".date_created, "Profile".date_update
+2025-06-13 07:50:27,161 INFO [cached since 0.5609s ago] {'mail': 'gena335@gmail.coms', 'phone': '+375252185522', 'name': 'Генадий', 'password': '335335', 'birthday': None, 'gender': None, 'bonus': 0}
+2025-06-13 07:50:27,163 INFO COMMIT
+2025-06-13 07:50:27,166 INFO BEGIN (implicit)
+2025-06-13 07:50:27,169 INFO INSERT INTO "Categories" (name_categories, url, id_parent) SELECT p0::VARCHAR, p1::VARCHAR, p2::INTEGER FROM (VALUES (%(name_categories__0)s::VARCHAR, %(url__0)s::VARCHAR, %(id_parent__0)s::INTEGER, 0), (%(name_categories__1)s::VARCHAR, %(url__1)s::V ... 15824 characters truncated ...  BY sen_counter RETURNING "Categories".id_categories, "Categories".id_categories AS id_categories__1
+2025-06-13 07:50:27,169 INFO [cached since 0.5107s ago (insertmanyvalues) 1/1 (ordered)] {'url__0': 'kitchen', 'id_parent__0': None, 'name_categories__0': 'Бытовая техника', 'url__1': 'electronics', 'id_parent__1': None, 'name_categories__1': 'Смартфоны, ТВ и электроника', 'url__2': 'computers', 'id_parent__2': None, 'name_categories__2': 'Компьютеры и периферия', 'url__3': 'furniture', 'id_parent__3': None, 'name_categories__3': 'Мебель', 'url__4': 'house', 'id_parent__4': None, 'name_categories__4': 'Товары для дома', 'url__5': 'sanitary_engineering', 'id_parent__5': None, 'name_categories__5': 'Сантехника и водоснабжение', 'url__6': 'construction', 'id_parent__6': None, 'name_categories__6': 'Строительство', 'url__7': 'repairs', 'id_parent__7': None, 'name_categories__7': 'Ремонт и отделка', 'url__8': 'repairing_tools', 'id_parent__8': None, 'name_categories__8': 'Строительный инструмент', 'url__9': 'garden', 'id_parent__9': None, 'name_categories__9': 'Дом и сад', 'url__10': 'cars', 'id_parent__10': None, 'name_categories__10': 'Авто и мото', 'url__11': 'kid_categoriess', 'id_parent__11': None, 'name_categories__11': 'Игрушки, товары для детей', 'url__12': 'beauty', 'id_parent__12': None, 'name_categories__12': 'Красота и стиль', 'url__13': 'beauty_and_health', 'id_parent__13': None, 'name_categories__13': 'Здоровье', 'url__14': 'sport', 'id_parent__14': None, 'name_categories__14': 'Спорт', 'url__15': 'tourism_activities', 'id_parent__15': None, 'name_categories__15': 'Туризм, активный отдых', 'url__16': 'pet_supplies', 'id_parent__16': None ... 422 parameters truncated ... 'id_parent__157': 152, 'name_categories__157': 'Средства для ухода за техникой', 'url__158': 'clothing_care_appliances', 'id_parent__158': 1, 'name_categories__158': 'Техника для ухода за одеждой', 'url__159': 'washing_machines', 'id_parent__159': 159, 'name_categories__159': 'Стиральные машины', 'url__160': 'builtin_washing_machines', 'id_parent__160': 159, 'name_categories__160': 'Стиральные машины встраиваемые', 'url__161': 'irons', 'id_parent__161': 159, 'name_categories__161': 'Утюги', 'url__162': 'garment_steamers', 'id_parent__162': 159, 'name_categories__162': 'Отпариватели', 'url__163': 'sewing_machines', 'id_parent__163': 159, 'name_categories__163': 'Швейные, вышивальные машины', 'url__164': 'prof_sewing', 'id_parent__164': 159, 'name_categories__164': 'Промышленные швейные машины', 'url__165': 'overlocks', 'id_parent__165': 159, 'name_categories__165': 'Оверлоки', 'url__166': 'climate', 'id_parent__166': 1, 'name_categories__166': 'Климатическая техника', 'url__167': 'blowers', 'id_parent__167': 167, 'name_categories__167': 'Вентиляторы бытовые', 'url__168': 'conditioners', 'id_parent__168': 167, 'name_categories__168': 'Кондиционеры, сплит-системы', 'url__169': 'air_coolers', 'id_parent__169': 167, 'name_categories__169': 'Охладители воздуха', 'url__170': 'waterheaters', 'id_parent__170': 167, 'name_categories__170': 'Водонагреватели', 'url__171': 'humidifiers', 'id_parent__171': 167, 'name_categories__171': 'Увлажнители, очистители воздуха', 'url__172': 'fireplaces', 'id_parent__172': 167, 'name_categories__172': 'Камины, печи', 'url__173': 'heaters', 'id_parent__173': 167, 'name_categories__173': 'Обогреватели'}
+2025-06-13 07:50:27,175 INFO COMMIT
+2025-06-13 07:50:27,177 INFO BEGIN (implicit)
+2025-06-13 07:50:27,178 INFO INSERT INTO "Action" (action, discount) SELECT p0::VARCHAR, p1::INTEGER FROM (VALUES (%(action__0)s::VARCHAR, %(discount__0)s::INTEGER, 0), (%(action__1)s::VARCHAR, %(discount__1)s::INTEGER, 1), (%(action__2)s::VARCHAR, %(discount__2)s::INTEGER, 2)) AS imp_sen(p0, p1, sen_counter) ORDER BY sen_counter RETURNING "Action".id_action, "Action".id_action AS id_action__1
+2025-06-13 07:50:27,178 INFO [cached since 0.4985s ago (insertmanyvalues) 1/1 (ordered)] {'action__0': 'Скидка 6% на все смартфоны Apple', 'discount__0': 6, 'action__1': 'Скоро лето! Скидка 10% на все холодильники', 'discount__1': 10, 'action__2': 'Время футбола! Скидка 7% на все холодильники', 'discount__2': 7}
+2025-06-13 07:50:27,180 INFO COMMIT
+2025-06-13 07:50:27,182 INFO BEGIN (implicit)
+2025-06-13 07:50:27,184 INFO INSERT INTO "Product" (action_id, categories_id, date_created, date_update, name_product, brand, price, quantity_in_stock, rating, status, img) SELECT p0::INTEGER, p1::INTEGER, p2::TIMESTAMP WITHOUT TIME ZONE, p3::TIMESTAMP WITHOUT TIME ZONE, p4::VAR ... 16320 characters truncated ... _counter) ORDER BY sen_counter RETURNING "Product".id_product, "Product".id_product AS id_product__1
+2025-06-13 07:50:27,184 INFO [cached since 0.4962s ago (insertmanyvalues) 1/1 (ordered)] {'quantity_in_stock__0': 20, 'date_created__0': '2025-06-12T12:00:00Z', 'categories_id__0': 26, 'rating__0': 0, 'action_id__0': None, 'img__0': 'https://filearchive.cnews.ru/mrtest/images/goods_gallery/423/34423_gallery_0.jpg', 'price__0': 1249, 'brand__0': 'Motorolla', 'date_update__0': '2025-06-13T12:00:00Z', 'name_product__0': 'Смартфон Motorolla X100', 'status__0': 'В наличии', 'quantity_in_stock__1': 6, 'date_created__1': '2025-06-12T12:00:00Z', 'categories_id__1': 26, 'rating__1': 0, 'action_id__1': None, 'img__1': 'https://habrastorage.org/webt/t8/n3/lr/t8n3lrmagyx2oocbxqjj7b3_ag8.png', 'price__1': 1555, 'brand__1': 'Motorolla', 'date_update__1': '2025-06-13T12:00:00Z', 'name_product__1': 'Смартфон Motorolla X200', 'status__1': 'В наличии', 'quantity_in_stock__2': 69, 'date_created__2': '2025-06-12T12:00:00Z', 'categories_id__2': 26, 'rating__2': 0, 'action_id__2': None, 'img__2': 'https://sotali.ru/image/catalog/telefon/motorola/motorola-razr-v3i/motorola-razr-v3i.jpg', 'price__2': 2039, 'brand__2': 'Motorolla', 'date_update__2': '2025-06-13T12:00:00Z', 'name_product__2': 'Смартфон Motorolla X300', 'status__2': 'В наличии', 'quantity_in_stock__3': 345, 'date_created__3': '2025-06-12T12:00:00Z', 'categories_id__3': 27, 'rating__3': 0, 'action_id__3': 1, 'img__3': 'https://www.ixbt.com/img/r30/00/02/23/14/Appleiphone11familylineup091019.jpg', 'price__3': 1249, 'brand__3': 'Apple', 'date_update__3': '2025-06-13T12:00:00Z', 'name_product__3': 'Смартфон Iphone 11', 'status__3': 'В наличии', 'quantity_in_stock__4': 145, 'date_created__4': '2025-06-12T12:00:00Z', 'categories_id__4': 27, 'rating__4': 0, 'action_id__4': 1, 'img__4': 'https://smartspot.lt/wp-content/uploads/2023/10/apple-iphone-12-64gb-melynas-blue_rga33lE.jpeg' ... 406 parameters truncated ... 'img__41': 'https://cdn1.ozone.ru/s3/multimedia-1-f/7417003731.jpg', 'price__41': 1299, 'brand__41': 'Samsung', 'date_update__41': '2025-06-13T12:00:00Z', 'name_product__41': 'Телевизор Samsung Crystal UHD 55', 'status__41': 'В наличии', 'quantity_in_stock__42': 7, 'date_created__42': '2025-06-12T12:00:00Z', 'categories_id__42': 71, 'rating__42': 0, 'action_id__42': 3, 'img__42': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMx33xSvEiAQfL1wXY8gXtApytfo-_WOAZEQ&s', 'price__42': 2999, 'brand__42': 'Sony', 'date_update__42': '2025-06-13T12:00:00Z', 'name_product__42': 'Телевизор Sony Bravia OLED A80K 55', 'status__42': 'В наличии', 'quantity_in_stock__43': 11, 'date_created__43': '2025-06-12T12:00:00Z', 'categories_id__43': 71, 'rating__43': 0, 'action_id__43': 3, 'img__43': 'https://www.philips.co.nz/c-dam/b2c/tv/categorypage/master/oled-plus-2021-remake/oled-plus-936-frontal-v3.jpg', 'price__43': 3499, 'brand__43': 'Philips', 'date_update__43': '2025-06-13T12:00:00Z', 'name_product__43': 'Телевизор Philips OLED+935 55', 'status__43': 'В наличии', 'quantity_in_stock__44': 9, 'date_created__44': '2025-06-12T12:00:00Z', 'categories_id__44': 71, 'rating__44': 0, 'action_id__44': 3, 'img__44': 'https://cdn1.ozone.ru/s3/multimedia-f/6529492767.jpg', 'price__44': 3299, 'brand__44': 'Panasonic', 'date_update__44': '2025-06-13T12:00:00Z', 'name_product__44': 'Телевизор Panasonic OLED 65', 'status__44': 'В наличии', 'quantity_in_stock__45': 20, 'date_created__45': '2025-06-12T12:00:00Z', 'categories_id__45': 71, 'rating__45': 0, 'action_id__45': 3, 'img__45': 'https://cdn1.ozone.ru/s3/multimedia-1-8/7021009988.jpg', 'price__45': 1199, 'brand__45': 'Toshiba', 'date_update__45': '2025-06-13T12:00:00Z', 'name_product__45': 'Телевизор Toshiba 4K LED 50', 'status__45': 'В наличии'}
+2025-06-13 07:50:27,190 INFO COMMIT
+2025-06-13 07:50:27,192 INFO BEGIN (implicit)
+2025-06-13 07:50:27,193 INFO INSERT INTO "Gfields" (name_gfields) SELECT p0::VARCHAR FROM (VALUES (%(name_gfields__0)s::VARCHAR, 0), (%(name_gfields__1)s::VARCHAR, 1), (%(name_gfields__2)s::VARCHAR, 2), (%(name_gfields__3)s::VARCHAR, 3), (%(name_gfields__4)s::VARCHAR, 4), (%(nam ... 483 characters truncated ... _counter) ORDER BY sen_counter RETURNING "Gfields".id_gfields, "Gfields".id_gfields AS id_gfields__1
+2025-06-13 07:50:27,193 INFO [cached since 0.495s ago (insertmanyvalues) 1/1 (ordered)] {'name_gfields__0': 'Диагональ экрана', 'name_gfields__1': 'Разрешение экрана', 'name_gfields__2': 'Процессор', 'name_gfields__3': 'Оперативная память', 'name_gfields__4': 'Встроенная память', 'name_gfields__5': 'Ёмкость батареи', 'name_gfields__6': 'Диагональ экрана', 'name_gfields__7': 'Технология экрана', 'name_gfields__8': 'Разрешение экрана', 'name_gfields__9': 'Smart TV', 'name_gfields__10': 'Количество HDMI портов', 'name_gfields__11': 'Поддержка HDR', 'name_gfields__12': 'Общий объем', 'name_gfields__13': 'Тип управления', 'name_gfields__14': 'Класс энергоэффективности', 'name_gfields__15': 'Количество камер', 'name_gfields__16': 'Высота', 'name_gfields__17': 'Уровень шума'}
+2025-06-13 07:50:27,195 INFO COMMIT
+2025-06-13 07:50:27,198 INFO BEGIN (implicit)
+2025-06-13 07:50:27,201 INFO INSERT INTO "Entity" (product_id, gfields_id, cost_har) VALUES (%(product_id)s::INTEGER, %(gfields_id)s::INTEGER, %(cost_har)s::VARCHAR)
+2025-06-13 07:50:27,201 INFO [cached since 0.4936s ago] [{'product_id': 1, 'gfields_id': 1, 'cost_har': '6.2 inches'}, {'product_id': 1, 'gfields_id': 2, 'cost_har': '1080 x 2400'}, {'product_id': 1, 'gfields_id': 3, 'cost_har': 'Exynos 2100'}, {'product_id': 1, 'gfields_id': 4, 'cost_har': '6 GB'}, {'product_id': 1, 'gfields_id': 5, 'cost_har': '256 GB'}, {'product_id': 1, 'gfields_id': 6, 'cost_har': '4500 mAh'}, {'product_id': 2, 'gfields_id': 1, 'cost_har': '6.4 inches'}, {'product_id': 2, 'gfields_id': 2, 'cost_har': '1080 x 2400'}  ... displaying 10 of 276 total bound parameter sets ...  {'product_id': 46, 'gfields_id': 11, 'cost_har': '4 порта'}, {'product_id': 46, 'gfields_id': 12, 'cost_har': 'Dolby Vision'}]
+2025-06-13 07:50:27,208 INFO COMMIT
+2025-06-13 07:50:41,607 INFO select pg_catalog.version()
+2025-06-13 07:50:41,608 INFO [raw sql] {}
+2025-06-13 07:50:41,611 INFO select current_schema()
+2025-06-13 07:50:41,612 INFO [raw sql] {}
+2025-06-13 07:50:41,616 INFO show standard_conforming_strings
+2025-06-13 07:50:41,617 INFO [raw sql] {}
+2025-06-13 07:50:41,625 INFO BEGIN (implicit)
+2025-06-13 07:50:41,630 INFO SELECT "Categories".id_categories, "Categories".name_categories, "Categories".url, "Categories".id_parent, "Product".id_product, "Product".action_id, "Product".categories_id, "Product".date_created, "Product".date_update, "Product".name_product, "Product".brand, "Product".price, "Product".quantity_in_stock, "Product".rating, "Product".status, "Product".img 
+FROM "Categories" JOIN "Product" ON "Categories".id_categories = "Product".categories_id ORDER BY "Categories".name_categories ASC
+2025-06-13 07:50:41,631 INFO [generated in 0.00113s] {}
+2025-06-13 07:50:41,639 INFO ROLLBACK

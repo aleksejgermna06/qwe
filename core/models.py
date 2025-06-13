@@ -165,7 +165,6 @@ class Entity(Base):
     gfields_id: Mapped[int] = mapped_column(
         ForeignKey("Gfields.id_gfields", ondelete="CASCADE"), primary_key=True
     )
-    name_har: Mapped[str] = mapped_column(String(350))
     cost_har: Mapped[str] = mapped_column(String(350))
 
 

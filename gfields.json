@@ -1,0 +1,74 @@
+[
+    {
+      "id_gfields": 1,
+      "name_gfields": "Диагональ экрана"
+    },
+    {
+      "id_gfields": 2,
+      "name_gfields": "Разрешение экрана"
+    },
+    {
+      "id_gfields": 3,
+      "name_gfields": "Процессор"
+    },
+    {
+      "id_gfields": 4,
+      "name_gfields": "Оперативная память"
+    },
+    {
+      "id_gfields": 5,
+      "name_gfields": "Встроенная память"
+    },
+    {
+      "id_gfields": 6,
+      "name_gfields": "Ёмкость батареи"
+    },
+    {
+      "id_gfields": 7,
+      "name_gfields": "Диагональ экрана"
+    },
+    {
+      "id_gfields": 8,
+      "name_gfields": "Технология экрана"
+    },
+    {
+      "id_gfields": 9,
+      "name_gfields": "Разрешение экрана"
+    },
+    {
+      "id_gfields": 10,
+      "name_gfields": "Smart TV"
+    },
+    {
+      "id_gfields": 11,
+      "name_gfields": "Количество HDMI портов"
+    },
+    {
+      "id_gfields": 12,
+      "name_gfields": "Поддержка HDR"
+    },
+    {
+      "id_gfields": 13,
+      "name_gfields": "Общий объем"
+    },
+    {
+      "id_gfields": 14,
+      "name_gfields": "Тип управления"
+    },
+    {
+      "id_gfields": 15,
+      "name_gfields": "Класс энергоэффективности"
+    },
+    {
+      "id_gfields": 16,
+      "name_gfields": "Количество камер"
+    },
+    {
+      "id_gfields": 17,
+      "name_gfields": "Высота"
+    },
+    {
+      "id_gfields": 18,
+      "name_gfields": "Уровень шума"
+    }
+]

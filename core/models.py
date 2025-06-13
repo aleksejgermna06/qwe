@@ -133,7 +133,7 @@ class Action(Base):
 class Product(Base):
     __tablename__ = "Product"
     id_product: Mapped[int] = mapped_column(primary_key=True)
-    action_id: Mapped[int] = mapped_column(ForeignKey("Action.id_action"))
+    action_id: Mapped[int] = mapped_column(ForeignKey("Action.id_action"), nullable=True)
     categories_id: Mapped[int] = mapped_column(ForeignKey("Categories.id_categories"))
     date_created: Mapped[datetime.datetime] = mapped_column(
         server_default=text("TIMEZONE('utc', now())")
@@ -145,8 +145,6 @@ class Product(Base):
     name_product: Mapped[str]
     brand: Mapped[str | None] = mapped_column(String(50), nullable=True, default=None)
     price: Mapped[int] = mapped_column(default=0)
-    # discount: Mapped[int]
-    # number_of_reviews: Mapped[int]
     quantity_in_stock: Mapped[int] = mapped_column(default=0)
     rating: Mapped[int] = mapped_column(default=0)
     status: Mapped[str | None] = mapped_column(String(25), nullable=True, default=None)

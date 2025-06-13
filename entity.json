@@ -1,0 +1,1414 @@
+[
+    {
+      "id_product": 1,
+      "id_gfields": 1,
+      "cost_har": "6.2 inches"
+    },
+    {
+      "id_product": 1,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 1,
+      "id_gfields": 3,
+      "cost_har": "Exynos 2100"
+    },
+    {
+      "id_product": 1,
+      "id_gfields": 4,
+      "cost_har": "6 GB"
+    },
+    {
+      "id_product": 1,
+      "id_gfields": 5,
+      "cost_har": "256 GB"
+    },
+    {
+      "id_product": 1,
+      "id_gfields": 6,
+      "cost_har": "4500 mAh"
+    },
+    {
+      "id_product": 2,
+      "id_gfields": 1,
+      "cost_har": "6.4 inches"
+    },
+    {
+      "id_product": 2,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 2,
+      "id_gfields": 3,
+      "cost_har": "Snapdragon 888"
+    },
+    {
+      "id_product": 2,
+      "id_gfields": 4,
+      "cost_har": "8 GB"
+    },
+    {
+      "id_product": 2,
+      "id_gfields": 5,
+      "cost_har": "64 GB"
+    },
+    {
+      "id_product": 2,
+      "id_gfields": 6,
+      "cost_har": "4500 mAh"
+    },
+    {
+      "id_product": 3,
+      "id_gfields": 1,
+      "cost_har": "6.0 inches"
+    },
+    {
+      "id_product": 3,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 3,
+      "id_gfields": 3,
+      "cost_har": "Exynos 2100"
+    },
+    {
+      "id_product": 3,
+      "id_gfields": 4,
+      "cost_har": "6 GB"
+    },
+    {
+      "id_product": 3,
+      "id_gfields": 5,
+      "cost_har": "128 GB"
+    },
+    {
+      "id_product": 3,
+      "id_gfields": 6,
+      "cost_har": "4500 mAh"
+    },
+    {
+      "id_product": 4,
+      "id_gfields": 1,
+      "cost_har": "6.2 inches"
+    },
+    {
+      "id_product": 4,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 4,
+      "id_gfields": 3,
+      "cost_har": "Snapdragon 888"
+    },
+    {
+      "id_product": 4,
+      "id_gfields": 4,
+      "cost_har": "8 GB"
+    },
+    {
+      "id_product": 4,
+      "id_gfields": 5,
+      "cost_har": "256 GB"
+    },
+    {
+      "id_product": 4,
+      "id_gfields": 6,
+      "cost_har": "4500 mAh"
+    },
+    {
+      "id_product": 5,
+      "id_gfields": 1,
+      "cost_har": "6.4 inches"
+    },
+    {
+      "id_product": 5,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 5,
+      "id_gfields": 3,
+      "cost_har": "Exynos 2100"
+    },
+    {
+      "id_product": 5,
+      "id_gfields": 4,
+      "cost_har": "6 GB"
+    },
+    {
+      "id_product": 5,
+      "id_gfields": 5,
+      "cost_har": "64 GB"
+    },
+    {
+      "id_product": 5,
+      "id_gfields": 6,
+      "cost_har": "4500 mAh"
+    },
+    {
+      "id_product": 6,
+      "id_gfields": 1,
+      "cost_har": "6.0 inches"
+    },
+    {
+      "id_product": 6,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 6,
+      "id_gfields": 3,
+      "cost_har": "Snapdragon 888"
+    },
+    {
+      "id_product": 6,
+      "id_gfields": 4,
+      "cost_har": "8 GB"
+    },
+    {
+      "id_product": 6,
+      "id_gfields": 5,
+      "cost_har": "128 GB"
+    },
+    {
+      "id_product": 6,
+      "id_gfields": 6,
+      "cost_har": "4500 mAh"
+    },
+    {
+      "id_product": 7,
+      "id_gfields": 1,
+      "cost_har": "6.2 inches"
+    },
+    {
+      "id_product": 7,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 7,
+      "id_gfields": 3,
+      "cost_har": "Exynos 2100"
+    },
+    {
+      "id_product": 7,
+      "id_gfields": 4,
+      "cost_har": "6 GB"
+    },
+    {
+      "id_product": 7,
+      "id_gfields": 5,
+      "cost_har": "256 GB"
+    },
+    {
+      "id_product": 7,
+      "id_gfields": 6,
+      "cost_har": "4500 mAh"
+    },
+    {
+      "id_product": 8,
+      "id_gfields": 1,
+      "cost_har": "6.4 inches"
+    },
+    {
+      "id_product": 8,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 8,
+      "id_gfields": 3,
+      "cost_har": "Snapdragon 888"
+    },
+    {
+      "id_product": 8,
+      "id_gfields": 4,
+      "cost_har": "8 GB"
+    },
+    {
+      "id_product": 8,
+      "id_gfields": 5,
+      "cost_har": "64 GB"
+    },
+    {
+      "id_product": 8,
+      "id_gfields": 6,
+      "cost_har": "4500 mAh"
+    },
+    {
+      "id_product": 9,
+      "id_gfields": 1,
+      "cost_har": "6.0 inches"
+    },
+    {
+      "id_product": 9,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 9,
+      "id_gfields": 3,
+      "cost_har": "Exynos 2100"
+    },
+    {
+      "id_product": 9,
+      "id_gfields": 4,
+      "cost_har": "6 GB"
+    },
+    {
+      "id_product": 9,
+      "id_gfields": 5,
+      "cost_har": "128 GB"
+    },
+    {
+      "id_product": 9,
+      "id_gfields": 6,
+      "cost_har": "4500 mAh"
+    },
+    {
+      "id_product": 10,
+      "id_gfields": 1,
+      "cost_har": "6.2 inches"
+    },
+    {
+      "id_product": 10,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 10,
+      "id_gfields": 3,
+      "cost_har": "Snapdragon 888"
+    },
+    {
+      "id_product": 10,
+      "id_gfields": 4,
+      "cost_har": "8 GB"
+    },
+    {
+      "id_product": 10,
+      "id_gfields": 5,
+      "cost_har": "256 GB"
+    },
+    {
+      "id_product": 10,
+      "id_gfields": 6,
+      "cost_har": "5000 mAh"
+    },
+    {
+      "id_product": 11,
+      "id_gfields": 1,
+      "cost_har": "6.4 inches"
+    },
+    {
+      "id_product": 11,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 11,
+      "id_gfields": 3,
+      "cost_har": "Exynos 2100"
+    },
+    {
+      "id_product": 11,
+      "id_gfields": 4,
+      "cost_har": "6 GB"
+    },
+    {
+      "id_product": 11,
+      "id_gfields": 5,
+      "cost_har": "64 GB"
+    },
+    {
+      "id_product": 11,
+      "id_gfields": 6,
+      "cost_har": "5000 mAh"
+    },
+    {
+      "id_product": 12,
+      "id_gfields": 1,
+      "cost_har": "6.0 inches"
+    },
+    {
+      "id_product": 12,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 12,
+      "id_gfields": 3,
+      "cost_har": "Snapdragon 888"
+    },
+    {
+      "id_product": 12,
+      "id_gfields": 4,
+      "cost_har": "8 GB"
+    },
+    {
+      "id_product": 12,
+      "id_gfields": 5,
+      "cost_har": "128 GB"
+    },
+    {
+      "id_product": 12,
+      "id_gfields": 6,
+      "cost_har": "5000 mAh"
+    },
+    {
+      "id_product": 13,
+      "id_gfields": 1,
+      "cost_har": "6.2 inches"
+    },
+    {
+      "id_product": 13,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 13,
+      "id_gfields": 3,
+      "cost_har": "Exynos 2100"
+    },
+    {
+      "id_product": 13,
+      "id_gfields": 4,
+      "cost_har": "6 GB"
+    },
+    {
+      "id_product": 13,
+      "id_gfields": 5,
+      "cost_har": "256 GB"
+    },
+    {
+      "id_product": 13,
+      "id_gfields": 6,
+      "cost_har": "5000 mAh"
+    },
+    {
+      "id_product": 14,
+      "id_gfields": 1,
+      "cost_har": "6.4 inches"
+    },
+    {
+      "id_product": 14,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 14,
+      "id_gfields": 3,
+      "cost_har": "Snapdragon 888"
+    },
+    {
+      "id_product": 14,
+      "id_gfields": 4,
+      "cost_har": "8 GB"
+    },
+    {
+      "id_product": 14,
+      "id_gfields": 5,
+      "cost_har": "64 GB"
+    },
+    {
+      "id_product": 14,
+      "id_gfields": 6,
+      "cost_har": "5000 mAh"
+    },
+    {
+      "id_product": 15,
+      "id_gfields": 1,
+      "cost_har": "6.0 inches"
+    },
+    {
+      "id_product": 15,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 15,
+      "id_gfields": 3,
+      "cost_har": "Exynos 2100"
+    },
+    {
+      "id_product": 15,
+      "id_gfields": 4,
+      "cost_har": "6 GB"
+    },
+    {
+      "id_product": 15,
+      "id_gfields": 5,
+      "cost_har": "128 GB"
+    },
+    {
+      "id_product": 15,
+      "id_gfields": 6,
+      "cost_har": "5000 mAh"
+    },
+    {
+      "id_product": 16,
+      "id_gfields": 1,
+      "cost_har": "6.2 inches"
+    },
+    {
+      "id_product": 16,
+      "id_gfields": 2,
+      "cost_har": "1080 x 2400"
+    },
+    {
+      "id_product": 16,
+      "id_gfields": 3,
+      "cost_har": "Snapdragon 888"
+    },
+    {
+      "id_product": 16,
+      "id_gfields": 4,
+      "cost_har": "8 GB"
+    },
+    {
+      "id_product": 16,
+      "id_gfields": 5,
+      "cost_har": "256 GB"
+    },
+    {
+      "id_product": 16,
+      "id_gfields": 6,
+      "cost_har": "5000 mAh"
+    },
+
+    {
+      "id_product": 17,
+      "id_gfields": 13,
+      "cost_har": "450 L"
+    },
+    {
+      "id_product": 17,
+      "id_gfields": 14,
+      "cost_har": "Механическое"
+    },
+    {
+      "id_product": 17,
+      "id_gfields": 15,
+      "cost_har": "A++"
+    },
+    {
+      "id_product": 17,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 17,
+      "id_gfields": 17,
+      "cost_har": "175 см"
+    },
+    {
+      "id_product": 17,
+      "id_gfields": 18,
+      "cost_har": "38 dB"
+    },
+
+    {
+      "id_product": 18,
+      "id_gfields": 13,
+      "cost_har": "480 L"
+    },
+    {
+      "id_product": 18,
+      "id_gfields": 14,
+      "cost_har": "Электронное"
+    },
+    {
+      "id_product": 18,
+      "id_gfields": 15,
+      "cost_har": "A++"
+    },
+    {
+      "id_product": 18,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 18,
+      "id_gfields": 17,
+      "cost_har": "180 см"
+    },
+    {
+      "id_product": 18,
+      "id_gfields": 18,
+      "cost_har": "40 dB"
+    },
+
+    {
+      "id_product": 19,
+      "id_gfields": 13,
+      "cost_har": "500 L"
+    },
+    {
+      "id_product": 19,
+      "id_gfields": 14,
+      "cost_har": "Механическое"
+    },
+    {
+      "id_product": 19,
+      "id_gfields": 15,
+      "cost_har": "A++"
+    },
+    {
+      "id_product": 19,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 19,
+      "id_gfields": 17,
+      "cost_har": "175 см"
+    },
+    {
+      "id_product": 19,
+      "id_gfields": 18,
+      "cost_har": "38 dB"
+    },
+
+    {
+      "id_product": 20,
+      "id_gfields": 13,
+      "cost_har": "450 L"
+    },
+    {
+      "id_product": 20,
+      "id_gfields": 14,
+      "cost_har": "Электронное"
+    },
+    {
+      "id_product": 20,
+      "id_gfields": 15,
+      "cost_har": "A++"
+    },
+    {
+      "id_product": 20,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 20,
+      "id_gfields": 17,
+      "cost_har": "180 см"
+    },
+    {
+      "id_product": 20,
+      "id_gfields": 18,
+      "cost_har": "40 dB"
+    },
+
+    {
+      "id_product": 21,
+      "id_gfields": 13,
+      "cost_har": "480 L"
+    },
+    {
+      "id_product": 21,
+      "id_gfields": 14,
+      "cost_har": "Механическое"
+    },
+    {
+      "id_product": 21,
+      "id_gfields": 15,
+      "cost_har": "A++"
+    },
+    {
+      "id_product": 21,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 21,
+      "id_gfields": 17,
+      "cost_har": "175 см"
+    },
+    {
+      "id_product": 21,
+      "id_gfields": 18,
+      "cost_har": "38 dB"
+    },
+
+    {
+      "id_product": 22,
+      "id_gfields": 13,
+      "cost_har": "500 L"
+    },
+    {
+      "id_product": 22,
+      "id_gfields": 14,
+      "cost_har": "Электронное"
+    },
+    {
+      "id_product": 22,
+      "id_gfields": 15,
+      "cost_har": "A++"
+    },
+    {
+      "id_product": 22,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 22,
+      "id_gfields": 17,
+      "cost_har": "180 см"
+    },
+    {
+      "id_product": 22,
+      "id_gfields": 18,
+      "cost_har": "40 dB"
+    },
+
+    {
+      "id_product": 23,
+      "id_gfields": 13,
+      "cost_har": "450 L"
+    },
+    {
+      "id_product": 23,
+      "id_gfields": 14,
+      "cost_har": "Механическое"
+    },
+    {
+      "id_product": 23,
+      "id_gfields": 15,
+      "cost_har": "A++"
+    },
+    {
+      "id_product": 23,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 23,
+      "id_gfields": 17,
+      "cost_har": "175 см"
+    },
+    {
+      "id_product": 23,
+      "id_gfields": 18,
+      "cost_har": "38 dB"
+    },
+
+    {
+      "id_product": 24,
+      "id_gfields": 13,
+      "cost_har": "480 L"
+    },
+    {
+      "id_product": 24,
+      "id_gfields": 14,
+      "cost_har": "Электронное"
+    },
+    {
+      "id_product": 24,
+      "id_gfields": 15,
+      "cost_har": "A++"
+    },
+    {
+      "id_product": 24,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 24,
+      "id_gfields": 17,
+      "cost_har": "180 см"
+    },
+    {
+      "id_product": 24,
+      "id_gfields": 18,
+      "cost_har": "40 dB"
+    },
+
+    {
+      "id_product": 25,
+      "id_gfields": 13,
+      "cost_har": "500 L"
+    },
+    {
+      "id_product": 25,
+      "id_gfields": 14,
+      "cost_har": "Механическое"
+    },
+    {
+      "id_product": 25,
+      "id_gfields": 15,
+      "cost_har": "A+"
+    },
+    {
+      "id_product": 25,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 25,
+      "id_gfields": 17,
+      "cost_har": "175 см"
+    },
+    {
+      "id_product": 25,
+      "id_gfields": 18,
+      "cost_har": "38 dB"
+    },
+
+    {
+      "id_product": 26,
+      "id_gfields": 13,
+      "cost_har": "450 L"
+    },
+    {
+      "id_product": 26,
+      "id_gfields": 14,
+      "cost_har": "Электронное"
+    },
+    {
+      "id_product": 26,
+      "id_gfields": 15,
+      "cost_har": "A+"
+    },
+    {
+      "id_product": 26,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 26,
+      "id_gfields": 17,
+      "cost_har": "180 см"
+    },
+    {
+      "id_product": 26,
+      "id_gfields": 18,
+      "cost_har": "40 dB"
+    },
+
+    {
+      "id_product": 27,
+      "id_gfields": 13,
+      "cost_har": "480 L"
+    },
+    {
+      "id_product": 27,
+      "id_gfields": 14,
+      "cost_har": "Механическое"
+    },
+    {
+      "id_product": 27,
+      "id_gfields": 15,
+      "cost_har": "A+"
+    },
+    {
+      "id_product": 27,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 27,
+      "id_gfields": 17,
+      "cost_har": "175 см"
+    },
+    {
+      "id_product": 27,
+      "id_gfields": 18,
+      "cost_har": "38 dB"
+    },
+
+    {
+      "id_product": 28,
+      "id_gfields": 13,
+      "cost_har": "500 L"
+    },
+    {
+      "id_product": 28,
+      "id_gfields": 14,
+      "cost_har": "Электронное"
+    },
+    {
+      "id_product": 28,
+      "id_gfields": 15,
+      "cost_har": "A+"
+    },
+    {
+      "id_product": 28,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 28,
+      "id_gfields": 17,
+      "cost_har": "180 см"
+    },
+    {
+      "id_product": 28,
+      "id_gfields": 18,
+      "cost_har": "40 dB"
+    },
+
+    {
+      "id_product": 29,
+      "id_gfields": 13,
+      "cost_har": "450 L"
+    },
+    {
+      "id_product": 29,
+      "id_gfields": 14,
+      "cost_har": "Механическое"
+    },
+    {
+      "id_product": 29,
+      "id_gfields": 15,
+      "cost_har": "A+"
+    },
+    {
+      "id_product": 29,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 29,
+      "id_gfields": 17,
+      "cost_har": "175 см"
+    },
+    {
+      "id_product": 29,
+      "id_gfields": 18,
+      "cost_har": "38 dB"
+    },
+
+    {
+      "id_product": 30,
+      "id_gfields": 13,
+      "cost_har": "480 L"
+    },
+    {
+      "id_product": 30,
+      "id_gfields": 14,
+      "cost_har": "Электронное"
+    },
+    {
+      "id_product": 30,
+      "id_gfields": 15,
+      "cost_har": "A+"
+    },
+    {
+      "id_product": 30,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 30,
+      "id_gfields": 17,
+      "cost_har": "180 см"
+    },
+    {
+      "id_product": 30,
+      "id_gfields": 18,
+      "cost_har": "40 dB"
+    },
+
+    {
+      "id_product": 31,
+      "id_gfields": 13,
+      "cost_har": "500 L"
+    },
+    {
+      "id_product": 31,
+      "id_gfields": 14,
+      "cost_har": "Механическое"
+    },
+    {
+      "id_product": 31,
+      "id_gfields": 15,
+      "cost_har": "A+"
+    },
+    {
+      "id_product": 31,
+      "id_gfields": 16,
+      "cost_har": "2"
+    },
+    {
+      "id_product": 31,
+      "id_gfields": 17,
+      "cost_har": "175 см"
+    },
+    {
+      "id_product": 31,
+      "id_gfields": 18,
+      "cost_har": "38 dB"
+    },
+
+
+    {
+      "id_product": 32,
+      "id_gfields": 7,
+      "cost_har": "65 inches"
+    },
+    {
+      "id_product": 32,
+      "id_gfields": 8,
+      "cost_har": "OLED"
+    },
+    {
+      "id_product": 32,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 32,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 32,
+      "id_gfields": 11,
+      "cost_har": "4 порта"
+    },
+    {
+      "id_product": 32,
+      "id_gfields": 12,
+      "cost_har": "Dolby Vision"
+    },
+
+    {
+      "id_product": 33,
+      "id_gfields": 7,
+      "cost_har": "50 inches"
+    },
+    {
+      "id_product": 33,
+      "id_gfields": 8,
+      "cost_har": "LED"
+    },
+    {
+      "id_product": 33,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 33,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 33,
+      "id_gfields": 11,
+      "cost_har": "3 порта"
+    },
+    {
+      "id_product": 33,
+      "id_gfields": 12,
+      "cost_har": "HDR10"
+    },
+
+    {
+      "id_product": 34,
+      "id_gfields": 7,
+      "cost_har": "55 inches"
+    },
+    {
+      "id_product": 34,
+      "id_gfields": 8,
+      "cost_har": "OLED"
+    },
+    {
+      "id_product": 34,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 34,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 34,
+      "id_gfields": 11,
+      "cost_har": "3 порта"
+    },
+    {
+      "id_product": 34,
+      "id_gfields": 12,
+      "cost_har": "Dolby Vision"
+    },
+
+    {
+      "id_product": 35,
+      "id_gfields": 7,
+      "cost_har": "65 inches"
+    },
+    {
+      "id_product": 35,
+      "id_gfields": 8,
+      "cost_har": "OLED"
+    },
+    {
+      "id_product": 35,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 35,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 35,
+      "id_gfields": 11,
+      "cost_har": "3 порта"
+    },
+    {
+      "id_product": 35,
+      "id_gfields": 12,
+      "cost_har": "Dolby Vision"
+    },
+
+    {
+      "id_product": 36,
+      "id_gfields": 7,
+      "cost_har": "50 inches"
+    },
+    {
+      "id_product": 36,
+      "id_gfields": 8,
+      "cost_har": "OLED"
+    },
+    {
+      "id_product": 36,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 36,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 36,
+      "id_gfields": 11,
+      "cost_har": "4 порта"
+    },
+    {
+      "id_product": 36,
+      "id_gfields": 12,
+      "cost_har": "HDR10"
+    },
+
+    {
+      "id_product": 37,
+      "id_gfields": 7,
+      "cost_har": "55 inches"
+    },
+    {
+      "id_product": 37,
+      "id_gfields": 8,
+      "cost_har": "LED"
+    },
+    {
+      "id_product": 37,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 37,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 37,
+      "id_gfields": 11,
+      "cost_har": "3 порта"
+    },
+    {
+      "id_product": 37,
+      "id_gfields": 12,
+      "cost_har": "Dolby Vision"
+    },
+
+    {
+      "id_product": 38,
+      "id_gfields": 7,
+      "cost_har": "65 inches"
+    },
+    {
+      "id_product": 38,
+      "id_gfields": 8,
+      "cost_har": "OLED"
+    },
+    {
+      "id_product": 38,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 38,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 38,
+      "id_gfields": 11,
+      "cost_har": "3 порта"
+    },
+    {
+      "id_product": 38,
+      "id_gfields": 12,
+      "cost_har": "Dolby Vision"
+    },
+
+    {
+      "id_product": 39,
+      "id_gfields": 7,
+      "cost_har": "50 inches"
+    },
+    {
+      "id_product": 39,
+      "id_gfields": 8,
+      "cost_har": "LED"
+    },
+    {
+      "id_product": 39,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 39,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 39,
+      "id_gfields": 11,
+      "cost_har": "3 порта"
+    },
+    {
+      "id_product": 39,
+      "id_gfields": 12,
+      "cost_har": "HDR10"
+    },
+
+    {
+      "id_product": 40,
+      "id_gfields": 7,
+      "cost_har": "55 inches"
+    },
+    {
+      "id_product": 40,
+      "id_gfields": 8,
+      "cost_har": "OLED"
+    },
+    {
+      "id_product": 40,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 40,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 40,
+      "id_gfields": 11,
+      "cost_har": "4 порта"
+    },
+    {
+      "id_product": 40,
+      "id_gfields": 12,
+      "cost_har": "Dolby Vision"
+    },
+
+    {
+      "id_product": 41,
+      "id_gfields": 7,
+      "cost_har": "65 inches"
+    },
+    {
+      "id_product": 41,
+      "id_gfields": 8,
+      "cost_har": "LED"
+    },
+    {
+      "id_product": 41,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 41,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 41,
+      "id_gfields": 11,
+      "cost_har": "3 порта"
+    },
+    {
+      "id_product": 41,
+      "id_gfields": 12,
+      "cost_har": "Dolby Vision"
+    },
+
+    {
+      "id_product": 42,
+      "id_gfields": 7,
+      "cost_har": "50 inches"
+    },
+    {
+      "id_product": 42,
+      "id_gfields": 8,
+      "cost_har": "OLED"
+    },
+    {
+      "id_product": 42,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 42,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 42,
+      "id_gfields": 11,
+      "cost_har": "4 порта"
+    },
+    {
+      "id_product": 42,
+      "id_gfields": 12,
+      "cost_har": "HDR10"
+    },
+
+    {
+      "id_product": 43,
+      "id_gfields": 7,
+      "cost_har": "55 inches"
+    },
+    {
+      "id_product": 43,
+      "id_gfields": 8,
+      "cost_har": "OLED"
+    },
+    {
+      "id_product": 43,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 43,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 43,
+      "id_gfields": 11,
+      "cost_har": "3 порта"
+    },
+    {
+      "id_product": 43,
+      "id_gfields": 12,
+      "cost_har": "Dolby Vision"
+    },
+
+    {
+      "id_product": 44,
+      "id_gfields": 7,
+      "cost_har": "65 inches"
+    },
+    {
+      "id_product": 44,
+      "id_gfields": 8,
+      "cost_har": "LED"
+    },
+    {
+      "id_product": 44,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 44,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 44,
+      "id_gfields": 11,
+      "cost_har": "3 порта"
+    },
+    {
+      "id_product": 44,
+      "id_gfields": 12,
+      "cost_har": "HDR10"
+    },
+
+    {
+      "id_product": 45,
+      "id_gfields": 7,
+      "cost_har": "50 inches"
+    },
+    {
+      "id_product": 45,
+      "id_gfields": 8,
+      "cost_har": "LED"
+    },
+    {
+      "id_product": 45,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 45,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 45,
+      "id_gfields": 11,
+      "cost_har": "3 порта"
+    },
+    {
+      "id_product": 45,
+      "id_gfields": 12,
+      "cost_har": "Dolby Vision"
+    },
+
+    {
+      "id_product": 46,
+      "id_gfields": 7,
+      "cost_har": "55 inches"
+    },
+    {
+      "id_product": 46,
+      "id_gfields": 8,
+      "cost_har": "OLED"
+    },
+    {
+      "id_product": 46,
+      "id_gfields": 9,
+      "cost_har": "4K"
+    },
+    {
+      "id_product": 46,
+      "id_gfields": 10,
+      "cost_har": "Да"
+    },
+    {
+      "id_product": 46,
+      "id_gfields": 11,
+      "cost_har": "4 порта"
+    },
+    {
+      "id_product": 46,
+      "id_gfields": 12,
+      "cost_har": "Dolby Vision"
+    }
+
+]

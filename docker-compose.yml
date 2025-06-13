@@ -1,4 +1,4 @@
-version: '3.8'
+version: '2.1'
 
 services:
   db:
@@ -27,7 +27,10 @@ services:
     container_name: api_service
     ports:
       - "8000:8000"
+      - "443:8000"  # Для HTTPS
     volumes:
+      - ./key.pem:/app/key.pem        # Монтируем ключ
+      - ./cert.pem:/app/cert.pem      # Монтируем сертификат
       - .:/app
     env_file:
       - .env

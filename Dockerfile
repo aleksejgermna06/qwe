@@ -48,24 +48,13 @@
 
 FROM python:3.11-slim
 
-
-
-
-
-
-
-
-
 WORKDIR /app
 
-# Копируем requirements.txt из текущей папки (уже внутри ./api)
 COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Устанавливаем зависимости
-RUN pip install --upgrade pip && pip install -r requirements.txt
-
-# Копируем всё остальное
+# Копируем ВСЕ файлы из текущей директории (включая key.pem и cert.pem)
 COPY . .
 
-# Команда запуска (если FastAPI)
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", 
+     "--ssl-keyfile", "key.pem", "--ssl-certfile", "cert.pem"]

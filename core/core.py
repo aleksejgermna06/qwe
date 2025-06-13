@@ -7,7 +7,7 @@ from core.database import Base, async_engine, engine, session_fabrik
 from core.models import (Action, Categories, Entity, Gfields, Product, Profile,
                          Reviews, metadata_obj)
 from core.add_bd_cat import listcat
-from core.andrei.my_insert_data import insert_data as inset_data_andr
+
 if sys.platform.startswith("win"):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
@@ -157,5 +157,5 @@ def insert_data():
 
 create_tables()
 #insert_data()
-inset_data_andr()
+#inset_data_andr()
 

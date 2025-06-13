@@ -53,4 +53,4 @@ create_tables()
 insert_data()
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", reload=True)
+    uvicorn.run("main:app", reload=True, port=8000, ssl_keyfile="key.pem", ssl_certfile="cert.pem")

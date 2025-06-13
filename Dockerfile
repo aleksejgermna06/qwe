@@ -56,5 +56,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Копируем ВСЕ файлы из текущей директории (включая key.pem и cert.pem)
 COPY . .
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", 
-     "--ssl-keyfile", "key.pem", "--ssl-certfile", "cert.pem"]
+CMD ["uvicorn", "main:app", \
+     "--host", "0.0.0.0", \
+     "--port", "8000", \
+     "--ssl-keyfile", "/app/key.pem", \
+     "--ssl-certfile", "/app/cert.pem"]

@@ -1,11 +1,8 @@
 import asyncio
-import json
 import sys
 from sqlalchemy import text
-from my_insert_data import insert_data
-from core.database import Base, async_engine, engine, session_fabrik
-from core.models import (Action, Categories, Product, Profile, Reviews, Entity, Gfields,
-                         metadata_obj)
+from core.my_insert_data import insert_data
+from core.database import Base, async_engine, engine
 
 if sys.platform.startswith("win"):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())

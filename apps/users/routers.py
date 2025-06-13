@@ -339,7 +339,7 @@ async def get_main_address(
 @router1.put(
     "/profile/address/{address_id}",
     response_model=AdressResponse,
-    summary="Редактировать адрес",
+    summary="Редактировать адрес и установить его как основной",
 )
 async def update_address(
     address_id: int,
@@ -349,7 +349,8 @@ async def update_address(
 ):
     result = await db.execute(
         select(adress).where(
-            adress.id_adress == address_id, adress.id_profile == current_user.id_profile
+            adress.id_adress == address_id,
+            adress.id_profile == current_user.id_profile,
         )
     )
     existing = result.scalar_one_or_none()
@@ -362,41 +363,15 @@ async def update_address(
             .where(adress.id_profile == current_user.id_profile)
             .values(is_main=False)
         )
+        existing.is_main = True
 
     for field, value in address_data.dict(exclude_unset=True).items():
+        if field == "isMain":
+            continue
         setattr(existing, field if field != "aptOffice" else "apt_office", value)
 
     await db.commit()
     await db.refresh(existing)
     return existing
 
-
-@router1.put(
-    "/profile/address/{address_id}/set-main",
-    response_model=AdressResponse,
-    summary="Выбрать основной адрес",
-)
-async def set_main_address(
-    address_id: int,
-    current_user: Profile = Depends(get_current_user),
-    db: AsyncSession = Depends(get_async_db),
-):
-    result = await db.execute(
-        select(adress).where(
-            adress.id_adress == address_id, adress.id_profile == current_user.id_profile
-        )
-    )
-    target = result.scalar_one_or_none()
-    if not target:
-        raise HTTPException(status_code=404, detail="Адрес не найден")
-
-    await db.execute(
-        update(adress)
-        .where(adress.id_profile == current_user.id_profile)
-        .values(is_main=False)
-    )
-    target.is_main = True
-    await db.commit()
-    await db.refresh(target)
-    return target
 

@@ -104,7 +104,7 @@ class CategorieService:
                             Product,
                             Categories.id_categories == Product.categories_id,
                         )
-                        .join(
+                        .outerjoin(
                             Action,
                             Product.action_id == Action.id_action,
                         )

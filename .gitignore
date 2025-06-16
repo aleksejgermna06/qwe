@@ -1,0 +1,84 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.env
+*.venv
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+*.log
+
+# Pydantic cache
+__pydantic__/
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# PyCharm
+.idea/
+*.iml
+
+# VSCode
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+htmlcov/
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+
+# MyPy / type checking
+.mypy_cache/
+.dmypy.json
+
+# SQLAlchemy
+*.sqlite3
+instance/
+*.db
+
+# Environment
+.env
+.env.*
+
+# Docker
+*.pid
+*.sock
+*.tar
+*.pid
+*.gz
+*.bak
+*.tmp
+docker-compose.override.yml
+__docker_cache__/
+
+# Cache
+.cache/
+*.egg-info/
+.eggs/
+
+# Build artifacts
+build/
+dist/
+*.egg
+*.whl
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local settings
+local_settings.py
+
+# Gunicorn
+gunicorn.pid

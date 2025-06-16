@@ -1,6 +1,9 @@
 from fastapi import Query
 from pydantic import BaseModel
 from typing import List
+from core.database import Base
+from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Integer, String
 
 class NewProduct(BaseModel):
     name_product: str
@@ -25,3 +28,15 @@ class CheckoutOrderRequest(BaseModel):
     adress: str
     shipping_cost: int
     organization: str | None = None
+
+
+class Product(Base):
+    __tablename__ = "Products"
+
+    action_id: Mapped[int] = mapped_column(primary_key=True)  # id продукта
+    name_product: Mapped[str] = mapped_column(String(255))
+    categories_id: Mapped[int]
+    brand: Mapped[str]
+    price: Mapped[int]
+    status: Mapped[str]
+    img: Mapped[str]

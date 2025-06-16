@@ -45,10 +45,10 @@ async def add_product(new_Product: NewProduct):
         )
 
 
-@router.get("/all-product/{sort}", summary="получить все продукты")
-async def get_all_products(sort: int):
+@router.get("/all-product", summary="получить все продукты")
+async def get_all_products(sort: int, id_profile: int | None = Query(default=0)):
 
-    products = await ProductService.select_all_product(sort)
+    products = await ProductService.select_all_product(sort, id_profile)
 
     return products
 
@@ -61,10 +61,11 @@ async def get_all_products(page: int = Query(ge=0,default=0),
                            popular:str | None = Query(default=None, max_length=4, pattern="^(true)$",description="Сортировка по популярности"),
                            min_price:int | None = Query(default=None,  description="минимальная цена"),
                            max_price:int | None = Query(default=None,  description="максимальная цена"),
+                           id_profile: int | None = Query(default=0)
                            ):
 
 
-    products = await ProductService.filter_product(brand,price_filtr,popular,min_price,max_price,page,size)
+    products = await ProductService.filter_product(brand,price_filtr,popular,min_price,max_price,page,size,id_profile)
     return products
 
 

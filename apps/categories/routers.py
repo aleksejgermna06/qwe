@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Query
 
 from apps.categories.service import CategorieService, heder
+
 from apps.categories.models import NewCatProdCom
+
 router = APIRouter(prefix="/categories", tags=["categories"])
 
 
@@ -25,6 +27,7 @@ async def get_one_cat(url: str, id_profile: int | None = Query(default=0)):
     cats = await CategorieService.select_one_cat(url, id_profile)
 
     return cats
+
 
 @router.get("/user-cat-comparison/{id_profile}", summary="получить категории для сравнения")
 async def get_cat_comparison(id_profile: int):
@@ -53,3 +56,4 @@ async def add_cat_comparison(AddCatProdCom: NewCatProdCom):
                 "product_id": cats,
             }
     
+

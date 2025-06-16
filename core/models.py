@@ -248,9 +248,10 @@ class OrderProcessor(Base):
 
 metadata_obj = MetaData()
 
+
 class ComparisonStore(Base):
     __tablename__ = "ComparisonStore"
     id_com_stor: Mapped[int] = mapped_column(primary_key=True)
     profile_id: Mapped[int] = mapped_column(ForeignKey("Profile.id_profile", ondelete="CASCADE"))
     product_id: Mapped[int] = mapped_column(ForeignKey("Product.id_product", ondelete="CASCADE"))
-   
+

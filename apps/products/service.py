@@ -11,7 +11,9 @@ if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 from fastapi import HTTPException
+
 from sqlalchemy import delete, func, join, select,cast, Numeric, nulls_last, case, and_,exists
+
 
 from core.database import get_async_db
 from core.models import Action, Categories, Product, Reviews, metadata_obj, UserBasket, Entity, Gfields
@@ -100,7 +102,9 @@ class ProductService:
             )
 
     @staticmethod
+
     async def select_all_product(sort: int, id_profile: int):
+
         try:
             async for session in session_fabrik():
                 query = (
@@ -112,18 +116,6 @@ class ProductService:
                         func.count(Reviews.id_reviews).label("number_of_reviews"),
                         Categories.id_parent,
                         Categories.url,
-                        case(
-                            (
-                                exists().where(
-                                    and_(
-                                        UserBasket.id_product == Product.id_product,
-                                        UserBasket.id_profile == id_profile
-                                    )
-                                ), 
-                                "true"
-                            ),
-                            else_="false"
-                        ).label("in_cart")
                     )
                     .select_from(
                         join(
@@ -134,22 +126,17 @@ class ProductService:
                             ),
                             Action,
                             Product.action_id == Action.id_action,
-                        )
-                        .outerjoin(Reviews, Product.id_product == Reviews.product_id)
-                        # Явно не соединяем с UserBasket, так как используем EXISTS
+                        ).outerjoin(Reviews, Product.id_product == Reviews.product_id)
                     )
                     .group_by(
                         Product,
-                        
                         Categories.id_categories,
                         Categories.name_categories,
                         Action.discount,
-                        Categories.id_parent,
-                        Categories.url
                     )
+
                 )
 
-                # Сортировка остается без изменений
                 if sort == 0:
                     query = query.order_by(Categories.id_parent.asc())
                 elif sort == 1:
@@ -158,6 +145,7 @@ class ProductService:
                     query = query.order_by(Product.brand.asc())
                 elif sort == 3:
                     query = query.order_by(Categories.id_categories.asc())
+
 
                 result = await session.execute(query)
                 rows = result.all()
@@ -191,7 +179,9 @@ class ProductService:
                             "url": url,
                         },
                     }
+
                     for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url, in_cart in rows
+
                 ]
         except Exception as e:
             logging.error(f"select products: {traceback.format_exc()}")
@@ -209,6 +199,7 @@ class ProductService:
         page: int,
         size: int,
         id_profile: int
+
     ):
         try:
             async for session in session_fabrik():
@@ -223,6 +214,7 @@ class ProductService:
                         func.count(Reviews.id_reviews).label("number_of_reviews"),
                         Categories.id_parent,
                         Categories.url,
+
                         case(
                             (
                                 exists().where(
@@ -317,7 +309,9 @@ class ProductService:
                             "url": url,
                         },
                     }
+
                     for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url, in_cart in rows[
+
                         offset_min:offset_max
                     ]
                 ]

@@ -1,14 +1,11 @@
 import asyncio
 import sys
-import time
 from sqlalchemy import text
 
 from core.database import Base, async_engine, engine, session_fabrik
 from core.models import (Action, Categories, Entity, Gfields, Product, Profile,
                          Reviews, metadata_obj)
 from core.add_bd_cat import listcat
-
-
 
 
 if sys.platform.startswith("win"):
@@ -29,7 +26,7 @@ def create_tables():
     Base.metadata.reflect(engine)
     Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
-    
+
 
 
 def insert_data():
@@ -110,7 +107,8 @@ def insert_data():
     )
     db_gfields = Gfields(
         name_gfields="size",
-    ) 
+    )
+
     
     with session_fabrik() as session:
         session.add_all(
@@ -130,7 +128,9 @@ def insert_data():
             cat_add = Categories(**cat)
             
             session.add(cat_add)
-        session.commit() 
+
+        session.commit()
+
 
         session.add_all(
             [
@@ -167,4 +167,5 @@ create_tables()
 insert_data()
 
 #inset_data_andr()
+
 

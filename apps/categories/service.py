@@ -124,7 +124,6 @@ class CategorieService:
                         )
                     )
                     .where(Categories.url == url)
-                   
                 )
 
                 result = await session.execute(query)
@@ -141,7 +140,7 @@ class CategorieService:
                     categories_dict[cat].append((prod,discount, in_cart))
 
                 response = []
-                
+
                 for category, products in categories_dict.items():
                     category_data = {
                         "id_categories": category.id_categories,
@@ -150,17 +149,15 @@ class CategorieService:
                         "url": category.url,
                         "products": []
                     }
-                    
-                    # Добавляем продукты только если они есть
+
                     if products is not None:
                         category_data["products"] = [
                             {
-                                
                                 "id_product": p.id_product,
                                 "name_product": p.name_product,
                                 "brand": p.brand,
                                 "price": p.price,
-                                "discount": discount ,
+                                "discount": discount,
                                 "quantity_in_stock": p.quantity_in_stock,
                                 "rating": p.rating,
                                 "date_create": p.date_created,
@@ -172,7 +169,7 @@ class CategorieService:
                             for p,discount,in_cart  in products
                             if p is not None
                         ]
-                    
+
                     response.append(category_data)
 
             return response[0]
@@ -307,3 +304,4 @@ class CategorieService:
             raise HTTPException(
                 status_code=500, detail=f"Ошибка при выводе одной категории: {str(e)}"
             )
+

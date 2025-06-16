@@ -1,78 +1,47 @@
-from typing import List
-
-from sqlalchemy.orm import Session
-
-from core.models import UserAction
-from core.database import get_async_db
-from sqlalchemy import select
-from apps.products.service import ProductService
-from core.models import UserAction
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select, delete
+from apps.user_actions.models import UserAction
+from core.models import Product
+from apps.user_actions.schema import UserActionOut
 
 
+async def get_user_actions(profile_id: int, action_type: str, session: AsyncSession):
+    query = (
+        select(UserAction, Product)
+        .join(Product, UserAction.product_id == Product.id_product)
+        .filter(UserAction.profile_id == profile_id, UserAction.action == action_type)
+    )
+    result = await session.execute(query)
+    items = result.all()
 
-session_fabrik = get_async_db
-class UserActionService:
-    def __init__(self, db: Session):
-        self.db = db
-
-
-
-    async def get_user_view_history(self, user_id: int) -> list[dict]:
-        async for session in session_fabrik():
-            result = await session.execute(
-                select(UserAction.product_id)
-                .where(UserAction.profile_id == user_id, UserAction.action == "view")
-                .order_by(UserAction.date_created.desc())
-            )
-            product_ids = [row[0] for row in result.fetchall()]
-            if not product_ids:
-                return []
-
-            # Получаем данные о продуктах пачкой
-            products = await ProductService.get_many_products(product_ids)
-            return products
-
-    def create_action(
-        self, user_id: int, product_id: int, action_type: str
-    ) -> UserAction:
-        action = UserAction(
-            user_id=user_id, product_id=product_id, action_type=action_type
+    return [
+        UserActionOut(
+            name_product=product.name_product,
+            action_id=action.id_action,
+            categories_id=product.categories_id,
+            brand=product.brand,
+            price=product.price,
+            status=product.status,
+            img=product.img
         )
-        self.db.add(action)
-        self.db.commit()
-        self.db.refresh(action)
-        return action
-
-    def delete_favorite(self, user_id: int, product_id: int) -> None:
-        action = (
-            self.db.query(UserAction)
-            .filter(
-                UserAction.profile_id == user_id,
-                UserAction.product_id == product_id,
-                UserAction.action == "favorite",
-            )
-            .first()
-        )
-        if action:
-            self.db.delete(action)
-            self.db.commit()
+        for action, product in items
+    ]
 
 
-    def get_user_favorites(self, user_id: int) -> List[UserAction]:
-        return (
-            self.db.query(UserAction)
-            .filter(UserAction.profile_id == user_id, UserAction.action == "favorite")
-            .all()
-        )
-
-    # def get_user_view_history(self, user_id: int) -> List[UserAction]:
-    #     return (
-    #         self.db.query(UserAction)
-    #         .filter(UserAction.user_id == user_id, UserAction.action_type == "view")
-    #         .order_by(UserAction.created_at.desc())
-    #         .all()
-    #     )
+async def add_user_action(profile_id: int, product_id: int, action_type: str, session: AsyncSession):
+    action = UserAction(profile_id=profile_id, product_id=product_id, action=action_type)
+    session.add(action)
+    await session.commit()
+    await session.refresh(action)
+    return action
 
 
-
+async def delete_favorite(profile_id: int, product_id: int, session: AsyncSession):
+    query = delete(UserAction).where(
+        UserAction.profile_id == profile_id,
+        UserAction.product_id == product_id,
+        UserAction.action == "favorite"
+    )
+    await session.execute(query)
+    await session.commit()
 

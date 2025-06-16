@@ -22,3 +22,18 @@ class UserAction(UserActionBase):
 
     class Config:
         from_attributes = True
+
+
+
+class UserActionOut(BaseModel):
+    name_product: str
+    action_id: int
+    categories_id: int
+    brand: str
+    price: int
+    status: str
+    img: str
+
+    class Config:
+        orm_mode = True
+

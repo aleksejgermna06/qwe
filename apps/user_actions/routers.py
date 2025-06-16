@@ -1,64 +1,44 @@
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
-
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
 from core.database import get_async_db
-from .service import UserActionService
-from core.models import UserAction
-from .schema import UserAction, UserActionCreate
 from core.security import get_current_user
+from core.models import Profile
+from apps.user_actions.service import get_user_actions, add_user_action, delete_favorite
+from apps.user_actions.schema import UserActionOut
+from typing import List, Literal
 
-from .schema import UserAction, UserActionCreate
+from apps.user_actions import service
 
-from .service import UserActionService
+router = APIRouter(prefix="/user/actions", tags=["user actions"])
 
-router = APIRouter(prefix="/user_actions", tags=["user_actions"])
-#UserAction
-@router.post("/favorites", response_model=UserAction, summary="Добавить в избранное")
-def add_to_favorites(
+
+@router.get("/{action_type}", response_model=List[UserActionOut])
+async def get_actions(
+    #action_type: str,
+    action_type: Literal["favorite", "view"],
+    current_user: Profile = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_db)
+):
+    return await get_user_actions(current_user.id_profile, action_type, db)
+
+
+@router.post("/{action_type}/{product_id}", response_model=dict)
+async def add_action(
+    #action_type: str,
+    action_type: Literal["favorite", "view"],
     product_id: int,
-    current_user = Depends(get_current_user),
-    db: Session = Depends(get_async_db),
+    current_user: Profile = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_db)
 ):
-    service = UserActionService(db)
-    return service.create_action(current_user.id_profile, product_id, "favorite")
+    await add_user_action(current_user.id_profile, product_id, action_type, db)
+    return {"message": f"{action_type} added for product {product_id}"}
 
 
-@router.delete("/favorites/{product_id}", summary="убрать из избранного")
-def remove_from_favorites(
+@router.delete("/favorite/{product_id}", response_model=dict)
+async def remove_favorite(
     product_id: int,
-    current_user = Depends(get_current_user),
-    db: Session = Depends(get_async_db),
+    current_user: Profile = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_db)
 ):
-    service = UserActionService(db)
-    service.delete_favorite(current_user.id_profile, product_id)
-    return {"message": "Removed from favorites"}
-
-
-@router.get(
-    "/favorites", response_model=list[UserAction], summary="посмотреть избранные"
-)
-def get_favorites(
-    current_user = Depends(get_current_user), db: Session = Depends(get_async_db)
-):
-    service = UserActionService(db)
-    return service.get_user_favorites(current_user.id_profile)
-
-
-@router.get(
-    "/view-history", response_model=list[UserAction], summary="просмотр истории"
-)
-def get_view_history(
-    current_user = Depends(get_current_user), db: Session = Depends(get_async_db)
-):
-    service = UserActionService(db)
-    return service.get_user_view_history(current_user.id_profile)
-
-
-@router.post("/view", response_model=UserAction)
-def add_to_view_history(
-    product_id: int,
-    current_user = Depends(get_current_user),
-    db: Session = Depends(get_async_db),
-):
-    service = UserActionService(db)
-    return service.create_action(current_user.id_profile, product_id, "view")
+    await delete_favorite(current_user.id_profile, product_id, db)
+    return {"message": f"Favorite for product {product_id} removed"}

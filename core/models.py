@@ -139,7 +139,7 @@ class Action(Base):
 
 class Product(Base):
     __tablename__ = "Product"
-    id_product: Mapped[int] = mapped_column(primary_key=True)
+    id_product: Mapped[int] = mapped_column(Integer, primary_key=True)
     action_id: Mapped[int] = mapped_column(ForeignKey("Action.id_action"))
     categories_id: Mapped[int] = mapped_column(ForeignKey("Categories.id_categories"))
     date_created: Mapped[datetime.datetime] = mapped_column(

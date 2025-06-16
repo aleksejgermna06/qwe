@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 
 from apps.categories.service import CategorieService, heder
 from apps.categories.models import NewCatProdCom
@@ -19,10 +19,10 @@ async def get_all_cat(sort: int):
     return cats
 
 
-@router.get("/one-cat/{url}", summary="получить одну категории")
-async def get_one_cat(url: str):
+@router.get("/one-cat", summary="получить одну категории")
+async def get_one_cat(url: str, id_profile: int | None = Query(default=0)):
 
-    cats = await CategorieService.select_one_cat(url)
+    cats = await CategorieService.select_one_cat(url, id_profile)
 
     return cats
 

@@ -9,10 +9,10 @@ if sys.platform == "win32":
 
 
 from fastapi import HTTPException
-from sqlalchemy import outerjoin,join,func, select
+from sqlalchemy import outerjoin,join,func, select, case, exists, and_
 from apps.categories.models import NewCatProdCom
 from core.database import get_async_db
-from core.models import Action, Categories, Product, ComparisonStore
+from core.models import Action, Categories, Product, ComparisonStore, UserBasket
 
 session_fabrik = get_async_db
 
@@ -92,11 +92,25 @@ class CategorieService:
             )
 
     @staticmethod
-    async def select_one_cat(url: str):
+    async def select_one_cat(url: str, id_profile: int):
         try:
             async for session in session_fabrik():
                 query = (
-                    select(Categories, Product, Action.discount)
+                    select(Categories, 
+                           Product,
+                            Action.discount,
+                            case(
+                            (
+                                exists().where(
+                                    and_(
+                                        UserBasket.id_product == Product.id_product,
+                                        UserBasket.id_profile == id_profile
+                                    )
+                                ), 
+                                "true"
+                            ),
+                            else_="false"
+                        ).label("in_cart"))
                     
                     .select_from(
                         outerjoin(
@@ -123,8 +137,8 @@ class CategorieService:
                     )
 
                 categories_dict = defaultdict(list)
-                for cat, prod, discount in rows:
-                    categories_dict[cat].append((prod,discount))
+                for cat, prod, discount, in_cart in rows:
+                    categories_dict[cat].append((prod,discount, in_cart))
 
                 response = []
                 
@@ -153,8 +167,9 @@ class CategorieService:
                                 "date_update": p.date_update,
                                 "status": p.status,
                                 "img": p.img,
+                                "in_cart": in_cart,
                             }
-                            for p,discount  in products
+                            for p,discount,in_cart  in products
                             if p is not None
                         ]
                     
@@ -238,6 +253,18 @@ class CategorieService:
                 query = (
                    select(Product,
                           Action.action,
+                          case(
+                            (
+                                exists().where(
+                                    and_(
+                                        UserBasket.id_product == Product.id_product,
+                                        UserBasket.id_profile == id_profile
+                                    )
+                                ), 
+                                "true"
+                            ),
+                            else_="false"
+                        ).label("in_cart")
                         )
                     .join(ComparisonStore, ComparisonStore.product_id == Product.id_product)
                     .join(Action, Product.action_id==Action.id_action)
@@ -270,9 +297,10 @@ class CategorieService:
                     #"number_of_reviews": number_of_reviews,
                     "status": prod.status,
                     "img": prod.img,
+                    "in_cart": in_cart,
 
                 }
-                for  prod,discount in rows
+                for  prod,discount, in_cart in rows
             ]
         except Exception as e:
             logging.error(f"select one categor: {traceback.format_exc()}")

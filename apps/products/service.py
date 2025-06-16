@@ -11,7 +11,9 @@ if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 from fastapi import HTTPException
-from sqlalchemy import delete, func, join, select,cast, Numeric, nulls_last
+
+from sqlalchemy import delete, func, join, select,cast, Numeric, nulls_last, case, and_,exists
+
 
 from core.database import get_async_db
 from core.models import Action, Categories, Product, Reviews, metadata_obj, UserBasket, Entity, Gfields
@@ -100,7 +102,9 @@ class ProductService:
             )
 
     @staticmethod
-    async def select_all_product(sort: int):
+
+    async def select_all_product(sort: int, id_profile: int):
+
         try:
             async for session in session_fabrik():
                 query = (
@@ -132,6 +136,7 @@ class ProductService:
                     )
 
                 )
+
                 if sort == 0:
                     query = query.order_by(Categories.id_parent.asc())
                 elif sort == 1:
@@ -140,6 +145,8 @@ class ProductService:
                     query = query.order_by(Product.brand.asc())
                 elif sort == 3:
                     query = query.order_by(Categories.id_categories.asc())
+
+
                 result = await session.execute(query)
                 rows = result.all()
 
@@ -165,13 +172,16 @@ class ProductService:
                         "number_of_reviews": number_of_reviews,
                         "status": prod.status,
                         "img": prod.img,
+                        "in_cart": in_cart,
                         "category": {
                             "id_categories": id_categories,
                             "name_categories": name_categories,
                             "url": url,
                         },
                     }
-                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url in rows
+
+                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url, in_cart in rows
+
                 ]
         except Exception as e:
             logging.error(f"select products: {traceback.format_exc()}")
@@ -188,6 +198,8 @@ class ProductService:
         max_price: int,
         page: int,
         size: int,
+        id_profile: int
+
     ):
         try:
             async for session in session_fabrik():
@@ -202,6 +214,19 @@ class ProductService:
                         func.count(Reviews.id_reviews).label("number_of_reviews"),
                         Categories.id_parent,
                         Categories.url,
+
+                        case(
+                            (
+                                exists().where(
+                                    and_(
+                                        UserBasket.id_product == Product.id_product,
+                                        UserBasket.id_profile == id_profile
+                                    )
+                                ), 
+                                "true"
+                            ),
+                            else_="false"
+                        ).label("in_cart")
                     )
                     .select_from(
                         join(
@@ -277,13 +302,16 @@ class ProductService:
                         "number_of_reviews": number_of_reviews,
                         "status": prod.status,
                         "img": prod.img,
+                        "in_cart": in_cart,
                         "category": {
                             "id_categories": id_categories,
                             "name_categories": name_categories,
                             "url": url,
                         },
                     }
-                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url in rows[
+
+                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url, in_cart in rows[
+
                         offset_min:offset_max
                     ]
                 ]

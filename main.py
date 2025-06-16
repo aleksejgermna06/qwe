@@ -14,7 +14,11 @@ from core.core import create_tables, insert_data
 from apps.users import router as auth_router
 from apps.users.routers import router1 as user_router
 from apps.user_actions.routers import router as user_actions_router
+<<<<<<< HEAD
 
+=======
+from core.andrei.my_insert_data import insert_data as inset_data_andr
+>>>>>>> origin/main
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
@@ -50,7 +54,11 @@ app.include_router(user_router)
 app.include_router(router_order)
 
 create_tables()
+<<<<<<< HEAD
 insert_data()
+=======
+inset_data_andr()
+>>>>>>> origin/main
 
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True)

@@ -161,3 +161,10 @@ async def checkout_order(
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ошибка при оформлении заказа: {str(e)}")
+    
+@router.get("/serch", summary="поиск категорий и продуктов")
+async def serch(litters: str):
+   
+
+    res=await ProductService.serch(litters)
+    return res

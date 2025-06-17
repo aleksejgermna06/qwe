@@ -16,7 +16,7 @@ from sqlalchemy import delete, func, join, select,cast, Numeric, nulls_last, cas
 
 
 from core.database import get_async_db
-from core.models import Action, Categories, Product, Reviews, metadata_obj, UserBasket, Entity, Gfields
+from core.models import Action, Categories, Product, Reviews, metadata_obj, UserBasket, Entity, Gfields, Categories
 
 session_fabrik = get_async_db
 
@@ -600,6 +600,46 @@ class ProductService:
                 rows = result.scalars().all()
 
                 return rows
+
+        except Exception as e:
+            logging.error(f"select brands: {traceback.format_exc()}")
+
+            raise HTTPException(
+                status_code=500, detail=f"Ошибка при выводе брэнда: {str(e)}"
+            )
+
+    @staticmethod
+    async def serch(letters: str):
+        try:
+            async for session in session_fabrik():
+                query = select(Product).filter(
+                    func.lower(Product.name_product).startswith(func.lower(letters))
+                )
+                result = await session.execute(query)
+                rows = result.scalars().all()
+                prod={"products": [],"categories": []}
+                prod["products"]=[
+                    {
+                        "id_product": pr.id_product,
+                        "name_product": pr.name_product,
+                        
+                    }
+                    for pr in rows
+                ]
+                query = select(Categories).filter(
+                    func.lower(Categories.name_categories).startswith(func.lower(letters))
+                )
+                result = await session.execute(query)
+                rows = result.scalars().all()
+                prod["categories"]=[
+                    {
+                        "name_product": ct.name_categories,
+                        "url": ct.url,
+                    }
+                    for ct in rows
+                ]   
+                
+                return prod
 
         except Exception as e:
             logging.error(f"select brands: {traceback.format_exc()}")

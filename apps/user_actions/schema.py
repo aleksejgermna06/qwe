@@ -26,6 +26,7 @@ class UserAction(UserActionBase):
 
 
 class UserActionOut(BaseModel):
+    id_product: int
     name_product: str
     action_id: int
     categories_id: int

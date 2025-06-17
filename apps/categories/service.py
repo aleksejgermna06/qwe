@@ -10,7 +10,7 @@ if sys.platform == "win32":
 
 from fastapi import HTTPException
 from sqlalchemy import outerjoin,join,func, select, case, exists, and_
-from apps.categories.models import NewCatProdCom
+
 from core.database import get_async_db
 from core.models import Action, Categories, Product, ComparisonStore, UserBasket
 
@@ -223,12 +223,12 @@ class CategorieService:
             )
         
     @staticmethod
-    async def add_product_comsommer(AddCatProdCom: NewCatProdCom):
+    async def add_product_comsommer(id_profile: int,product_id: int):
         try:
             async for session in session_fabrik():
                 db_product = ComparisonStore(
-                    profile_id = AddCatProdCom.profile_id,
-                    product_id = AddCatProdCom.product_id,
+                    profile_id = id_profile,
+                    product_id = product_id,
                 )
                 session.add(db_product)
                 await session.flush()

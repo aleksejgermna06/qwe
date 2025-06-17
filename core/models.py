@@ -255,3 +255,10 @@ class ComparisonStore(Base):
     profile_id: Mapped[int] = mapped_column(ForeignKey("Profile.id_profile", ondelete="CASCADE"))
     product_id: Mapped[int] = mapped_column(ForeignKey("Product.id_product", ondelete="CASCADE"))
 
+
+class AdressSamovivoz(Base):
+    __tablename__ = "adress_samovivoz"
+
+    id = Column(Integer, primary_key=True, index=True)
+    adress = Column(String, unique=True, index=True)
+

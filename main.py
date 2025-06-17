@@ -16,6 +16,8 @@ from apps.users.routers import router1 as user_router
 from apps.user_actions.routers import router as user_actions_router
 
 from core.andrei.my_insert_data import insert_data as inset_data_andr
+from apps.adress_samovivoz import routers as adress_router
+
 
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
@@ -50,6 +52,9 @@ app.include_router(auth_router)
 app.include_router(user_actions_router)
 app.include_router(user_router)
 app.include_router(router_order)
+
+app.include_router(adress_router.router)
+
 
 create_tables()
 

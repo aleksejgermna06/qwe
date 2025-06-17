@@ -85,10 +85,10 @@ async def del_product(id_product: int):
 
 
 @router_basket.post("/basket-prod", summary="добавить продукт в корзину")
-async def add_prod_bask(add_prod_bask: AddProdBask):
+async def add_prod_bask(add_prod_bask: AddProdBask, current_user: Profile = Depends(get_current_user)):
     try:
 
-        prod_bask_id = await ProductService.add_product_bask(add_prod_bask)
+        prod_bask_id = await ProductService.add_product_bask(add_prod_bask, current_user.id_profile)
         if prod_bask_id is not None:
             return {
                 "status": "success",
@@ -110,14 +110,24 @@ async def get_all_products(current_user: Profile = Depends(get_current_user),):
 
     return products_bask
 
+@router_basket.put("/redact-product-bask", summary="редактирование числа продуктов")
+async def put_all_products(id_prod: int,count:int, current_user: Profile = Depends(get_current_user)):
+    products_bask = await ProductService.put_product_bask(id_prod, current_user.id_profile, count)
+
+    if products_bask is not None:
+        return {
+            "status": "success",
+            "message": "номенкулатура изменена",
+            "product_id": products_bask,
+        }
 
 @router_basket.delete(
-    "/basket-prod/{id_us_storage}", summary="удалить продукт из корзину"
+    "/basket-prod", summary="удалить продукт из корзину"
 )
-async def del_prod_bask(id_us_storage: int):
+async def del_prod_bask(id_prod: int,  current_user: Profile = Depends(get_current_user)):
     try:
 
-        id_storage = await ProductService.del_product_bask(id_us_storage)
+        id_storage = await ProductService.del_product_bask(id_prod, current_user.id_profile)
         if id_storage is not None:
             return {
                 "status": "success",

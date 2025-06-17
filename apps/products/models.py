@@ -15,7 +15,7 @@ class NewProduct(BaseModel):
     img: str
 
 class AddProdBask(BaseModel):
-    id_profile: int
+    #id_profile: int
     id_product: int
     count: int| None = Query(default=1,  description="число товара")
 

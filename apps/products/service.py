@@ -12,7 +12,7 @@ if sys.platform == "win32":
 
 from fastapi import HTTPException
 
-from sqlalchemy import delete, func, join, select, cast, Numeric, nulls_last, case, and_, exists
+from sqlalchemy import delete, func, join, select, cast, Numeric, nulls_last, case, and_, exists,update
 
 from core.database import get_async_db
 from core.models import Action, Categories, Product, Reviews, metadata_obj, UserBasket, Entity, Gfields, Categories
@@ -473,11 +473,11 @@ class ProductService:
                 )
 
     @staticmethod
-    async def add_product_bask(add_prod_bask: AddProdBask):
+    async def add_product_bask(add_prod_bask: AddProdBask, profile_id: int):
         try:
             async for session in session_fabrik():
                 db_bask = UserBasket(
-                    id_profile=add_prod_bask.id_profile,
+                    id_profile=profile_id,
                     id_product=add_prod_bask.id_product,
                     count=add_prod_bask.count,
                 )
@@ -496,22 +496,23 @@ class ProductService:
             )
 
     @staticmethod
-    async def del_product_bask(id_us_storage: int):
+    async def del_product_bask(id_prod: int, profile_id):
 
         async for session in session_fabrik():
 
             try:
 
                 check_query = select(UserBasket).where(
-                    UserBasket.id_us_storage == id_us_storage
+                    UserBasket.id_product == id_prod,
+                    UserBasket.id_profile==profile_id
                 )
                 result = await session.execute(check_query)
-                db_bask = result.scalar_one_or_none()
+                db_bask = result.all()
 
                 if not db_bask:
                     raise HTTPException(
                         status_code=404,
-                        detail=f"Номенкулатура с ID {id_us_storage} не найден",
+                        detail=f"Номенкулатура с ID {id_prod} не найден",
                     )
 
                 await session.delete(db_bask)
@@ -519,10 +520,8 @@ class ProductService:
 
                 return {
                     "status": "success",
-                    "message": f"Номенкулатура {id_us_storage} удалена",
-                    "deleted_product_bask": {
-                        "id": db_bask.id_product,
-                    },
+                    "message": f"Номенкулатура {id_prod} удалена",
+                    
                 }
 
             except HTTPException:
@@ -564,21 +563,22 @@ class ProductService:
                 result = await session.execute(query)
                 rows = result.all()
 
-                if not rows:
+                """ if not rows:
                     logging.warning(f"not found products")
                     raise HTTPException(
                         status_code=404, detail=f"Продукты не найдены"
 
-                    )
+                    ) """
                 # first_row = result.first()
                 # print(f"Количество полей в результате: {len(first_row._fields)}")
                 return [
                     {
-                        "id_us_storage": us_bask.id_us_storage,
+                        "id_product": prod.id_product,
                         "name_product": prod.name_product,
                         "all_price": prod.price * us_bask.count,
                         "status": prod.status,
                         "img": prod.img,
+                        "count": us_bask.count,
                     }
                     for us_bask, prod in rows
                 ]
@@ -646,5 +646,32 @@ class ProductService:
                 status_code=500, detail=f"Ошибка при выводе брэнда: {str(e)}"
             )
         
+    @staticmethod
+    async def put_product_bask(id_prod: int, profile_id, new_count):
+
+        async for session in session_fabrik():
+
+            try:
+
+                check_query = update(UserBasket).where(
+                    UserBasket.id_product == id_prod,
+                    UserBasket.id_profile==profile_id
+                ).values(count=new_count)
+                await session.execute(check_query)
+                await session.commit()
+
+               
+
+                return id_prod
+
+            except HTTPException:
+                raise
+
+            except Exception as e:
+                logging.error(f"del product from basket: {traceback.format_exc()}")
+                await session.rollback()
+                raise HTTPException(
+                    status_code=500, detail=f"Ошибка при изменении товара в корзине: {str(e)}"
+                )
 
     

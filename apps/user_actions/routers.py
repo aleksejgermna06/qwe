@@ -14,7 +14,6 @@ router = APIRouter(prefix="/user/actions", tags=["user actions"])
 
 @router.get("/{action_type}", response_model=List[UserActionOut])
 async def get_actions(
-    #action_type: str,
     action_type: Literal["favorite", "view"],
     current_user: Profile = Depends(get_current_user),
     db: AsyncSession = Depends(get_async_db)
@@ -24,7 +23,6 @@ async def get_actions(
 
 @router.post("/{action_type}/{product_id}", response_model=dict)
 async def add_action(
-    #action_type: str,
     action_type: Literal["favorite", "view"],
     product_id: int,
     current_user: Profile = Depends(get_current_user),

@@ -33,6 +33,8 @@ class UserActionOut(BaseModel):
     price: int
     status: str
     img: str
+    rating: float
+    in_cart: bool
 
     class Config:
         orm_mode = True

@@ -22,6 +22,7 @@ async def get_user_actions(profile_id: int, action_type: str, session: AsyncSess
             UserAction,
             Product,
             Product.rating,
+            Product.id_product,
             case(
                 (exists(subquery_in_cart), "true"),
                 else_="false"
@@ -36,6 +37,7 @@ async def get_user_actions(profile_id: int, action_type: str, session: AsyncSess
 
     return [
         UserActionOut(
+            id_product=id_product,
             name_product=product.name_product,
             action_id=action.id_action,
             categories_id=product.categories_id,
@@ -46,8 +48,9 @@ async def get_user_actions(profile_id: int, action_type: str, session: AsyncSess
             rating=rating,
             in_cart=in_cart
         )
-        for action, product, rating, in_cart in items
+        for action, product, rating, id_product, in_cart in items
     ]
+
 
 
 

@@ -12,8 +12,7 @@ if sys.platform == "win32":
 
 from fastapi import HTTPException
 
-from sqlalchemy import delete, func, join, select,cast, Numeric, nulls_last, case, and_,exists
-
+from sqlalchemy import delete, func, join, select, cast, Numeric, nulls_last, case, and_, exists
 
 from core.database import get_async_db
 from core.models import Action, Categories, Product, Reviews, metadata_obj, UserBasket, Entity, Gfields, Categories
@@ -102,7 +101,6 @@ class ProductService:
             )
 
     @staticmethod
-
     async def select_all_product(sort: int, id_profile: int):
 
         try:
@@ -146,7 +144,6 @@ class ProductService:
                 elif sort == 3:
                     query = query.order_by(Categories.id_categories.asc())
 
-
                 result = await session.execute(query)
                 rows = result.all()
 
@@ -154,7 +151,7 @@ class ProductService:
                     logging.warning(f"not found products")
                     raise HTTPException(
                         status_code=404, detail=f"Продукты не найдены"
-                        
+
                     )
                 # first_row = result.first()
                 # print(f"Количество полей в результате: {len(first_row._fields)}")
@@ -180,7 +177,8 @@ class ProductService:
                         },
                     }
 
-                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url, in_cart in rows
+                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url, in_cart in
+                    rows
 
                 ]
         except Exception as e:
@@ -191,14 +189,14 @@ class ProductService:
 
     @staticmethod
     async def filter_product(
-        brand: str,
-        price_filtr: str,
-        popular: int,
-        min_price: int,
-        max_price: int,
-        page: int,
-        size: int,
-        id_profile: int
+            brand: str,
+            price_filtr: str,
+            popular: int,
+            min_price: int,
+            max_price: int,
+            page: int,
+            size: int,
+            id_profile: int
 
     ):
         try:
@@ -222,7 +220,7 @@ class ProductService:
                                         UserBasket.id_product == Product.id_product,
                                         UserBasket.id_profile == id_profile
                                     )
-                                ), 
+                                ),
                                 "true"
                             ),
                             else_="false"
@@ -245,7 +243,7 @@ class ProductService:
                         Categories.name_categories,
                         Action.discount,
                     )
-                    
+
                     # .order_by(func.count(reviews.id_reviews).desc())
                 )
 
@@ -253,9 +251,9 @@ class ProductService:
                     query = query.where(Product.brand == brand)
 
                 if (
-                    min_price is not None
-                    and max_price is not None
-                    and min_price > max_price
+                        min_price is not None
+                        and max_price is not None
+                        and min_price > max_price
                 ):
                     raise HTTPException(
                         status_code=400,
@@ -310,9 +308,10 @@ class ProductService:
                         },
                     }
 
-                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url, in_cart in rows[
+                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url, in_cart in
+                    rows[
 
-                        offset_min:offset_max
+                    offset_min:offset_max
                     ]
                 ]
 
@@ -327,8 +326,7 @@ class ProductService:
                         "total": math.ceil(len(rows)/size)-1,
                     }
                 ] """
-                
-                
+
                 # first_row = result.first()
                 # print(f"Количество полей в результате: {len(first_row._fields)}")
                 return {
@@ -380,7 +378,7 @@ class ProductService:
 
                 result = await session.execute(query)
                 rows = result.all()  # Получаем все строки
-                        
+
                 if not rows:
                     logging.warning(f"not found product ID {product_id}")
                     raise HTTPException(
@@ -403,9 +401,9 @@ class ProductService:
                     "discount": first_row[3],
                     "quantity_in_stock": prod.quantity_in_stock,
                     "rating": prod.rating,
-                    #"date_create": prod.date_created,
-                    #"date_update": prod.date_update,
-                    "number_of_reviews": first_row[4],  
+                    # "date_create": prod.date_created,
+                    # "date_update": prod.date_update,
+                    "number_of_reviews": first_row[4],
                     "status": prod.status,
                     "img": prod.img,
                     "category": {
@@ -570,7 +568,7 @@ class ProductService:
                     logging.warning(f"not found products")
                     raise HTTPException(
                         status_code=404, detail=f"Продукты не найдены"
-                        
+
                     )
                 # first_row = result.first()
                 # print(f"Количество полей в результате: {len(first_row._fields)}")
@@ -617,12 +615,12 @@ class ProductService:
                 )
                 result = await session.execute(query)
                 rows = result.scalars().all()
-                prod={"products": [],"categories": []}
-                prod["products"]=[
+                prod = {"products": [], "categories": []}
+                prod["products"] = [
                     {
                         "id_product": pr.id_product,
                         "name_product": pr.name_product,
-                        
+
                     }
                     for pr in rows
                 ]
@@ -631,14 +629,14 @@ class ProductService:
                 )
                 result = await session.execute(query)
                 rows = result.scalars().all()
-                prod["categories"]=[
+                prod["categories"] = [
                     {
                         "name_product": ct.name_categories,
                         "url": ct.url,
                     }
                     for ct in rows
-                ]   
-                
+                ]
+
                 return prod
 
         except Exception as e:
@@ -647,3 +645,6 @@ class ProductService:
             raise HTTPException(
                 status_code=500, detail=f"Ошибка при выводе брэнда: {str(e)}"
             )
+        
+
+    

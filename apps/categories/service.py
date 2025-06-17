@@ -305,3 +305,36 @@ class CategorieService:
                 status_code=500, detail=f"Ошибка при выводе одной категории: {str(e)}"
             )
 
+    @staticmethod
+    async def del_product_comp(product_id: int, profile_id: int):
+
+        async for session in session_fabrik():
+
+            try:
+
+                check_query = select(ComparisonStore).where(ComparisonStore.product_id == product_id,ComparisonStore.profile_id ==profile_id )
+                result = await session.execute(check_query)
+                db_product = result.scalar_one_or_none()
+
+                if not db_product:
+                    raise HTTPException(
+                        status_code=404, detail=f"Продукт с ID {product_id} не найден"
+                    )
+
+                await session.delete(db_product)
+                await session.commit()
+
+                return {
+                    product_id
+                    
+                }
+
+            except HTTPException:
+                raise
+
+            except Exception as e:
+                logging.error(f"del product: {traceback.format_exc()}")
+                await session.rollback()
+                raise HTTPException(
+                    status_code=500, detail=f"Ошибка при удалении: {str(e)}"
+                )

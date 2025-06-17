@@ -54,12 +54,36 @@ async def get_user_actions(profile_id: int, action_type: str, session: AsyncSess
 
 
 
+# async def add_user_action(profile_id: int, product_id: int, action_type: str, session: AsyncSession):
+#     action = UserAction(profile_id=profile_id, product_id=product_id, action=action_type)
+#     session.add(action)
+#     await session.commit()
+#     await session.refresh(action)
+#     return action
+
 async def add_user_action(profile_id: int, product_id: int, action_type: str, session: AsyncSession):
+    if action_type == "view":
+        existing_views = await session.execute(
+            select(UserAction)
+            .where(
+                UserAction.profile_id == profile_id,
+                UserAction.action == "view"
+            )
+            .order_by(UserAction.date_created.asc())
+        )
+        view_actions = existing_views.scalars().all()
+
+        if len(view_actions) >= 10:
+            to_delete = view_actions[:len(view_actions) - 9]
+            for old_action in to_delete:
+                await session.delete(old_action)
+
     action = UserAction(profile_id=profile_id, product_id=product_id, action=action_type)
     session.add(action)
     await session.commit()
     await session.refresh(action)
     return action
+
 
 
 async def delete_favorite(profile_id: int, product_id: int, session: AsyncSession):

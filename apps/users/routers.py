@@ -117,10 +117,6 @@ async def read_me(
     if not payload:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-    # result = db.execute(select(Profile)
-    #                           .options(selectinload(Profile.mail))
-    #                           .where(Profile.id_profile == int(payload["sub"])))
-    # return result.scalar_one()
     return ProfileResponse(
         id_profile=profile.id_profile,
         mail=profile.mail,
@@ -141,7 +137,7 @@ async def check_token(request: Request):
     return {"message": "Token received", "token": token}
 
 
-@router.post("/logout", summary="Выход(удаление токена)")
+@router.delete("/logout", summary="Выход(удаление токена)")
 async def logout(
     request: Request, response: Response, db: AsyncSession = Depends(get_async_db)
 ):

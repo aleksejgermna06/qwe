@@ -187,7 +187,7 @@ class UserBasket(Base):
     id_product: Mapped[int] = mapped_column(
         ForeignKey("Product.id_product", ondelete="CASCADE")
     )
-    count: Mapped[int]
+    count: Mapped[int| None] = mapped_column(nullable=True, default=1)
 
 
 class Reviews(Base):

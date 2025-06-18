@@ -479,7 +479,7 @@ class ProductService:
                 db_bask = UserBasket(
                     id_profile=profile_id,
                     id_product=add_prod_bask.id_product,
-                    count=add_prod_bask.count,
+                    
                 )
                 session.add(db_bask)
                 await session.flush()
@@ -507,7 +507,7 @@ class ProductService:
                     UserBasket.id_profile==profile_id
                 )
                 result = await session.execute(check_query)
-                db_bask = result.all()
+                db_bask = result.scalars().all()
 
                 if not db_bask:
                     raise HTTPException(

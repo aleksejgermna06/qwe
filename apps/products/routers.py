@@ -111,7 +111,7 @@ async def get_all_products(current_user: Profile = Depends(get_current_user),):
     return products_bask
 
 @router_basket.put("/redact-product-bask", summary="редактирование числа продуктов")
-async def put_all_products(id_prod: int,count:int, current_user: Profile = Depends(get_current_user)):
+async def put_bask_products(id_prod: int,count:int, current_user: Profile = Depends(get_current_user)):
     products_bask = await ProductService.put_product_bask(id_prod, current_user.id_profile, count)
 
     if products_bask is not None:

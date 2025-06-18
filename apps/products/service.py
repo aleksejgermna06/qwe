@@ -473,12 +473,12 @@ class ProductService:
                 )
 
     @staticmethod
-    async def add_product_bask(add_prod_bask: AddProdBask, profile_id: int):
+    async def add_product_bask(id_products: int, profile_id: int):
         try:
             async for session in session_fabrik():
 
                 check_query = select(UserBasket).where(
-                    UserBasket.id_product == add_prod_bask.id_product,
+                    UserBasket.id_product == id_products,
                     UserBasket.id_profile==profile_id
                 )
                 result = await session.execute(check_query)
@@ -487,13 +487,13 @@ class ProductService:
                 if db_bask:
                     raise HTTPException(
                         status_code=404,
-                        detail=f"Номенкулатура с ID {add_prod_bask.id_product} уже в корзине",
+                        detail=f"Номенкулатура с ID {id_products} уже в корзине",
                     )
 
 
                 db_bask = UserBasket(
                     id_profile=profile_id,
-                    id_product=add_prod_bask.id_product,
+                    id_product=id_products,
                     
                 )
                 session.add(db_bask)

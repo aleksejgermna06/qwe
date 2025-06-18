@@ -85,10 +85,10 @@ async def del_product(id_product: int):
 
 
 @router_basket.post("/basket-prod", summary="добавить продукт в корзину")
-async def add_prod_bask(add_prod_bask: AddProdBask, current_user: Profile = Depends(get_current_user)):
+async def add_prod_bask(id_prod: int, current_user: Profile = Depends(get_current_user)):
     try:
 
-        prod_bask_id = await ProductService.add_product_bask(add_prod_bask, current_user.id_profile)
+        prod_bask_id = await ProductService.add_product_bask(id_prod, current_user.id_profile)
         if prod_bask_id is not None:
             return {
                 "status": "success",

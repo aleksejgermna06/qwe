@@ -42,7 +42,7 @@ async def get_cat_comparison(current_user: Profile = Depends(get_current_user),)
     cats = await CategorieService.select_cat_comparison(current_user.id_profile)
 
     return cats
-@router.get("/user-cat-prods-comparison", summary="получить продукты для сравнения")
+@router.get("/user-cat-prods-comparison/{id_cat}", summary="получить продукты для сравнения")
 async def get_cat_prod_comparison(
                                 id_cat: int,
                                 current_user: Profile = Depends(get_current_user),
@@ -63,7 +63,7 @@ async def add_cat_comparison(product_id: int, current_user: Profile = Depends(ge
                 "product_id": cats,
             }
     
-@router.delete("/del-cat-comparison", summary="удалить продукт из сравнения")
+@router.delete("/del-cat-comparison/{id_product}", summary="удалить продукт из сравнения")
 async def del_cat_comparison(
                                 id_product: int,
                                 current_user: Profile = Depends(get_current_user),

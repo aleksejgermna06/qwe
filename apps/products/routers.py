@@ -122,7 +122,7 @@ async def put_bask_products(id_prod: int,count:int, current_user: Profile = Depe
         }
 
 @router_basket.delete(
-    "/del-basket-prod", summary="удалить продукт из корзину"
+    "/del-basket-prod/{id_product}", summary="удалить продукт из корзину"
 )
 async def del_prod_bask(id_prod: int,  current_user: Profile = Depends(get_current_user)):
     try:

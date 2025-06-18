@@ -2,8 +2,8 @@ from fastapi import APIRouter, Query,Depends
 from core.security import get_current_user
 from apps.categories.service import CategorieService, heder
 from core.models import Profile
-
-
+from apps.categories.schema import CatComOut, CatProdOut
+from typing import List, Literal
 router = APIRouter(prefix="/categories", tags=["categories"])
 
 
@@ -36,21 +36,21 @@ async def get_one_cat(url: str, id_profile: int | None = Query(default=0)):
     return cats
 
 
-@router.get("/user-cat-comparison", summary="получить категории для сравнения")
+@router.get("/user-cat-comparison", summary="получить категории для сравнения", response_model=List[CatComOut])
 async def get_cat_comparison(current_user: Profile = Depends(get_current_user),):
 
     cats = await CategorieService.select_cat_comparison(current_user.id_profile)
 
     return cats
-@router.get("/user-cat-prods-comparison/{id_cat}", summary="получить продукты для сравнения")
+@router.get("/user-cat-prods-comparison/{id_cat}", summary="получить продукты для сравнения",response_model=List[CatProdOut])
 async def get_cat_prod_comparison(
                                 id_cat: int,
                                 current_user: Profile = Depends(get_current_user),
                             ):
 
-    cats = await CategorieService.select_cat_prod_comparison(current_user.id_profile, id_cat)
+    #cats = await CategorieService.select_cat_prod_comparison(current_user.id_profile, id_cat)
 
-    return cats
+    return await CategorieService.select_cat_prod_comparison(current_user.id_profile, id_cat)
 
 @router.post("/cat-comparison", summary="добавить продукт для сравнения")
 async def add_cat_comparison(product_id: int, current_user: Profile = Depends(get_current_user)):

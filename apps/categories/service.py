@@ -4,6 +4,8 @@ import sys
 import traceback
 from collections import defaultdict
 
+from apps.categories.schema import CatProdOut
+
 if sys.platform == "win32":
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
@@ -281,22 +283,37 @@ class CategorieService:
                     )
 
             return [
-                {
-                    "id_product": prod.id_product,
-                    "name_product": prod.name_product,
-                    "brand": prod.brand,
-                    "price": prod.price,
-                    "discount": discount,
-                    "quantity_in_stock": prod.quantity_in_stock,
-                    "rating": prod.rating,
-                    "date_create": prod.date_created,
-                    "date_update": prod.date_update,
-                    #"number_of_reviews": number_of_reviews,
-                    "status": prod.status,
-                    "img": prod.img,
-                    "in_cart": in_cart,
+                CatProdOut(
+                        id_product = prod.id_product,
+                        name_product=prod.name_product,
+                        brand = prod.brand,
+                        price = prod.price,
+                        discount = discount,
+                        quantity_in_stock = prod.quantity_in_stock,
+                        rating = prod.rating,
+                        date_create = prod.date_created,
+                        date_update = prod.date_update,
+                        #"number_of_reviews": number_of_reviews,
+                        status = prod.status,
+                        img = prod.img,
+                        in_cart =in_cart,
+                )
+                # {
+                #     "id_product": prod.id_product,
+                #     "name_product": prod.name_product,
+                #     "brand": prod.brand,
+                #     "price": prod.price,
+                #     "discount": discount,
+                #     "quantity_in_stock": prod.quantity_in_stock,
+                #     "rating": prod.rating,
+                #     "date_create": prod.date_created,
+                #     "date_update": prod.date_update,
+                #     #"number_of_reviews": number_of_reviews,
+                #     "status": prod.status,
+                #     "img": prod.img,
+                #     "in_cart": in_cart,
 
-                }
+                # }
                 for  prod,discount, in_cart in rows
             ]
         except Exception as e:

@@ -476,6 +476,21 @@ class ProductService:
     async def add_product_bask(add_prod_bask: AddProdBask, profile_id: int):
         try:
             async for session in session_fabrik():
+
+                check_query = select(UserBasket).where(
+                    UserBasket.id_product == add_prod_bask.id_product,
+                    UserBasket.id_profile==profile_id
+                )
+                result = await session.execute(check_query)
+                db_bask = result.scalars().all()
+
+                if db_bask:
+                    raise HTTPException(
+                        status_code=404,
+                        detail=f"Номенкулатура с ID {add_prod_bask.id_product} уже в корзине",
+                    )
+
+
                 db_bask = UserBasket(
                     id_profile=profile_id,
                     id_product=add_prod_bask.id_product,
@@ -486,6 +501,7 @@ class ProductService:
                 await session.commit()
 
                 return db_bask.id_us_storage
+
 
         except Exception as e:
             logging.error(f"adding product from basket: {traceback.format_exc()}")
@@ -507,7 +523,7 @@ class ProductService:
                     UserBasket.id_profile==profile_id
                 )
                 result = await session.execute(check_query)
-                db_bask = result.scalars().all()
+                db_bask = result.scalar_one_or_none()
 
                 if not db_bask:
                     raise HTTPException(
@@ -518,11 +534,7 @@ class ProductService:
                 await session.delete(db_bask)
                 await session.commit()
 
-                return {
-                    "status": "success",
-                    "message": f"Номенкулатура {id_prod} удалена",
-                    
-                }
+                return id_prod
 
             except HTTPException:
                 raise
@@ -573,12 +585,11 @@ class ProductService:
                 # print(f"Количество полей в результате: {len(first_row._fields)}")
                 return [
                     {
-                        "id_product": prod.id_product,
-                        "name_product": prod.name_product,
-                        "all_price": prod.price * us_bask.count,
-                        "status": prod.status,
+                        "id": prod.id_product,
                         "img": prod.img,
-                        "count": us_bask.count,
+                        "name": prod.name_product,
+                        "quantity": us_bask.count,
+                        "price": prod.price * us_bask.count,
                     }
                     for us_bask, prod in rows
                 ]

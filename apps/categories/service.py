@@ -109,9 +109,9 @@ class CategorieService:
                                         UserBasket.id_profile == id_profile
                                     )
                                 ), 
-                                "true"
+                                True
                             ),
-                            else_="false"
+                            else_=False
                         ).label("in_cart"),
                         case(
                             (
@@ -121,9 +121,9 @@ class CategorieService:
                                         UserAction.profile_id == id_profile
                                     )
                                 ),
-                                "true"
+                                True
                             ),
-                            else_="false"
+                            else_=False
                         ).label("in_fav")
                         
                         )
@@ -282,10 +282,22 @@ class CategorieService:
                                         UserBasket.id_profile == id_profile
                                     )
                                 ), 
-                                "true"
+                                True
                             ),
-                            else_="false"
-                        ).label("in_cart")
+                            else_=False
+                        ).label("in_cart"),
+                         case(
+                            (
+                                exists().where(
+                                    and_(
+                                        UserAction.product_id == Product.id_product,
+                                        UserAction.profile_id == id_profile
+                                    )
+                                ),
+                                True
+                            ),
+                            else_=False
+                        ).label("in_fav")
                         )
                     .join(ComparisonStore, ComparisonStore.product_id == Product.id_product)
                     .join(Action, Product.action_id==Action.id_action)
@@ -334,9 +346,10 @@ class CategorieService:
                     "status": prod.status,
                     "img": prod.img,
                     "in_cart": in_cart,
+                    "in_fav": in_fav,
 
                 }
-                for  prod,discount, in_cart in rows
+                for  prod,discount, in_cart, in_fav in rows
             ]
         except Exception as e:
             logging.error(f"select one categor: {traceback.format_exc()}")

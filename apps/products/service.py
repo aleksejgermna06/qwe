@@ -221,9 +221,9 @@ class ProductService:
                                         UserBasket.id_profile == id_profile
                                     )
                                 ),
-                                "true"
+                                True
                             ),
-                            else_="false"
+                            else_=False
                         ).label("in_cart"),
                         case(
                             (
@@ -233,9 +233,9 @@ class ProductService:
                                         UserAction.profile_id == id_profile
                                     )
                                 ),
-                                "true"
+                                True
                             ),
-                            else_="false"
+                            else_=False
                         ).label("in_fav")
                     )
                     .select_from(

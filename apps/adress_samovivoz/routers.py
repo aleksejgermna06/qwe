@@ -39,7 +39,17 @@ async def fill_default_addresses(session: AsyncSession = Depends(get_async_sessi
         "г. Санкт-Петербург, пр. Невский, 25",
         "г. Екатеринбург, ул. Мира, 5",
         "г. Казань, ул. Баумана, 12",
-        "г. Новосибирск, пр. Красный, 42"
+        "г. Новосибирск, пр. Красный, 42",
+        "г. Киев, ул. Крещатик, 15",
+        "г. Минск, пр. Независимости, 32",
+        "г. Алматы, ул. Абая, 56",
+        "г. Тбилиси, пр. Руставели, 14",
+        "г. Берлин, Unter den Linden, 77",
+        "г. Париж, Rue de Rivoli, 23",
+        "г. Токио, район Сибуя, 1-2-3",
+        "г. Нью-Йорк, Broadway, 100",
+        "г. Сидней, George Street, 42",
+        "г. Затупеево, ул. Пупкина, 13"
     ]
     for addr in default_addresses:
         exists_query = await session.execute(select(AdressSamovivoz).where(AdressSamovivoz.adress == addr))

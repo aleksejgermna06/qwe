@@ -380,6 +380,18 @@ class ProductService:
                             ),
                             else_="false"
                         ).label("in_fav"),
+                        case(
+                            (
+                                exists().where(
+                                    and_(
+                                        UserBasket.id_product == Product.id_product,
+                                        UserBasket.id_profile == id_profile
+                                    )
+                                ),
+                                "true"
+                            ),
+                            else_="false"
+                        ).label("in_cart"),
                         Entity,
                         Gfields,
                         
@@ -416,7 +428,7 @@ class ProductService:
 
                 characteristics_dict = defaultdict(list)
                 for row in rows:
-                    _, _, _, _, _, _,_, entity, gfields = row
+                    _, _, _, _, _, _,_,_, entity, gfields = row
                     characteristics_dict[gfields].append(entity)
 
                 res = {
@@ -432,6 +444,7 @@ class ProductService:
                     "number_of_reviews": first_row[4],
                     "status": prod.status,
                     "img": prod.img,
+                    "in_cart": first_row[7],
                     "in_fav": first_row[6],
                     "category": {
                         "id_categories": first_row[1],

@@ -14,7 +14,8 @@ class CatProdOut(BaseModel):
     date_update: datetime
     status: str
     img: str
-    in_cart: bool 
+    in_cart: bool
+    in_fav: bool
 
     class Config:
         orm_mode = True

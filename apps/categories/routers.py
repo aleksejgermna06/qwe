@@ -42,15 +42,15 @@ async def get_cat_comparison(current_user: Profile = Depends(get_current_user),)
     cats = await CategorieService.select_cat_comparison(current_user.id_profile)
 
     return cats
-@router.get("/user-cat-prods-comparison/{id_cat}", summary="получить продукты для сравнения",response_model=List[CatProdOut])
+@router.get("/user-cat-prods-comparison/{url}", summary="получить продукты для сравнения",response_model=List[CatProdOut])
 async def get_cat_prod_comparison(
-                                id_cat: int,
+                                url: str,
                                 current_user: Profile = Depends(get_current_user),
                             ):
 
     #cats = await CategorieService.select_cat_prod_comparison(current_user.id_profile, id_cat)
 
-    return await CategorieService.select_cat_prod_comparison(current_user.id_profile, id_cat)
+    return await CategorieService.select_cat_prod_comparison(current_user.id_profile, url)
 
 @router.post("/cat-comparison", summary="добавить продукт для сравнения")
 async def add_cat_comparison(product_id: int, current_user: Profile = Depends(get_current_user)):
@@ -63,7 +63,7 @@ async def add_cat_comparison(product_id: int, current_user: Profile = Depends(ge
                 "product_id": cats,
             }
     
-@router.delete("/del-cat-comparison/{id_product}", summary="удалить продукт из сравнения")
+@router.delete("/del-prod-comparison/{id_product}", summary="удалить продукт из сравнения")
 async def del_cat_comparison(
                                 id_product: int,
                                 current_user: Profile = Depends(get_current_user),
@@ -75,4 +75,18 @@ async def del_cat_comparison(
                 "status": "success",
                 "message": "Продукт успешно удален",
                 "product_id": cats,
+            }
+
+@router.delete("/del-cat-comparison/{url}", summary="удалить продукт из сравнения")
+async def del_cat_comparison(
+                                url: str,
+                                current_user: Profile = Depends(get_current_user),
+                            ):
+
+    cats = await CategorieService.del_cat_comp( url, current_user.id_profile)
+
+    return {
+                "status": "success",
+                "message": "Продукт успешно удален",
+                "url": cats,
             }

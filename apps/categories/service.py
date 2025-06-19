@@ -213,6 +213,7 @@ class CategorieService:
             return [
                 {
                     "category": cat.name_categories,
+                    "url": cat.url,
                     "count": count,
 
                 }
@@ -246,9 +247,15 @@ class CategorieService:
             )
 
     @staticmethod
-    async def select_cat_prod_comparison(id_profile: int, id_cat: int):
+    async def select_cat_prod_comparison(id_profile: int, url: int):
         try:
             async for session in session_fabrik():
+                query1=select(Categories.id_categories).where(Categories.url==url)
+                data_id = await session.execute(query1)
+                id_cat = data_id.scalar_one_or_none()
+                if not id_cat:
+                    raise HTTPException(status_code=404, detail="Category not found")
+                
                 query = (
                    select(Product,
                           Action.action,
@@ -283,37 +290,37 @@ class CategorieService:
                     )
 
             return [
-                CatProdOut(
-                        id_product = prod.id_product,
-                        name_product=prod.name_product,
-                        brand = prod.brand,
-                        price = prod.price,
-                        discount = discount,
-                        quantity_in_stock = prod.quantity_in_stock,
-                        rating = prod.rating,
-                        date_create = prod.date_created,
-                        date_update = prod.date_update,
-                        #"number_of_reviews": number_of_reviews,
-                        status = prod.status,
-                        img = prod.img,
-                        in_cart =in_cart,
-                )
-                # {
-                #     "id_product": prod.id_product,
-                #     "name_product": prod.name_product,
-                #     "brand": prod.brand,
-                #     "price": prod.price,
-                #     "discount": discount,
-                #     "quantity_in_stock": prod.quantity_in_stock,
-                #     "rating": prod.rating,
-                #     "date_create": prod.date_created,
-                #     "date_update": prod.date_update,
-                #     #"number_of_reviews": number_of_reviews,
-                #     "status": prod.status,
-                #     "img": prod.img,
-                #     "in_cart": in_cart,
+                # CatProdOut(
+                #         id_product = prod.id_product,
+                #         name_product=prod.name_product,
+                #         brand = prod.brand,
+                #         price = prod.price,
+                #         discount = discount,
+                #         quantity_in_stock = prod.quantity_in_stock,
+                #         rating = prod.rating,
+                #         date_create = prod.date_created,
+                #         date_update = prod.date_update,
+                #         #"number_of_reviews": number_of_reviews,
+                #         status = prod.status,
+                #         img = prod.img,
+                #         in_cart =in_cart,
+                # )
+                {
+                    "id_product": prod.id_product,
+                    "name_product": prod.name_product,
+                    "brand": prod.brand,
+                    "price": prod.price,
+                    "discount": discount,
+                    "quantity_in_stock": prod.quantity_in_stock,
+                    "rating": prod.rating,
+                    "date_create": prod.date_created,
+                    "date_update": prod.date_update,
+                    #"number_of_reviews": number_of_reviews,
+                    "status": prod.status,
+                    "img": prod.img,
+                    "in_cart": in_cart,
 
-                # }
+                }
                 for  prod,discount, in_cart in rows
             ]
         except Exception as e:
@@ -332,7 +339,7 @@ class CategorieService:
                 check_query = select(ComparisonStore).where(ComparisonStore.product_id == product_id,ComparisonStore.profile_id ==profile_id )
                 result = await session.execute(check_query)
                 db_product = result.scalar_one_or_none()
-
+                
                 if not db_product:
                     raise HTTPException(
                         status_code=404, detail=f"Продукт с ID {product_id} не найден"
@@ -345,6 +352,49 @@ class CategorieService:
                     product_id
                     
                 }
+
+            except HTTPException:
+                raise
+
+            except Exception as e:
+                logging.error(f"del product: {traceback.format_exc()}")
+                await session.rollback()
+                raise HTTPException(
+                    status_code=500, detail=f"Ошибка при удалении: {str(e)}"
+                )
+            
+    @staticmethod
+    async def del_cat_comp(url: str, profile_id: int):
+
+        async for session in session_fabrik():
+
+            try:
+                query1=select(Categories.id_categories).where(Categories.url==url)
+                data_id = await session.execute(query1)
+                id_cat = data_id.scalar_one_or_none()
+                if not id_cat:
+                    raise HTTPException(status_code=404, detail="Category not found")
+                
+                check_query = (
+                                select(ComparisonStore)
+                                .join(Product, Product.id_product==ComparisonStore.product_id)
+
+                                .where( Product.categories_id==id_cat, ComparisonStore.profile_id==profile_id)
+                                
+                                
+                            )
+                result = await session.execute(check_query)
+                db_product = result.scalars().all()
+
+                
+                for product in db_product:
+                    await session.delete(product)
+                
+                await session.commit()
+
+                return url
+                    
+                
 
             except HTTPException:
                 raise

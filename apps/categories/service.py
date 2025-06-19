@@ -14,7 +14,7 @@ from fastapi import HTTPException
 from sqlalchemy import outerjoin,join,func, select, case, exists, and_
 
 from core.database import get_async_db
-from core.models import Action, Categories, Product, ComparisonStore, UserBasket
+from core.models import Action, Categories, Product, ComparisonStore, UserBasket, UserAction
 
 session_fabrik = get_async_db
 
@@ -112,7 +112,21 @@ class CategorieService:
                                 "true"
                             ),
                             else_="false"
-                        ).label("in_cart"))
+                        ).label("in_cart"),
+                        case(
+                            (
+                                exists().where(
+                                    and_(
+                                        UserAction.product_id == Product.id_product,
+                                        UserAction.profile_id == id_profile
+                                    )
+                                ),
+                                "true"
+                            ),
+                            else_="false"
+                        ).label("in_fav")
+                        
+                        )
                     
                     .select_from(
                         outerjoin(
@@ -138,8 +152,8 @@ class CategorieService:
                     )
 
                 categories_dict = defaultdict(list)
-                for cat, prod, discount, in_cart in rows:
-                    categories_dict[cat].append((prod,discount, in_cart))
+                for cat, prod, discount, in_cart, in_fav in rows:
+                    categories_dict[cat].append((prod,discount, in_cart,in_fav))
 
                 response = []
 
@@ -167,8 +181,9 @@ class CategorieService:
                                 "status": p.status,
                                 "img": p.img,
                                 "in_cart": in_cart,
+                                "in_fav": in_fav,
                             }
-                            for p,discount,in_cart  in products
+                            for p,discount,in_cart, in_fav  in products
                             if p is not None
                         ]
 

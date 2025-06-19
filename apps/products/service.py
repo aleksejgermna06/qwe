@@ -15,7 +15,7 @@ from fastapi import HTTPException
 from sqlalchemy import delete, func, join, select, cast, Numeric, nulls_last, case, and_, exists,update
 
 from core.database import get_async_db
-from core.models import Action, Categories, Product, Reviews, metadata_obj, UserBasket, Entity, Gfields, Categories
+from core.models import Action, Categories, Product, Reviews, metadata_obj, UserBasket, Entity, Gfields, Categories, UserAction
 
 session_fabrik = get_async_db
 
@@ -224,7 +224,19 @@ class ProductService:
                                 "true"
                             ),
                             else_="false"
-                        ).label("in_cart")
+                        ).label("in_cart"),
+                        case(
+                            (
+                                exists().where(
+                                    and_(
+                                        UserAction.product_id == Product.id_product,
+                                        UserAction.profile_id == id_profile
+                                    )
+                                ),
+                                "true"
+                            ),
+                            else_="false"
+                        ).label("in_fav")
                     )
                     .select_from(
                         join(
@@ -301,6 +313,7 @@ class ProductService:
                         "status": prod.status,
                         "img": prod.img,
                         "in_cart": in_cart,
+                        "in_fav": in_fav,
                         "category": {
                             "id_categories": id_categories,
                             "name_categories": name_categories,
@@ -308,7 +321,7 @@ class ProductService:
                         },
                     }
 
-                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url, in_cart in
+                    for prod, id_categories, name_categories, discount, number_of_reviews, id_parent, url, in_cart, in_fav in
                     rows[
 
                     offset_min:offset_max
@@ -344,7 +357,7 @@ class ProductService:
             )
 
     @staticmethod
-    async def one_product(product_id: int):
+    async def one_product(product_id: int, id_profile: int):
         try:
             async for session in session_fabrik():
                 query = (
@@ -355,8 +368,21 @@ class ProductService:
                         Action.discount,
                         func.count(Reviews.id_reviews).label("number_of_reviews"),
                         Categories.url,
+                        case(
+                            (
+                                exists().where(
+                                    and_(
+                                        UserAction.product_id == Product.id_product,
+                                        UserAction.profile_id == id_profile
+                                    )
+                                ),
+                                "true"
+                            ),
+                            else_="false"
+                        ).label("in_fav"),
                         Entity,
                         Gfields,
+                        
                     )
                     .select_from(Product)
                     .join(Categories, Product.categories_id == Categories.id_categories)
@@ -390,7 +416,7 @@ class ProductService:
 
                 characteristics_dict = defaultdict(list)
                 for row in rows:
-                    _, _, _, _, _, _, entity, gfields = row
+                    _, _, _, _, _, _,_, entity, gfields = row
                     characteristics_dict[gfields].append(entity)
 
                 res = {
@@ -406,6 +432,7 @@ class ProductService:
                     "number_of_reviews": first_row[4],
                     "status": prod.status,
                     "img": prod.img,
+                    "in_fav": first_row[6],
                     "category": {
                         "id_categories": first_row[1],
                         "name_categories": first_row[2],

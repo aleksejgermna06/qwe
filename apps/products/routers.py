@@ -71,8 +71,8 @@ async def get_all_products(page: int = Query(ge=0, default=0),
 
 
 @router.get("/one-product/{id_product}", summary="получить один продукт")
-async def get_one_products(id_product: int):
-    products = await ProductService.one_product(id_product)
+async def get_one_products(id_product: int,current_user: Profile = Depends(get_current_user_prod) ):
+    products = await ProductService.one_product(id_product, current_user.id_profile)
     return products
 
 

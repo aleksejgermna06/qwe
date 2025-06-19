@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Query,Depends
-from core.security import get_current_user
+from core.security import get_current_user,get_current_user_prod
 from apps.categories.service import CategorieService, heder
 from core.models import Profile
 from apps.categories.schema import CatComOut, CatProdOut
@@ -29,9 +29,9 @@ async def get_actions(
     return await get_user_actions(current_user.id_profile, action_type, db) """
 
 @router.get("/one-cat", summary="получить одну категории")
-async def get_one_cat(url: str, id_profile: int | None = Query(default=0)):
+async def get_one_cat(url: str, current_user: Profile = Depends(get_current_user_prod)):
 
-    cats = await CategorieService.select_one_cat(url, id_profile)
+    cats = await CategorieService.select_one_cat(url, current_user.id_profile)
 
     return cats
 

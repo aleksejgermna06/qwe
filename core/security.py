@@ -93,4 +93,26 @@ def verify_token(token: str, db: Session):
 
     except jwt.JWTError:
         raise HTTPException(status_code=401, detail="ВСЕ ВСЕМ ПОКА ПОКА")
+class Us:
+    id_profile=0
 
+async def get_current_user_prod(
+    request: Request, db: AsyncSession = Depends(get_async_db)
+) -> Profile:
+    token = request.cookies.get("access_token")
+    if not token:
+        return Us
+
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id = payload.get("sub")
+        if not user_id:
+            raise HTTPException(status_code=401, detail="Invalid token")
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    result = await db.execute(select(Profile).where(Profile.id_profile == int(user_id)))
+    user = result.scalar()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return user

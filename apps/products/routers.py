@@ -7,7 +7,7 @@ from .models import CheckoutOrderRequest
 from sqlalchemy.ext.asyncio import AsyncSession
 from apps.products.OrderService import OrderService
 from core.models import Profile
-from core.security import get_async_db, get_current_user
+from core.security import get_async_db, get_current_user,get_current_user_prod
 
 router = APIRouter(prefix="/products", tags=["products"])
 router_basket = APIRouter(prefix="/basket", tags=["basket products"])
@@ -62,10 +62,10 @@ async def get_all_products(page: int = Query(ge=0, default=0),
                            min_price: int | None = Query(default=None, description="минимальная цена"),
                            max_price: int | None = Query(default=None, description="максимальная цена"),
 
-                           id_profile: int | None = Query(default=0)
+                           current_user: Profile = Depends(get_current_user_prod)
                            ):
     products = await ProductService.filter_product(brand, price_filtr, popular, min_price, max_price, page, size,
-                                                   id_profile)
+                                                   current_user.id_profile)
 
     return products
 

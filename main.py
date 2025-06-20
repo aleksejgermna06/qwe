@@ -31,6 +31,7 @@ logging.basicConfig(
 origins = [
     "http://178.121.56.9:5432",
     "http://localhost:5173",
+    "http://localhost:80",
     "http://0.0.0.0:5432",
 ]
 

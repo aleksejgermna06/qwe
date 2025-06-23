@@ -22,12 +22,19 @@ class AddProdBask(BaseModel):
 class CheckoutItem(BaseModel):
     id_us_storage: int
 
+# class CheckoutOrderRequest(BaseModel):
+#     basket_items: List[CheckoutItem]
+#     comment: str = ""
+#     adress: str
+#     shipping_cost: int
+#     organization: str | None = None
+
+from typing import Optional
 class CheckoutOrderRequest(BaseModel):
-    basket_items: List[CheckoutItem]
-    comment: str = ""
-    adress: str
-    shipping_cost: int
-    organization: str | None = None
+    comment: Optional[str] = None
+    shipping_cost: int = 0
+    adress: Optional[str] = None
+    organization: Optional[str] = None
 
 
 class Product(Base):

@@ -1,28 +1,9 @@
 import datetime
-
-from sqlalchemy import Column, ForeignKey, Integer, MetaData, String, Table, text, Boolean
+from datetime import datetime as dt
+from sqlalchemy import Column, ForeignKey, Integer, MetaData, String, text, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
 
 from core.database import Base
-
-
-class UserAction(Base):
-    __tablename__ = "UserAction"
-    id_action: Mapped[int] = mapped_column(primary_key=True)
-    profile_id: Mapped[int] = mapped_column(
-        ForeignKey("Profile.id_profile", ondelete="CASCADE")
-    )
-    product_id: Mapped[int] = mapped_column(
-        ForeignKey("Product.id_product", ondelete="CASCADE")
-    )
-    date_created: Mapped[datetime.datetime] = mapped_column(
-        server_default=text("TIMEZONE('utc', now())")
-    )
-    date_update: Mapped[datetime.datetime] = mapped_column(
-        server_default=text("TIMEZONE('utc', now())"),
-        onupdate=datetime.datetime.utcnow,
-    )
-    action: Mapped[str] = mapped_column(String(50))
 
 
 class Token(Base):
@@ -222,7 +203,7 @@ class Order(Base):
     )
     count: Mapped[int]
 
-
+from typing import Optional
 class OrderProcessor(Base):
     __tablename__ = "Order_processor"
     id_order_proc: Mapped[int] = mapped_column(primary_key=True)
@@ -235,15 +216,13 @@ class OrderProcessor(Base):
         onupdate=datetime.datetime.utcnow,
     )
     price: Mapped[int]
-    date_delivery: Mapped[int]
+    date_delivery: Mapped[Optional[dt]] = mapped_column(nullable=True)
     count: Mapped[int]
     status: Mapped[str] = mapped_column(String(50))
-    comment: Mapped[str] = mapped_column(String(350))
+    comment: Mapped[Optional[str]] = mapped_column(String(350), nullable=True)
     shipping_cost: Mapped[int]
-    adress: Mapped[str] = mapped_column(String(50))
-    organization: Mapped[str | None] = mapped_column(
-        String(50), nullable=True, default=None
-    )
+    adress: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    organization: Mapped[str | None] = mapped_column(String(50), nullable=True, default=None)
 
 
 metadata_obj = MetaData()

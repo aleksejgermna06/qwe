@@ -58,14 +58,10 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Копируем requirements.txt из текущей папки (уже внутри ./api)
 COPY requirements.txt .
 
-# Устанавливаем зависимости
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Копируем всё остальное
 COPY . .
 
-# Команда запуска (если FastAPI)
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]

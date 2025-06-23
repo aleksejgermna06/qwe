@@ -14,7 +14,8 @@ from fastapi import HTTPException
 from sqlalchemy import outerjoin,join,func, select, case, exists, and_
 
 from core.database import get_async_db
-from core.models import Action, Categories, Product, ComparisonStore, UserBasket, UserAction
+from core.models import Action, Categories, Product, ComparisonStore, UserBasket#, UserAction
+from apps.user_actions.models import UserAction
 
 session_fabrik = get_async_db
 

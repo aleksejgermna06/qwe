@@ -148,22 +148,34 @@ async def get_all_brand():
     brands = await ProductService.select_brands()
     return brands
 
+from typing import Optional
+
 
 @router_order.post("/checkout", summary="Оформить заказ")
 async def checkout_order(
-        order_data: CheckoutOrderRequest,
-        current_user: Profile = Depends(get_current_user),
-        db: AsyncSession = Depends(get_async_db)
+    basket_item_ids: list[int],  # или можно обернуть в Pydantic-схему
+    comment: Optional[str] = None,
+    shipping_cost: Optional[int] = 0,
+    adress: Optional[str] = None,
+    organization: Optional[str] = None,
+    current_user: Profile = Depends(get_current_user),
 ):
-    try:
-        order_proc_id = await OrderService.create_order_with_processor(order_data, current_user.id_profile, db)
-        return {
-            "status": "success",
-            "message": "Заказ успешно оформлен",
-            "order_processor_id": order_proc_id
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Ошибка при оформлении заказа: {str(e)}")
+    order_proc_id = await OrderService.create_order_with_processor_by_ids(
+        basket_item_ids=basket_item_ids,
+        profile_id=current_user.id_profile,
+        comment=comment,
+        shipping_cost=shipping_cost,
+        adress=adress,
+        organization=organization
+    )
+
+    return {
+        "status": "success",
+        "message": "Заказ успешно оформлен",
+        "order_processor_id": order_proc_id
+    }
+
+
 
 
 @router.get("/serch", summary="поиск категорий и продуктов")

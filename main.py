@@ -29,7 +29,7 @@ logging.basicConfig(
     format="%(asctime)s %(levelname)s %(message)s",
 )
 origins = [
-    "http://178.121.56.9:5432",
+    "http://178.120.93.75:5173",
     "http://localhost:5173",
     "http://localhost:80",
     "http://0.0.0.0:5432",

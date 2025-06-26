@@ -61,28 +61,85 @@ async def get_user_actions(profile_id: int, action_type: str, session: AsyncSess
 #     await session.refresh(action)
 #     return action
 
+# async def add_user_action(profile_id: int, product_id: int, action_type: str, session: AsyncSession):
+#     if action_type == "view":
+#         existing_views = await session.execute(
+#             select(UserAction)
+#             .where(
+#                 UserAction.profile_id == profile_id,
+#                 UserAction.action == "view"
+#             )
+#             .order_by(UserAction.date_created.asc())
+#         )
+#         view_actions = existing_views.scalars().all()
+#
+#         if len(view_actions) >= 10:
+#             to_delete = view_actions[:len(view_actions) - 9]
+#             for old_action in to_delete:
+#                 await session.delete(old_action)
+#
+#     action = UserAction(profile_id=profile_id, product_id=product_id, action=action_type)
+#     session.add(action)
+#     await session.commit()
+#     await session.refresh(action)
+#     return action
+
+from datetime import datetime
+from fastapi import HTTPException
+import datetime
+
 async def add_user_action(profile_id: int, product_id: int, action_type: str, session: AsyncSession):
-    if action_type == "view":
-        existing_views = await session.execute(
-            select(UserAction)
-            .where(
-                UserAction.profile_id == profile_id,
-                UserAction.action == "view"
+    try:
+        if action_type == "view":
+
+            existing_action = await session.execute(
+                select(UserAction)
+                .where(
+                    UserAction.profile_id == profile_id,
+                    UserAction.product_id == product_id,
+                    UserAction.action == "view"
+                )
             )
-            .order_by(UserAction.date_created.asc())
+            existing = existing_action.scalar_one_or_none()
+
+            if existing:
+
+                existing.date_update = datetime.datetime.utcnow()
+                await session.commit()
+                return {"status": "already_viewed", "action_id": existing.id_action}
+
+
+            existing_views = await session.execute(
+                select(UserAction)
+                .where(
+                    UserAction.profile_id == profile_id,
+                    UserAction.action == "view"
+                )
+                .order_by(UserAction.date_created.asc())
+            )
+            view_actions = existing_views.scalars().all()
+
+            if len(view_actions) >= 10:
+                to_delete = view_actions[:len(view_actions) - 9]
+                for old_action in to_delete:
+                    await session.delete(old_action)
+
+
+        action = UserAction(
+            profile_id=profile_id,
+            product_id=product_id,
+            action=action_type
         )
-        view_actions = existing_views.scalars().all()
+        session.add(action)
+        await session.commit()
+        await session.refresh(action)
+        return {"status": "added", "action_id": action.id_action}
 
-        if len(view_actions) >= 10:
-            to_delete = view_actions[:len(view_actions) - 9]
-            for old_action in to_delete:
-                await session.delete(old_action)
+    except Exception as e:
 
-    action = UserAction(profile_id=profile_id, product_id=product_id, action=action_type)
-    session.add(action)
-    await session.commit()
-    await session.refresh(action)
-    return action
+        raise HTTPException(status_code=400, detail=f"Ошибка при добавлении действия: {str(e)}")
+
+
 
 
 

@@ -4,7 +4,7 @@ from sqlalchemy import text
 
 from core.database import Base, async_engine, engine, session_fabrik
 from core.models import (Action, Categories, Entity, Gfields, Product, Profile,
-                         Reviews, metadata_obj)
+                         Reviews)
 from core.add_bd_cat import listcat
 
 
@@ -20,11 +20,19 @@ async def get_data():
 
 
 # asyncio.run(get_data())
+from sqlalchemy import text
+from core.database import engine
 
+def drop_all_tables_force():
+    with engine.connect() as conn:
+        conn.execute(text("DROP SCHEMA public CASCADE;"))
+        conn.execute(text("CREATE SCHEMA public;"))
+        conn.commit()
+        print("✅ Все таблицы удалены каскадно.")
 
 def create_tables():
     Base.metadata.reflect(engine)
-    Base.metadata.drop_all(engine)
+    drop_all_tables_force()
     Base.metadata.create_all(engine)
 
 

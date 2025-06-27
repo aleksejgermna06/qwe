@@ -1,6 +1,6 @@
 import datetime
 from datetime import datetime as dt
-from sqlalchemy import Column, ForeignKey, Integer, MetaData, String, text, Boolean
+from sqlalchemy import Column, ForeignKey, Integer, String, text, Boolean
 from sqlalchemy.orm import Mapped, mapped_column
 
 from core.database import Base
@@ -192,40 +192,147 @@ class Reviews(Base):
     dislike: Mapped[int] = mapped_column(default=0)
 
 
+
+#
+# from typing import Optional
+# from sqlalchemy import ForeignKey, String, text
+# from sqlalchemy.orm import Mapped, mapped_column, relationship
+# from datetime import datetime
+# from typing import Optional
+# from core.database import Base
+#
+# class OrderProcessor(Base):
+#     __tablename__ = "Order_processor"
+#
+#     id_order_proc: Mapped[int] = mapped_column(primary_key=True)
+#     id_order: Mapped[int] = mapped_column(ForeignKey("Order.id_order", ondelete="CASCADE"))
+#
+#     date_created: Mapped[datetime] = mapped_column(
+#         server_default=text("TIMEZONE('utc', now())")
+#     )
+#     date_update: Mapped[datetime] = mapped_column(
+#         server_default=text("TIMEZONE('utc', now())"),
+#         onupdate=datetime.utcnow
+#     )
+#
+#     price: Mapped[int]
+#     date_delivery: Mapped[Optional[datetime]] = mapped_column(nullable=True)
+#     count: Mapped[int]
+#     status: Mapped[str] = mapped_column(String(50))
+#     comment: Mapped[Optional[str]] = mapped_column(String(350), nullable=True)
+#     shipping_cost: Mapped[int]
+#     adress: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+#
+#     # Связь с заказом
+#     order: Mapped["Order"] = relationship("Order", backref="processor")
+
+
+# class OrderProcessor(Base):
+#     __tablename__ = "Order_processor"
+#     id_order_proc: Mapped[int] = mapped_column(primary_key=True)
+#     id_order: Mapped[int] = mapped_column(ForeignKey("Order.id_order"))
+#     date_created: Mapped[datetime.datetime] = mapped_column(
+#         server_default=text("TIMEZONE('utc', now())")
+#     )
+#     date_update: Mapped[datetime.datetime] = mapped_column(
+#         server_default=text("TIMEZONE('utc', now())"),
+#         onupdate=datetime.datetime.utcnow,
+#     )
+#     price: Mapped[int]
+#     date_delivery: Mapped[Optional[dt]] = mapped_column(nullable=True)
+#     count: Mapped[int]
+#     status: Mapped[str] = mapped_column(String(50))
+#     comment: Mapped[Optional[str]] = mapped_column(String(350), nullable=True)
+#     shipping_cost: Mapped[int]
+#     adress: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+#     organization: Mapped[str | None] = mapped_column(String(50), nullable=True, default=None)
+
+from datetime import datetime
+from typing import Optional
+
+from sqlalchemy import ForeignKey, String, text
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from core.database import Base  # используем общий Base, а не локальный declarative_base()
+
+
+class OrderGroup(Base):
+    __tablename__ = "Order_group"
+
+    id_order_group: Mapped[int] = mapped_column(primary_key=True)
+    id_profile: Mapped[int] = mapped_column(
+        ForeignKey("Profile.id_profile", ondelete="CASCADE"),
+        nullable=False
+    )
+    date_created: Mapped[datetime] = mapped_column(
+        server_default=text("TIMEZONE('utc', now())")
+    )
+    date_update: Mapped[datetime] = mapped_column(
+        server_default=text("TIMEZONE('utc', now())"),
+        onupdate=datetime.utcnow
+    )
+
+    # ORM-каскад: при удалении группы удалятся заказы и процессор
+    orders: Mapped[list["Order"]] = relationship(
+        "Order",
+        back_populates="order_group",
+        cascade="all, delete-orphan"
+    )
+    processor: Mapped[Optional["OrderProcessor"]] = relationship(
+        "OrderProcessor",
+        back_populates="order_group",
+        uselist=False,
+        cascade="all, delete-orphan"
+    )
+
+
 class Order(Base):
     __tablename__ = "Order"
+
     id_order: Mapped[int] = mapped_column(primary_key=True)
     id_product: Mapped[int] = mapped_column(
-        ForeignKey("Product.id_product", ondelete="CASCADE")
+        ForeignKey("Product.id_product", ondelete="CASCADE"),
+        nullable=False
     )
     id_profile: Mapped[int] = mapped_column(
-        ForeignKey("Profile.id_profile", ondelete="CASCADE")
+        ForeignKey("Profile.id_profile", ondelete="CASCADE"),
+        nullable=False
+    )
+    id_order_group: Mapped[int] = mapped_column(
+        ForeignKey("Order_group.id_order_group", ondelete="CASCADE"),
+        nullable=False
     )
     count: Mapped[int]
 
-from typing import Optional
+    order_group: Mapped["OrderGroup"] = relationship("OrderGroup", back_populates="orders")
+
+
 class OrderProcessor(Base):
     __tablename__ = "Order_processor"
+
     id_order_proc: Mapped[int] = mapped_column(primary_key=True)
-    id_order: Mapped[int] = mapped_column(ForeignKey("Order.id_order"))
-    date_created: Mapped[datetime.datetime] = mapped_column(
+    id_order_group: Mapped[int] = mapped_column(
+        ForeignKey("Order_group.id_order_group", ondelete="CASCADE"),
+        nullable=False
+    )
+    date_created: Mapped[datetime] = mapped_column(
         server_default=text("TIMEZONE('utc', now())")
     )
-    date_update: Mapped[datetime.datetime] = mapped_column(
+    date_update: Mapped[datetime] = mapped_column(
         server_default=text("TIMEZONE('utc', now())"),
-        onupdate=datetime.datetime.utcnow,
+        onupdate=datetime.utcnow
     )
+
     price: Mapped[int]
-    date_delivery: Mapped[Optional[dt]] = mapped_column(nullable=True)
+    date_delivery: Mapped[Optional[datetime]] = mapped_column(nullable=True)
     count: Mapped[int]
     status: Mapped[str] = mapped_column(String(50))
     comment: Mapped[Optional[str]] = mapped_column(String(350), nullable=True)
     shipping_cost: Mapped[int]
-    adress: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
-    organization: Mapped[str | None] = mapped_column(String(50), nullable=True, default=None)
+    adress: Mapped[str] = mapped_column(String(50))
 
+    order_group: Mapped["OrderGroup"] = relationship("OrderGroup", back_populates="processor")
 
-metadata_obj = MetaData()
 
 
 class ComparisonStore(Base):

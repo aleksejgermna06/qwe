@@ -34,7 +34,6 @@ class CheckoutOrderRequest(BaseModel):
     comment: Optional[str] = None
     shipping_cost: int = 0
     adress: Optional[str] = None
-    organization: Optional[str] = None
 
 
 class Product(Base):
@@ -47,3 +46,4 @@ class Product(Base):
     price: Mapped[int]
     status: Mapped[str]
     img: Mapped[str]
+

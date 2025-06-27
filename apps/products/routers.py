@@ -151,24 +151,36 @@ async def get_all_brand():
 from typing import Optional
 import logging
 
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
+from core.database import get_async_db
+from core.security import get_current_user
+from core.models import Profile
+from .models import CheckoutOrderRequest
+
+router_order = APIRouter()
+
 @router_order.post("/checkout", summary="Оформить заказ")
 async def checkout_order(
     order_data: CheckoutOrderRequest,
     current_user: Profile = Depends(get_current_user),
     db: AsyncSession = Depends(get_async_db)
 ):
-    try:
-        order_proc_id = await OrderService.create_order_with_processor(order_data, current_user.id_profile, db)
-        return {
-            "status": "success",
-            "message": "Заказ успешно оформлен",
-            "order_processor_id": order_proc_id
-        }
-    except Exception as e:
-        import traceback
-        logging.error(traceback.format_exc())
-        raise HTTPException(status_code=500, detail=f"Ошибка при оформлении заказа: {str(e)}")
+    order_proc_id = await OrderService.create_order_with_processor(order_data, current_user.id_profile, db)
+    return {
+        "status": "success",
+        "message": "Заказ успешно оформлен",
+        "order_processor_id": order_proc_id
+    }
 
+
+@router_order.get("/orders", summary="Список заказов пользователя")
+async def get_user_orders(
+    current_user: Profile = Depends(get_current_user),
+    db: AsyncSession = Depends(get_async_db),
+):
+    orders = await OrderService.get_orders_by_user(current_user.id_profile, db)
+    return {"orders": orders}
 
 
 
